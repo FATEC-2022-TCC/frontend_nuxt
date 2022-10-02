@@ -4,6 +4,9 @@ export default defineNuxtConfig({
         '@kevinmarrec/nuxt-pwa'
     ],
     pwa: {
+        manifest: {
+            name: "Animais",
+        },
         workbox: {
             enabled: true
         }

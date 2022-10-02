@@ -8,4 +8,7 @@ console.log(route.name)
     <h1>
         Hello World
     </h1>
+    <h6>
+        {{ $route.name }}
+    </h6>
 </template>
