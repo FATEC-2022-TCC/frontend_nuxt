@@ -8,6 +8,7 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
+    "@kevinmarrec/nuxt-pwa": "^0.6.1",
     "nuxt": "3.0.0-rc.11"
   }
 }
