@@ -1,5 +1,9 @@
+<script setup lang="ts">
+  useHead({
+    title: 'Animais'
+  })
+</script>
+
 <template>
-  <div>
-    <NuxtPage />
-  </div>
+  <nuxt-page />
 </template>

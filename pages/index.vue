@@ -1,7 +1,8 @@
 <script setup lang="ts">
 const router = useRouter()
 const route = useRoute()
-console.log(route.name)
+
+const counter = useState('counter', () => 0)
 </script>
 
 <template>
@@ -11,4 +12,10 @@ console.log(route.name)
     <h6>
         {{ $route.name }}
     </h6>
+    <div>
+        <h6>
+            {{ counter }}
+        </h6>
+        <button @click="counter++">Increment</button>
+    </div>
 </template>

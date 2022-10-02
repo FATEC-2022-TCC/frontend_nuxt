@@ -3,8 +3,8 @@
         <h1>
             Something went wrong
         </h1>
-        <NuxtLink to="/home" class="n-link-base">
+        <nuxt-link to="/home" class="n-link-base">
             Go to home page
-        </NuxtLink>
+        </nuxt-link>
     </div>
 </template>
