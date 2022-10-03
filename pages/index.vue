@@ -1,21 +1,20 @@
 <script setup lang="ts">
-import login from '~~/api/';
+
+import { login, adminTest } from '~~/api'
 
 const router = useRouter()
 const route = useRoute()
+
 const counter = useState('counter', () => 0)
 
-const result = await login({
-    username: 'test',
-    password: 'T'
-})
+const result = await adminTest()
 result
-    .takeIfError(error => {
-        console.log(error)
-    })
-    .takeIfSuccess(token => {
-        console.log(token)
-    })
+.takeIfError(error => {
+    console.log(error)
+})
+.takeIfSuccess(_ => {
+    console.log("Success")
+})
 </script>
 
 <template>

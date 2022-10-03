@@ -1,5 +1,10 @@
 export default defineNuxtRouteMiddleware((to, from) => {
-    const { $config } = useNuxtApp()
-    console.log(`Config is ${JSON.stringify($config)}`)
-    navigateTo("/error")
+    const token = useCookie('token')
+    if (!token.value) {
+        console.log("---")
+        console.log("Protected route intercepted")
+        console.log("No token provided")
+        console.log("Redirecting")
+        navigateTo('/error')
+    }
 })

@@ -5,11 +5,34 @@ import Result from "./ts/Result"
 
 type Method = "GET" | "POST" | "PUT" | "DELETE"
 
-async function fetch<Request, Response>(url: string, method: Method, body?: Request): Promise<FetchResponse<Response>>{
+async function fetch<Request, Response>(url: string, method: Method, body?: Request): Promise<FetchResponse<Response>> {
+    const headers: HeadersInit = {}
+    const token = useCookie('token')
+    if (token.value) {
+        headers["Authorization"] = `Bearer ${token}`
+    }
     const appConfig = useAppConfig()
     const api: string = appConfig['api']
     const fullUrl = `${api}${url}`
-    return $fetch.raw<Response>(fullUrl, { body, method })
+    return $fetch.raw<Response>(
+        fullUrl,
+        {
+            body,
+            method,
+            headers,
+            onResponseError: async context => {
+                const status = context.response.status
+                if (status === 401 || status === 403) {
+                    console.log("---")
+                    console.log("Invalid token provided")
+                    console.log("Redirecting")
+                    token.value = ""
+                    const router = useRouter()
+                    router.replace('/error')
+                }
+            }
+        }
+    )
 }
 
 async function safe<T>(callback: () => Promise<FetchResponse<Response<T>>>): Promise<Result<T | null>> {
@@ -34,14 +57,14 @@ async function safe<T>(callback: () => Promise<FetchResponse<Response<T>>>): Pro
     }
 }
 
-export async function get<T>(url: string): Promise<Result<T>> {
+export async function get<T>(url: string): Promise<Result<T | null>> {
     return safe(() => fetch(url, "GET"))
 }
 
-export async function post<T>(url: string, body?: any): Promise<Result<T>> {
+export async function post<T>(url: string, body?: any): Promise<Result<T | null>> {
     return safe(() => fetch(url, "POST", body))
 }
 
-export async function put<T>(url: string, body?: any): Promise<Result<T>> {
+export async function put<T>(url: string, body?: any): Promise<Result<T | null>> {
     return safe(() => fetch(url, "PUT", body))
 }
