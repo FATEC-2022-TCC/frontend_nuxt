@@ -5,6 +5,11 @@ type Type<T> = {
     error?: Error
 }
 
+interface WhenResult<T> {
+    onSuccess(data?: T)
+    onFailure(error: Error)
+}
+
 export default class Result<T> {
     private readonly type: Type<T>
 
@@ -12,17 +17,13 @@ export default class Result<T> {
         this.type = type
     }
 
-    public takeIfSuccess(block: (data?: T) => void): this {
-        if (this.type.error) return this
-        const { data } = this.type
-        block(data)
-        return this
-    }
-
-    public takeIfError(block: (error: Error) => void): this {
-        const { error } = this.type
-        if (!!error) block(error)
-        return this
+    public when(whenResult: WhenResult<T>) {
+        const { error, data } = this.type
+        if (error) {
+            whenResult.onFailure(error)
+        } else {
+            whenResult.onSuccess(data)
+        }
     }
 
     public static success<T>(data: T): Result<T> {

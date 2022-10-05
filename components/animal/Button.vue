@@ -1,6 +1,7 @@
 <script setup lang="ts">
-    const props = defineProps(['title'])
-    const { title } = props
+defineProps({
+    title: String
+})
 </script>
 
 <template>

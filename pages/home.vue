@@ -1,7 +1,7 @@
 <template>
     <div>
-        <Header />
+        <animal-header />
         <nuxt-page />
-        <Footer />
+        <animal-footer />
     </div>
 </template>

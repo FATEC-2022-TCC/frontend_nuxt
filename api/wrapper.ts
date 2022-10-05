@@ -27,8 +27,7 @@ function fetch<Request, Response>(url: string, method: Method, body?: Request): 
                     console.log("Invalid token provided")
                     console.log("Redirecting")
                     token.value = ""
-                    const router = useRouter()
-                    router.replace('/error')
+                    useRouter().replace("/error")
                 }
             }
         }
