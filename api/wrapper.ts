@@ -5,7 +5,7 @@ import Result from "./ts/Result"
 
 type Method = "GET" | "POST" | "PUT" | "DELETE"
 
-async function fetch<Request, Response>(url: string, method: Method, body?: Request): Promise<FetchResponse<Response>> {
+function fetch<Request, Response>(url: string, method: Method, body?: Request): Promise<FetchResponse<Response>> {
     const headers: HeadersInit = {}
     const token = useCookie('token')
     if (token.value) {
@@ -57,14 +57,14 @@ async function safe<T>(callback: () => Promise<FetchResponse<Response<T>>>): Pro
     }
 }
 
-export async function get<T>(url: string): Promise<Result<T | null>> {
+export function get<T>(url: string): Promise<Result<T | null>> {
     return safe(() => fetch(url, "GET"))
 }
 
-export async function post<T>(url: string, body?: any): Promise<Result<T | null>> {
+export function post<T>(url: string, body?: any): Promise<Result<T | null>> {
     return safe(() => fetch(url, "POST", body))
 }
 
-export async function put<T>(url: string, body?: any): Promise<Result<T | null>> {
+export function put<T>(url: string, body?: any): Promise<Result<T | null>> {
     return safe(() => fetch(url, "PUT", body))
 }

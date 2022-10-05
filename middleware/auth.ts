@@ -5,6 +5,6 @@ export default defineNuxtRouteMiddleware((to, from) => {
         console.log("Protected route intercepted")
         console.log("No token provided")
         console.log("Redirecting")
-        navigateTo('/error')
+        navigateTo("/error")
     }
 })
