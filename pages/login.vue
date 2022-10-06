@@ -29,27 +29,5 @@ async function doLogin() {
 </script>
 
 <template>
-    <div id="outer">
-        <div id="inner">
-            <animal-input v-model="username" />
-            <br>
-            <animal-input v-model="password" type="password" />
-            <br>
-            <animal-button title="Login" @click="doLogin" />
-        </div>
-    </div>
+
 </template>
-
-<style scoped>
-#outer {
-    display: flex;
-    height: 100vh;
-    justify-content: center;
-    align-items: center;
-}
-
-#inner {
-    display: flex;
-    flex-direction: column;
-}
-</style>

@@ -3,7 +3,8 @@ export default defineNuxtConfig({
     target: 'server',
     modules: [
         '@kevinmarrec/nuxt-pwa',
-        'nuxt-icon'
+        '@nuxtjs/tailwindcss',
+        'nuxt-icon',
     ],
     pwa: {
         meta: {
