@@ -1,7 +1,7 @@
 import { FetchError, FetchResponse } from "ohmyfetch"
-import Error from "./ts/Error"
-import Response from "./ts/Response"
-import Result from "./ts/Result"
+import Error from "./Error"
+import Response from "./Response"
+import Result from "./Result"
 
 type Method = "GET" | "POST" | "PUT" | "DELETE"
 

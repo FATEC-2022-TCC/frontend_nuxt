@@ -1,10 +1,15 @@
 export default defineNuxtConfig({
-    ssr: true,
-    target: 'server',
+    runtimeConfig: {
+        public: {
+            baseURL: 'http://localhost:8080'
+        }
+    },
+    ssr: false,
     modules: [
-        '@kevinmarrec/nuxt-pwa',
         '@nuxtjs/tailwindcss',
+        '@nuxtjs/google-fonts',
         'nuxt-icon',
+        '@kevinmarrec/nuxt-pwa'
     ],
     pwa: {
         meta: {
@@ -13,5 +18,13 @@ export default defineNuxtConfig({
         workbox: {
             enabled: false
         }
+    },
+    googleFonts: {
+        families: {
+            "Amatic SC": true,
+            "Nunito": true
+        },
+        overwriting: true,
+        download: true
     }
 })

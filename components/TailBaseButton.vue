@@ -8,10 +8,13 @@ defineProps({
     <button 
         class="
             px-8 
-            py-3 
-            rounded-3xl 
+            py-2           
+            rounded-2xl
             cursor-pointer 
-            hover:shadow-2xl 
+            hover:shadow-lg
             transition-shadow
+            font-nunito
+            font-bold
+            text-xl
         ">{{ title }}</button>
 </template>
