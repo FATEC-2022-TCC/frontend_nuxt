@@ -6,7 +6,7 @@
             "request": "launch",
             "cwd": "${workspaceFolder}",
             "runtimeExecutable": "npm",
-            "runtimeArgs": ["run", "dev", "--preserve-symlinks"]
+            "runtimeArgs": ["run", "dev"]
         }
     ]
 }

@@ -4,7 +4,6 @@ export default defineNuxtConfig({
             baseURL: 'http://localhost:8080'
         }
     },
-    ssr: false,
     modules: [
         '@nuxtjs/tailwindcss',
         '@nuxtjs/google-fonts',

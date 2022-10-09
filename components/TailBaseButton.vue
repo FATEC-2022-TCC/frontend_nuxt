@@ -5,13 +5,14 @@ defineProps({
 </script>
 
 <template>
-    <button 
+    <button
         class="
-            px-8 
-            py-2           
+            px-8
+            py-2
             rounded-2xl
-            cursor-pointer 
+            cursor-pointer
             hover:shadow-lg
+            hover:shadow-blue-violet-light
             transition-shadow
             font-nunito
             font-bold

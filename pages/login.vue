@@ -29,17 +29,21 @@ async function doLogin() {
 
 <template>
     <div class="flex h-screen flex-col-reverse md:flex-row">
-        <div class="bg-blue-violet h-full md:w-3/5">
-
+        <div class="hidden md:block bg-blue-violet md:w-3/5">
+            
         </div>
         <div class="flex h-full md:w-2/5">
-            <div class="m-auto p-4 rounded shadow-md flex flex-col space-y-4 bg-burnt-yellow">
+            <div class="m-auto p-4 flex flex-col space-y-4 w-4/5 lg:w-3/5">
                 <h1 class="font-amatic-sc text-6xl">
                     Login
                 </h1>
+                <br>
                 <tail-input placeholder="Nome de usuário" />
                 <tail-input placeholder="Senha" type="password" />
+                <br>
                 <tail-blue-violet-button title="Login" />
+                <tail-seashell-button title="Criar conta" />
+                <br>
                 <a class="self-end">Esqueci minha senha</a>
             </div>
         </div>

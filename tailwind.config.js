@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       fontFamily: {
-        'amatic-sc': "Amatic SC",
+        "amatic-sc": "Amatic SC",
         "nunito": "Nunito"
       }
     },

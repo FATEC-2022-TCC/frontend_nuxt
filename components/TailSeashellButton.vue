@@ -5,5 +5,15 @@ defineProps({
 </script>
 
 <template>
-    <tail-base-button class="bg-seashell text-blue-violet box-border border-2 border-transparent hover:border-blue-violet" :title="title" />
+    <tail-base-button 
+        class="
+            bg-seashell
+            text-blue-violet
+            box-border
+            border-2
+            border-transparent
+            hover:border-blue-violet
+        "
+        :title="title" 
+    />
 </template>
