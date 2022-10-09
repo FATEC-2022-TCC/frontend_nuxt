@@ -1,14 +1,20 @@
-import { FetchError } from "ohmyfetch"
-import { NitroFetchRequest } from "nitropack"
+import Response from "./Response"
 
-import Error from "./Error"
+declare type Method = "GET" | "POST" | "PUT" | "DELETE"
+
+//headers["Authorization"] = `Bearer ${token}`
 
 export const baseFetch = <T>(
-    request: NitroFetchRequest
-) => useFetch<T, FetchError<Error>>(
-    request,
+    url: string,
+    method: Method = "GET",
+    body?: RequestInit['body'] | Record<string, any>,
+) => $fetch.raw<Response<T>>(
+    url,
     {
         baseURL: useRuntimeConfig().public.baseURL,
+        method,
+        body,
+        cache: "no-cache",
         onResponseError: async error => {
             const status = error.response.status
             if (status === 401 || status === 403) {
@@ -20,3 +26,22 @@ export const baseFetch = <T>(
         }
     }
 )
+
+// useFetch<Response<T>, FetchError<Error>>(
+//     url,
+//     {
+//         baseURL: useRuntimeConfig().public.baseURL,
+//         method,
+//         body,
+//         cache: "no-cache",
+//         onResponseError: async error => {
+//             const status = error.response.status
+//             if (status === 401 || status === 403) {
+//                 console.log("---")
+//                 console.log("Invalid token provided")
+//                 console.log("Redirecting")
+//                 useRouter().replace("/error")
+//             }
+//         }
+//     }
+// )

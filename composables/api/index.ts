@@ -1,11 +1,6 @@
-import LoginRequest from "./ts/LoginRequest";
-import Result from "./ts/Result";
-import { post, get } from "./wrapper";
+import wrapper, { Result } from "./wrapper"
+import { baseFetch } from "./baseFetch"
 
-export function login(body: LoginRequest): Promise<Result<string>> {
-    return post<string>("/user/login", body)
-}
-
-export function adminTest(): Promise<Result<null>> {
-    return get<null>("/admin/test")
+export function post<Res, Req>(url: string, body: Req): Promise<Result<Res>>{
+    return wrapper(() => baseFetch<Res>(url, "POST", body))
 }
