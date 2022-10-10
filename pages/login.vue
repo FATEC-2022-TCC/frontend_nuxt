@@ -31,19 +31,19 @@ async function doLogin() {
 
         </div>
         <div class="flex h-full md:w-2/5">
-            <div class="m-auto p-4 flex flex-col space-y-4 w-4/5 lg:w-3/5">
+            <form class="m-auto p-4 flex flex-col space-y-4 w-4/5 lg:w-3/5" @submit.prevent="doLogin">
                 <h1 class="font-amatic-sc text-6xl">
                     Login
                 </h1>
                 <br>
-                <tail-input placeholder="Nome de usuário" v-model="username" />
-                <tail-input placeholder="Senha" type="password" v-model="password" />
+                <tail-input placeholder="Nome de usuário" v-model="username" required="required" />
+                <tail-input placeholder="Senha" type="password" v-model="password" required="required" />
                 <br>
-                <tail-blue-violet-button title="Login" @click="doLogin()" />
+                <tail-blue-violet-button title="Login" />
                 <tail-seashell-button title="Criar conta" />
                 <br>
                 <a class="self-end">Esqueci minha senha</a>
-            </div>
+            </form>
         </div>
     </div>
 </template>

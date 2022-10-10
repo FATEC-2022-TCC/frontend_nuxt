@@ -1,6 +1,10 @@
 import wrapper, { Result } from "./wrapper"
-import { baseFetch } from "./baseFetch"
+import { baseFetch, Body } from "./baseFetch"
 
-export function post<Res, Req>(url: string, body: Req): Promise<Result<Res>>{
-    return wrapper(() => baseFetch<Res>(url, "POST", body))
+export function post<Res>(url: string, body: Body): Promise<Result<Res>>{
+    return wrapper(() => baseFetch(url, "POST", body))
+}
+
+export function get<Res>(url: string): Promise<Result<Res>> {
+    return wrapper(() => baseFetch(url, "POST"))
 }

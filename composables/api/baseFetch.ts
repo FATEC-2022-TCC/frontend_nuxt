@@ -4,10 +4,12 @@ declare type Method = "GET" | "POST" | "PUT" | "DELETE"
 
 //headers["Authorization"] = `Bearer ${token}`
 
+export type Body = RequestInit['body'] | Record<string, any>
+
 export const baseFetch = <T>(
     url: string,
     method: Method = "GET",
-    body?: RequestInit['body'] | Record<string, any>,
+    body?: Body,
 ) => $fetch.raw<Response<T>>(
     url,
     {

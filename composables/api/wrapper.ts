@@ -4,24 +4,26 @@ import Error from "./Error"
 import Response from "./Response"
 
 interface When<T> {
-    onSuccess(data: T)
-    onFailure(error: Error)
-    onNull()
+    onSuccess(data: T): void
+    onFailure(error: Error): void
+    onNull(): void
 }
 
 export abstract class Result<T> {
-    handle(when: Partial<When<T>>) {
+    handle(when: Partial<When<T>>): void {
         if (this instanceof Ignore<T>) return
-        if (this instanceof Failure<T>) {
-            when?.onFailure(this.error)
+        if ((this instanceof Failure<T>) && when.onFailure) {
+            when.onFailure(this.error)
             return
         }
         if (this instanceof Success<T>) {
             const data = this.data
-            if (data) {
-                when?.onSuccess(data)
+            if (data && when.onSuccess) {
+                when.onSuccess(data)
+            } else if (when.onNull) {
+                when.onNull()
             } else {
-                when?.onNull()
+                console.log("No handler supplied")
             }
             return
         }
@@ -29,7 +31,7 @@ export abstract class Result<T> {
 }
 class Ignore<T> extends Result<T> { }
 class Success<T> extends Result<T> {
-    data: T | null
+    data: T
     constructor(data: T) {
         super();
         this.data = data
@@ -43,7 +45,7 @@ class Failure<T> extends Result<T> {
     }
 }
 
-export default async function wrapper<T>(callback: () => Promise<FetchResponse<Response<T>>>): Promise<Result<T>> {
+export default async function wrapper<T>(callback: () => Promise<FetchResponse<Response<T>>>): Promise<Result<T | null>> {
     try {
         const response = await callback()
         if (!response._data) return new Success(null)
@@ -51,9 +53,9 @@ export default async function wrapper<T>(callback: () => Promise<FetchResponse<R
         return new Success(value)
     } catch (e) {
         if (e instanceof FetchError<Error>) {
-            const status = e.response.status
+            const status = e.response?.status ?? -1
             if (status === 401 || status === 403) return new Ignore()
-            const data = e.data
+            const data = e.data ?? {}
             return new Failure(
                 {
                     message: data["message"] ?? "Unknown error",
