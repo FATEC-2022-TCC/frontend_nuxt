@@ -1,6 +1,6 @@
 <template>
     <div class="bg-[#222] p-4 flex">
-        <div class="flex-1">
+        <div class="flex-1 flex flex-col justify-center">
             <p class="text-white">
                 Jaguariúna-SP
             </p>

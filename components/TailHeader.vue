@@ -10,7 +10,7 @@ const isOpen = ref(false)
         <div class="bg-[#222] p-4 flex flex-col sm:flex-row">
             <img src="/quatro.png" class="h-10 object-contain">
             <div class="flex-1 hidden sm:block"></div>
-            <ul class="menu flex-col mt-6 sm:flex-row sm:m-auto" :class="isOpen ? 'isOpen': 'isClosed'">
+            <ul class="menu flex-col mt-6 sm:flex-row sm:m-auto" :class="isOpen ? 'flex' : ['hidden', 'sm:flex']">
                 <li>
                     <nuxt-link to="/home">Home</nuxt-link>
                 </li>
@@ -28,8 +28,12 @@ const isOpen = ref(false)
                 </li>
             </ul>
             <div class="block sm:hidden">
-                <icon name="ant-design:menu-outlined" size="2rem" class="text-white ml-2 mt-3"
-                    @click="isOpen = !isOpen" />
+                <icon 
+                    name="ant-design:menu-outlined" 
+                    size="2rem" 
+                    class="text-white ml-2 mt-3 cursor-pointer"
+                    @click="isOpen = !isOpen" 
+                />
             </div>
         </div>
     </div>
@@ -42,15 +46,5 @@ const isOpen = ref(false)
         @apply mx-3;
         @apply hover:text-burnt-yellow;
     }
-}
-
-.isOpen {
-    @apply flex;
-    @apply sm:flex;
-}
-
-.isClosed {
-    @apply hidden;
-    @apply sm:flex;
 }
 </style>
