@@ -24,7 +24,7 @@ const isOpen = ref(false)
                     <nuxt-link to="/home/rules">Rules</nuxt-link>
                 </li>
                 <li>
-                    <nuxt-link to="/login">Login</nuxt-link>
+                    <nuxt-link to="/signin">Sign in</nuxt-link>
                 </li>
             </ul>
             <div class="block sm:hidden">

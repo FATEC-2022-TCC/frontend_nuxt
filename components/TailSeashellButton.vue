@@ -5,7 +5,7 @@ defineProps({
 </script>
 
 <template>
-    <tail-base-button 
+    <tail-base-button
         class="
             bg-seashell
             text-blue-violet
@@ -14,6 +14,6 @@ defineProps({
             border-transparent
             hover:border-blue-violet
         "
-        :title="title" 
+        :title="title"
     />
 </template>

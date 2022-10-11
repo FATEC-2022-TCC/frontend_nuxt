@@ -38,14 +38,17 @@ async function doLogin() {
                 <tail-input placeholder="Nome de usuário" v-model="username" required="required" />
                 <tail-input placeholder="Senha" type="password" v-model="password" required="required" />
                 <br>
-                <tail-blue-violet-button title="Login" />
-                <tail-seashell-button title="Criar conta" />
+                <tail-blue-violet-button title="Fazer login" />
+                <nuxt-link to="/signup">
+                    <tail-seashell-button title="Criar conta" class="w-full" />
+                </nuxt-link>
                 <br>
-                <div class="link self-end flex items-center">
+                <br>
+                <div class="cursor-pointer self-end flex items-center">
                     <nuxt-link to="/forgot" class="mr-2">Esqueci minha senha</nuxt-link>
                     <icon name="ant-design:unlock-filled" size="1.5rem" class="text-burnt-yellow" />
                 </div>
-                <div class="link self-end flex items-center">
+                <div class="cursor-pointer self-end flex items-center">
                     <nuxt-link to="home" class="mr-2">Voltar para home</nuxt-link>
                     <icon name="ant-design:home-filled" size="1.5rem" class="text-burnt-yellow" />
                 </div>
@@ -53,9 +56,3 @@ async function doLogin() {
         </div>
     </div>
 </template>
-
-<style lang="postcss" scoped>
-.link {
-    @apply cursor-pointer;
-}
-</style>

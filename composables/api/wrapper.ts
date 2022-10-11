@@ -14,9 +14,7 @@ export abstract class Result<T> {
         if (this instanceof Ignore<T>) return
         if ((this instanceof Failure<T>) && when.onFailure) {
             when.onFailure(this.error)
-            return
-        }
-        if (this instanceof Success<T>) {
+        } else if (this instanceof Success<T>) {
             const data = this.data
             if (data && when.onSuccess) {
                 when.onSuccess(data)
@@ -25,7 +23,6 @@ export abstract class Result<T> {
             } else {
                 console.log("No handler supplied")
             }
-            return
         }
     }
 }
@@ -49,7 +46,7 @@ export default async function wrapper<T>(callback: () => Promise<FetchResponse<R
     try {
         const response = await callback()
         if (!response._data) return new Success(null)
-        const { data: { value } } = response._data
+        const { data: value } = response._data
         return new Success(value)
     } catch (e) {
         if (e instanceof FetchError<Error>) {
