@@ -3,10 +3,20 @@ const isOpen = ref(false)
 </script>
 
 <template>
-    <div class="bg-[#222] p-4 flex flex-col sm:flex-row">
-        <img src="/quatro.png" class="h-10 object-contain">
-        <div class="flex-1 hidden sm:block"></div>
-        <ul class="menu flex-col mt-6 sm:flex-row sm:m-auto font-amatic-sc text-3xl" :class="isOpen ? 'flex' : ['hidden', 'sm:flex']">
+    <div class="bg-[#222] flex flex-col sm:flex-row p-4">
+        <div class="flex">
+            <div class="flex items-center sm:hidden flex-1">
+                <icon 
+                    name="ant-design:menu-outlined" 
+                    size="2rem" 
+                    class="text-white cursor-pointer hover:text-burnt-yellow" 
+                    @click="isOpen = !isOpen" 
+                />
+            </div>
+            <img src="/quatro.png" class="h-10 object-contain"/>
+        </div>
+        <div class="flex-1"></div>
+        <ul class="menu flex-col  font-amatic-sc text-3xl sm:space-x-4 sm:flex-row sm:m-auto" :class="isOpen ? 'flex' : ['hidden', 'sm:flex']">
             <li>
                 <nuxt-link to="/home">Início</nuxt-link>
             </li>
@@ -19,19 +29,11 @@ const isOpen = ref(false)
             <li>
                 <nuxt-link to="/home/rules">Regras</nuxt-link>
             </li>
-            <div class="hidden sm:block w-16"></div>
+            <div class="hidden w-4 sm:block"></div>
             <li>
                 <nuxt-link to="/signin">Login</nuxt-link>
             </li>
         </ul>
-        <div class="block sm:hidden">
-            <icon 
-                name="ant-design:menu-outlined" 
-                size="2rem" 
-                class="text-white ml-2 mt-3 cursor-pointer hover:text-burnt-yellow" 
-                @click="isOpen = !isOpen" 
-            />
-        </div>
     </div>
 </template>
 
@@ -39,7 +41,6 @@ const isOpen = ref(false)
 .menu {
     li {
         @apply text-white;
-        @apply mx-3;
         @apply hover:text-burnt-yellow;
     }
 }
