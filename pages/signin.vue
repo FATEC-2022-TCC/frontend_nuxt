@@ -44,14 +44,18 @@ async function doLogin() {
                 </nuxt-link>
                 <br>
                 <br>
-                <div class="cursor-pointer self-end flex items-center">
-                    <nuxt-link to="/forgot" class="mr-2">Esqueci minha senha</nuxt-link>
+                <nuxt-link to="/forgot" class="self-end">
+                    <span>
+                        Esqueci minha senha
+                    </span>
                     <icon name="ant-design:unlock-filled" size="1.5rem" class="text-burnt-yellow" />
-                </div>
-                <div class="cursor-pointer self-end flex items-center">
-                    <nuxt-link to="home" class="mr-2">Voltar para home</nuxt-link>
+                </nuxt-link>
+                <nuxt-link to="/home" class="self-end items-center">
+                    <span>
+                        Voltar para a pagina inicial
+                    </span>
                     <icon name="ant-design:home-filled" size="1.5rem" class="text-burnt-yellow" />
-                </div>
+                </nuxt-link>
             </form>
         </div>
     </div>

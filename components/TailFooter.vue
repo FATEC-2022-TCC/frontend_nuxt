@@ -1,20 +1,26 @@
 <template>
-    <div class="bg-[#222] p-4 flex">
-        <div class="flex-1 flex flex-col justify-center">
-            <p class="text-white">
-                Jaguariúna-SP
+    <footer class="flex flex-col">
+        <div class="flex bg-burnt-yellow-light p-2 items-center text-center">
+            <img class="object-contain h-12 flex-1" src="/quatro.png" alt="logo">
+            <div class="flex-1 font-nunito text-sm hidden sm:block">
+                <strong>
+                    Quatro Patas Adoção de Animais
+                </strong>
+                <p>
+                    Rua das Oliveiras, 158 | Nova Floresta - São Paulo, SP 13999-008
+                </p>
+                <p>
+                    (021) 9921-8282 ou (019) 9923-5050
+                </p>
+            </div>
+        </div>
+        <div class="flex bg-grape p-2 text-sm items-center justify-center">
+            <p class="text-white font-nunito text-center flex-1">
+                Copyright 2022. Todos os direitos.
             </p>
-            <p class="text-white font-bold">
-                4002-8922
-            </p>
-            <p class="text-burnt-yellow font-bold">
-                email@email.com
+            <p class="text-white font-bold text-center flex-1">
+                Violência contra animais é crime. Denuncie 0800 600 6428
             </p>
         </div>
-        <div class="flex-1">
-            <img src="/quatro.png" class="h-10 m-auto" />
-            <p class="text-center text-white mt-2">Copyright © 2022 <strong>Quatro Patas</strong> All rights reserved</p>
-        </div>
-        <div class="flex-1 hidden sm:block"></div>
-    </div>
+    </footer>
 </template>

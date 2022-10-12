@@ -29,7 +29,6 @@ async function signUp() {
 <template>
     <div class="flex h-screen flex-col sm:flex-row-reverse">
         <div class="hidden bg-blue-violet sm:block sm:w-1/2 md:w-3/5">
-            asdasdasd
         </div>
         <div class="flex h-full sm:w-1/2 md:w-2/5">
             <form class="m-auto p-4 flex flex-col space-y-4 w-4/5" @submit.prevent="signUp">
@@ -37,8 +36,7 @@ async function signUp() {
                     Cadastro
                 </h1>
                 <br>
-                <tail-input placeholder="Nome" required="required" v-model="name" minlength="2"
-                    pattern="\w+" />
+                <tail-input placeholder="Nome" required="required" v-model="name" minlength="2" pattern="\w+" />
                 <tail-input placeholder="Sobrenome" required="required" v-model="lastname" minlength="2"
                     pattern="\w+" />
                 <tail-input placeholder="Apelido" required="required" v-model="username" minlength="4"
@@ -50,10 +48,12 @@ async function signUp() {
                 <br>
                 <tail-blue-violet-button title="Login" />
                 <br>
-                <div class="cursor-pointer self-end flex items-center">
-                    <nuxt-link to="/home" class="mr-2">Voltar para home</nuxt-link>
+                <nuxt-link to="/home" class="self-end">
+                    <span>
+                        Voltar para home
+                    </span>
                     <icon name="ant-design:home-filled" size="1.5rem" class="text-burnt-yellow" />
-                </div>
+                </nuxt-link>
             </form>
         </div>
     </div>
