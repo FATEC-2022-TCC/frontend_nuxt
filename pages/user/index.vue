@@ -1,5 +1,10 @@
 <template>
-    <h1>
-        You're using an user page
-    </h1>
+    <nuxt-layout name="menu">
+        <template v-slot:menu>
+            <tail-user-menu />
+        </template>
+        <template v-slot:content>
+            content here
+        </template>
+    </nuxt-layout>
 </template>

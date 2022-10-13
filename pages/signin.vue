@@ -6,6 +6,8 @@ const router = useRouter()
 const username = ref("")
 const password = ref("")
 
+const hasError = ref(false)
+
 async function doLogin() {
     const result = await login(
         {
@@ -15,7 +17,7 @@ async function doLogin() {
     )
     result.handle({
         onFailure: error => {
-            console.log(`Error: ${error.message} and ${error.code}`)
+            alert(`Error: ${error.message} and ${error.code}`)
         },
         onSuccess: token => {
             console.log(`Token: ${token}`)
@@ -45,13 +47,13 @@ async function doLogin() {
                 <br>
                 <br>
                 <nuxt-link to="/forgot" class="self-end">
-                    <span>
+                    <span class="mr-2">
                         Esqueci minha senha
                     </span>
                     <icon name="ant-design:unlock-filled" size="1.5rem" class="text-burnt-yellow" />
                 </nuxt-link>
-                <nuxt-link to="/home" class="self-end items-center">
-                    <span>
+                <nuxt-link to="/home" class="flex items-center self-end">
+                    <span class="mr-2">
                         Voltar para a pagina inicial
                     </span>
                     <icon name="ant-design:home-filled" size="1.5rem" class="text-burnt-yellow" />

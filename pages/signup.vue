@@ -1,6 +1,5 @@
 <script setup lang="ts">
 const name = ref('')
-const lastname = ref('')
 const username = ref('')
 const password = ref('')
 const repeatedPassword = ref('')
@@ -11,7 +10,7 @@ async function signUp() {
         return
     }
     const response = await signup({
-        name: `${name.value} ${lastname.value}`,
+        name: name.value,
         username: username.value,
         password: password.value
     })
@@ -36,20 +35,15 @@ async function signUp() {
                     Cadastro
                 </h1>
                 <br>
-                <tail-input placeholder="Nome" required="required" v-model="name" minlength="2" pattern="\w+" />
-                <tail-input placeholder="Sobrenome" required="required" v-model="lastname" minlength="2"
-                    pattern="\w+" />
-                <tail-input placeholder="Apelido" required="required" v-model="username" minlength="4"
-                    maxlength="255" />
-                <tail-input placeholder="Senha" type="password" required="required" v-model="password"
-                    pattern="^([a-zA-Z0-9@*#]{8,15})$" />
-                <tail-input placeholder="Repetir a senha" type="password" required="required"
-                    v-model="repeatedPassword" />
+                <tail-input placeholder="Nome completo" required="required" v-model="name" minlength="2" pattern="\w+\s\w+" />
+                <tail-input placeholder="Apelido único" required="required" v-model="username" minlength="4" maxlength="255" />
+                <tail-input placeholder="Senha" type="password" required="required" v-model="password" pattern="^([a-zA-Z0-9@*#]{8,15})$" />
+                <tail-input placeholder="Repetir a senha" type="password" required="required" v-model="repeatedPassword" />
                 <br>
                 <tail-blue-violet-button title="Login" />
                 <br>
-                <nuxt-link to="/home" class="self-end">
-                    <span>
+                <nuxt-link to="/home" class="flex items-center self-end">
+                    <span class="mr-2">
                         Voltar para home
                     </span>
                     <icon name="ant-design:home-filled" size="1.5rem" class="text-burnt-yellow" />

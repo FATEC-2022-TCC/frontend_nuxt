@@ -3,7 +3,7 @@ const isOpen = ref(false)
 </script>
 
 <template>
-    <div class="bg-[#222] flex flex-col sm:flex-row p-4">
+    <header class="bg-[#222] flex flex-col sm:flex-row p-4">
         <div class="flex">
             <div class="flex items-center sm:hidden flex-1">
                 <icon 
@@ -16,7 +16,7 @@ const isOpen = ref(false)
             <img src="/quatro.png" class="h-10 object-contain"/>
         </div>
         <div class="flex-1"></div>
-        <ul class="menu flex-col  font-amatic-sc text-3xl sm:space-x-4 sm:flex-row sm:m-auto" :class="isOpen ? 'flex' : ['hidden', 'sm:flex']">
+        <ul class="menu flex-col font-amatic-sc text-3xl sm:space-x-4 sm:flex-row sm:m-auto sm:flex" :class="isOpen ? 'flex' : 'hidden'">
             <li>
                 <nuxt-link to="/home">Início</nuxt-link>
             </li>
@@ -34,7 +34,7 @@ const isOpen = ref(false)
                 <nuxt-link to="/signin">Login</nuxt-link>
             </li>
         </ul>
-    </div>
+    </header>
 </template>
 
 <style lang="postcss" scoped>

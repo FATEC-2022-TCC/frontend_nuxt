@@ -1,9 +1,12 @@
 <script setup lang="ts">
 definePageMeta({
-    middleware: "auth"
+    middleware: [
+        "empty",
+        "userauth"
+    ]
 })
 </script>
 
 <template>
-    <nuxt-page />
+    <nuxt-page class="h-screen"/>
 </template>

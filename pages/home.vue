@@ -1,7 +1,5 @@
 <template>
-    <div class="flex flex-col h-screen">
-        <tail-header />
+    <nuxt-layout name="home">
         <nuxt-page class="flex-1" />
-        <tail-footer />
-    </div>
+    </nuxt-layout>
 </template>

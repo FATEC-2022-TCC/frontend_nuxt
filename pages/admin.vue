@@ -1,6 +1,9 @@
 <script setup lang="ts">
 definePageMeta({
-    middleware: "auth"
+    middleware: [
+        "empty",
+        "adminauth"
+    ]
 })
 </script>
 

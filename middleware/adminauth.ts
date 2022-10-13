@@ -1,10 +1,10 @@
-export default defineNuxtRouteMiddleware((to, from) => {
+export default defineNuxtRouteMiddleware(async (to, from) => {
     const token = useCookie('token')
     if (!token.value) {
         console.log("---")
         console.log("Protected route intercepted")
         console.log("No token provided")
         console.log("Redirecting")
-        navigateTo("/error")
+        return showError("Acesso negado!")
     }
 })
