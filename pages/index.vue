@@ -1,7 +1,9 @@
 <script setup lang="ts">
 definePageMeta({
-    middleware: () => navigateTo("/home")
+    // middleware: () => navigateTo("/home")
 })
 </script>
 
-<template></template>
+<template>
+    <tail-file-input />
+</template>

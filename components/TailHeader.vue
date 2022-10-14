@@ -37,7 +37,7 @@ const isOpen = ref(false)
     </header>
 </template>
 
-<style lang="postcss" scoped>
+<style lang="postcss" scoped> 
 .menu {
     li {
         @apply text-white;

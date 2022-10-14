@@ -3,7 +3,7 @@ import { FetchResponse, FetchError } from 'ohmyfetch';
 import Error from "./Error"
 import Response from "./Response"
 
-interface When<T> {
+export interface When<T> {
     onSuccess(data: T): void
     onFailure(error: Error): void
     onNull(): void
