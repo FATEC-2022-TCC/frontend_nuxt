@@ -12,7 +12,7 @@
                 </p>
             </div>
             <div>
-                X
+                <icon name="ant-design:close-circle-filled" size="2rem" class="m-auto hover:cursor-pointer" />
             </div>
         </div>
     </div>
