@@ -8,7 +8,7 @@ function onClick(index: number) {
     <div class="w-full">
         <div class="block h-48 bg-blue-violet"></div>
         <ul>
-            <nuxt-link to="/user">
+            <nuxt-link to="/admin">
                 <li class="flex items-center p-4 hover:bg-bondi-blue hover:cursor-pointer hover:text-white">
                     <icon name="ant-design:home-filled" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
                     <p class="font-nunito text-xl">

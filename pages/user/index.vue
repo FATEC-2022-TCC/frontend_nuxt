@@ -4,7 +4,7 @@
             <tail-user-menu />
         </template>
         <template v-slot:content>
-            content here
+            <nuxt-page />
         </template>
     </nuxt-layout>
 </template>
