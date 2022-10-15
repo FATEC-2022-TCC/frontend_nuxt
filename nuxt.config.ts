@@ -1,7 +1,9 @@
 export default defineNuxtConfig({
+    ssr: true,
     runtimeConfig: {
         public: {
-            baseURL: 'http://localhost:8080'
+            baseURL: 'http://localhost:8080',
+            publicImages: 'http://localhost:8080/public/images/'
         }
     },
     modules: [

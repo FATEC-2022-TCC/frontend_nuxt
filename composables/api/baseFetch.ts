@@ -1,5 +1,3 @@
-import Response from "./Response"
-
 declare type Method = "GET" | "POST" | "PUT" | "DELETE"
 
 //headers["Authorization"] = `Bearer ${token}`
@@ -10,7 +8,7 @@ export const baseFetch = <T>(
     url: string,
     method: Method = "GET",
     body?: Body,
-) => $fetch.raw<Response<T>>(
+) => $fetch.raw<T>(
     url,
     {
         baseURL: useRuntimeConfig().public.baseURL,

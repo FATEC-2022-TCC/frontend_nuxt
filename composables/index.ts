@@ -3,15 +3,15 @@ import { Result, When } from "./api/wrapper";
 import { Body } from "./api/baseFetch"
 
 import LoginRequest from "./api/LoginRequest";
+import LoginResponse from "./api/LoginResponse"
+
 import SignUpRequest from "./api/SignUpRequest";
 
 export function handle<T>(when: Partial<When<T>>): (result: Result<T>) => void {
     return result => result.handle(when)
 }
 
-export function login(body: LoginRequest): Promise<Result<string>> {
-    return post("/user/login", body)
-}
+export const login = (body: LoginRequest) => post<LoginResponse>("/user/login", body)
 
 export function signup(body: SignUpRequest): Promise<Result<null>> {
     return post("/user", body)

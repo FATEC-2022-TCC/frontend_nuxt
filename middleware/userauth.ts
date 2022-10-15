@@ -1,10 +1,6 @@
-export default defineNuxtRouteMiddleware(async (to, from) => {
-    const token = useCookie('token')
-    if (!token.value) {
-        console.log("---")
-        console.log("Protected route intercepted")
-        console.log("No token provided")
-        console.log("Redirecting")
+export default defineNuxtRouteMiddleware((to, from) => {
+    const session = useSession()
+    if (session.value.type != TokenType.NORMAL) {
         return showError("Acesso negado!")
     }
 })

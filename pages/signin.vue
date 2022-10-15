@@ -1,6 +1,6 @@
 <script setup lang="ts">
 
-const cookieToken = useCookie('token')
+const session = useSession()
 const router = useRouter()
 
 const username = ref("")
@@ -8,23 +8,34 @@ const password = ref("")
 
 const hasError = ref(false)
 
-async function doLogin() {
-    const result = await login(
+function doLogin() {
+    login({
+        username: username.value,
+        password: password.value
+    }).then(handle(
         {
-            username: username.value,
-            password: password.value
+            onFailure: error => {
+                alert(`Error: ${error.message} and ${error.code}`)
+            },
+            onSuccess: response => {
+                const { token, type } = response
+                const newSession = {
+                    token,
+                    type: TokenType.NONE
+                }
+                switch (type) {
+                    case "NORMAL":
+                        newSession.type = TokenType.NORMAL
+                        break;
+                    case "ADMIN":
+                        newSession.type = TokenType.ADMIN
+                        break;
+                }
+                session.value = newSession
+                router.replace("/home")
+            }
         }
-    )
-    result.handle({
-        onFailure: error => {
-            alert(`Error: ${error.message} and ${error.code}`)
-        },
-        onSuccess: token => {
-            console.log(`Token: ${token}`)
-            cookieToken.value = token
-            router.replace("/user")
-        }
-    })
+    ))
 }
 </script>
 

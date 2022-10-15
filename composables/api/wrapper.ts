@@ -1,7 +1,6 @@
 import { FetchResponse, FetchError } from 'ohmyfetch';
 
 import Error from "./Error"
-import Response from "./Response"
 
 export interface When<T> {
     onSuccess(data: T): void
@@ -42,12 +41,10 @@ class Failure<T> extends Result<T> {
     }
 }
 
-export default async function wrapper<T>(callback: () => Promise<FetchResponse<Response<T>>>): Promise<Result<T | null>> {
+export default async function wrapper<T>(callback: () => Promise<FetchResponse<T>>): Promise<Result<T | null>> {
     try {
         const response = await callback()
-        if (!response._data) return new Success(null)
-        const { data: value } = response._data
-        return new Success(value)
+        return new Success(response._data ?? null)
     } catch (e) {
         if (e instanceof FetchError<Error>) {
             const status = e.response?.status ?? -1
