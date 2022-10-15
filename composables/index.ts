@@ -1,22 +1,15 @@
 import { post } from './api'
 import { Result, When } from "./api/wrapper";
-import { Body } from "./api/baseFetch"
 
 import LoginRequest from "./api/LoginRequest";
 import LoginResponse from "./api/LoginResponse"
 
 import SignUpRequest from "./api/SignUpRequest";
 
-export function handle<T>(when: Partial<When<T>>): (result: Result<T>) => void {
-    return result => result.handle(when)
-}
+export const handle = <T>(when: Partial<When<T>>) => (result: Result<T>) => result.handle(when)
 
 export const login = (body: LoginRequest) => post<LoginResponse>("/user/login", body)
 
-export function signup(body: SignUpRequest): Promise<Result<null>> {
-    return post("/user", body)
-}
+export const signup = (body: SignUpRequest) => post<null>("/user", body)
 
-export function uploadFile(body: Body): Promise<Result<null>> {
-    return post("/file", body)
-}
+export const uploadFile = (body: FormData) => post<null>("/file", body)

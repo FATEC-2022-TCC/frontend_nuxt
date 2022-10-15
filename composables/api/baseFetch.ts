@@ -4,9 +4,9 @@ declare type Method = "GET" | "POST" | "PUT" | "DELETE"
 
 export type Body = RequestInit['body'] | Record<string, any>
 
-export const baseFetch = <T>(
+export const baseFetch = <T extends any>(
     url: string,
-    method: Method = "GET",
+    method: Method,
     body?: Body,
 ) => $fetch.raw<T>(
     url,

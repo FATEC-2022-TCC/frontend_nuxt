@@ -41,10 +41,10 @@ class Failure<T> extends Result<T> {
     }
 }
 
-export default async function wrapper<T>(callback: () => Promise<FetchResponse<T>>): Promise<Result<T | null>> {
+export default async function wrapper<T>(callback: () => Promise<FetchResponse<T>>): Promise<Result<T>> {
     try {
         const response = await callback()
-        return new Success(response._data ?? null)
+        return new Success(response._data)
     } catch (e) {
         if (e instanceof FetchError<Error>) {
             const status = e.response?.status ?? -1
