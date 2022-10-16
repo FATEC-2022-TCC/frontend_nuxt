@@ -21,7 +21,7 @@ function signOut() {
             <img src="/quatro.png" class="h-10 object-contain" />
         </div>
         <div class="flex-1"></div>
-        <ul class="menu flex-col font-amatic-sc text-3xl sm:space-x-4 sm:flex-row sm:m-auto sm:flex"
+        <ul class="flex-col font-amatic-sc text-3xl sm:space-x-4 sm:flex-row sm:m-auto sm:flex"
             :class="isOpen ? 'flex' : 'hidden'">
             <li>
                 <nuxt-link to="/home">Início</nuxt-link>
@@ -54,11 +54,8 @@ function signOut() {
     </header>
 </template>
 
-<style lang="postcss" scoped>
-.menu {
-    li {
-        @apply text-white;
-        @apply hover:text-burnt-yellow;
-    }
+<style scoped lang="postcss">
+li {
+    @apply text-white hover:text-burnt-yellow;
 }
 </style>

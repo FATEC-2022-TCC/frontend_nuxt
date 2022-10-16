@@ -5,15 +5,16 @@ defineProps({
 </script>
 
 <template>
-    <tail-base-button
-        class="
+    <tail-button-base class="
             bg-seashell
             text-blue-violet
             box-border
             border-2
             border-transparent
             hover:border-blue-violet
-        "
-        :title="title"
-    />
+        ">
+        <p>
+            {{ title }}
+        </p>
+    </tail-button-base>
 </template>

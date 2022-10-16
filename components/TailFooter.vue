@@ -2,7 +2,7 @@
     <footer class="flex flex-col">
         <div class="flex bg-burnt-yellow-light p-2 items-center text-center">
             <img class="object-contain h-12 flex-1" src="/quatro.png" alt="logo">
-            <div class="flex-1 font-nunito text-sm hidden sm:block">
+            <div class="flex-1 text-sm hidden sm:block">
                 <strong>
                     Quatro Patas Adoção de Animais
                 </strong>
@@ -15,7 +15,7 @@
             </div>
         </div>
         <div class="flex bg-grape p-2 text-sm items-center justify-center">
-            <p class="text-white font-nunito text-center flex-1">
+            <p class="text-white text-center flex-1">
                 Copyright 2022. Todos os direitos.
             </p>
             <p class="text-white font-bold text-center flex-1">

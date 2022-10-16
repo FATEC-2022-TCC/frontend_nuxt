@@ -26,7 +26,7 @@ function onChange(element: HTMLInputElement) {
 <template>
     <div class="flex flex-col w-96">
         <input type="file" multiple v-on:change="onChange($event.target as HTMLInputElement)"
-            class="font-nunito p-2 rounded-md bg-seashell border-2 border-blue-violet outline-none" v-bind="$attrs" />
+            class="p-2 rounded-md bg-seashell border-2 border-blue-violet outline-none" v-bind="$attrs" />
         <ul v-if="modelValue.length > 1">
             <li v-for="file in modelValue" class="flex items-center p-2">
                 <p class="flex-1"> {{ file.name }}</p>

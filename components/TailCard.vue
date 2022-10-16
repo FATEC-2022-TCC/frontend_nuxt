@@ -7,7 +7,7 @@
                     Você ganhou um novo amiguinho!
                 </h1>
                 <br>
-                <p class="font-nunito text-2xl sm:text-3xl">
+                <p class="text-2xl sm:text-3xl">
                     Obrigado por sua adoção, ficamos felizes por você e por ele!
                 </p>
             </div>

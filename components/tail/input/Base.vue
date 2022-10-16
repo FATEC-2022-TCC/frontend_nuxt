@@ -8,7 +8,7 @@ defineProps({
 
 <template>
     <input
-        class="font-nunito p-2 rounded-md bg-seashell border-2 border-blue-violet outline-none"
+        class="p-2 rounded-md bg-seashell border-2 border-blue-violet outline-none"
         :type="type" 
         :placeholder="placeholder" 
         :value="modelValue"

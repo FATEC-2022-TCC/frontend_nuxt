@@ -1,4 +1,4 @@
-import wrapper, { Result } from "./wrapper"
+import wrapper from "./wrapper"
 import { baseFetch, Body } from "./baseFetch"
 
 export const post = <Res>(url: string, body: Body) => wrapper<Res>(() => baseFetch(url, "POST", body))

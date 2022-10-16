@@ -1,26 +1,31 @@
 <script setup lang="ts">
-function onClick(index: number) {
-    alert(`Item ${index} clicked`)
-}
+
 </script>
 
 <template>
     <div class="w-full">
-        <div class="block h-48 bg-blue-violet"></div>
         <ul>
             <nuxt-link to="/admin">
-                <li class="flex items-center p-4 hover:bg-bondi-blue hover:cursor-pointer hover:text-white">
+                <li>
                     <icon name="ant-design:home-filled" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
-                    <p class="font-nunito text-xl">
+                    <p class="text-xl">
                         Página inicial
                     </p>
                 </li>
             </nuxt-link>
+            <nuxt-link to="/admin/content">
+                <li>
+                    <icon name="ant-design:book-filled" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
+                    <p class="text-xl">
+                        Conteúdo
+                    </p>
+                </li>
+            </nuxt-link>
             <nuxt-link to="/home">
-                <li class="flex items-center p-4 hover:bg-bondi-blue hover:cursor-pointer hover:text-white">
+                <li>
                     <icon name="ant-design:left-circle-filled" size="1.5rem"
                         class="text-blue-violet cursor-pointer mr-4" />
-                    <p class="font-nunito text-xl">
+                    <p class="text-xl">
                         Sair
                     </p>
                 </li>
@@ -28,3 +33,9 @@ function onClick(index: number) {
         </ul>
     </div>
 </template>
+
+<style scoped lang="postcss">
+li {
+    @apply flex items-center p-4 hover:bg-burnt-yellow hover:cursor-pointer hover:text-white;
+}
+</style>

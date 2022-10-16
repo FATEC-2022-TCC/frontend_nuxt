@@ -1,11 +1,5 @@
-<script setup lang="ts">
-defineProps({
-    title: String
-})
-</script>
-
 <template>
-    <button
+    <button 
         class="
             px-8
             py-2
@@ -14,8 +8,7 @@ defineProps({
             hover:shadow-lg
             hover:shadow-blue-violet-light
             transition-shadow
-            font-nunito
             font-bold
             text-xl
-        ">{{ title }}</button>
+            "><slot></slot></button>
 </template>

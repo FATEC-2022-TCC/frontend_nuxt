@@ -48,12 +48,12 @@ function doLogin() {
                     Login
                 </h1>
                 <br>
-                <tail-input placeholder="Nome de usuário" v-model="username" required="required" />
-                <tail-input placeholder="Senha" type="password" v-model="password" required="required" />
+                <tail-input-base placeholder="Nome de usuário" v-model="username" required="required" />
+                <tail-input-base placeholder="Senha" type="password" v-model="password" required="required" />
                 <br>
-                <tail-blue-violet-button title="Fazer login" />
+                <tail-button-blue-violet title="Fazer login" />
                 <nuxt-link to="/signup">
-                    <tail-seashell-button title="Criar conta" class="w-full" />
+                    <tail-button-seashell title="Criar conta" class="w-full" />
                 </nuxt-link>
                 <br>
                 <br>

@@ -9,8 +9,8 @@ const isOpen = ref(false)
                 <slot name="menu"></slot>
             </div>
         </div>
-        <div class="h-full flex flex-col sm:filter-none sm:pointer-events-auto"
-            :class="isOpen ? ['blur', 'pointer-events-none'] : 'filter-none'">
+        <div class="h-full flex flex-col sm:filter-none sm:pointer-events-auto sm:opacity-100"
+            :class="isOpen ? ['blur', 'pointer-events-none', 'opacity-50'] : 'filter-none'">
             <header class="h-16 shadow flex items-center p-4">
                 <div class="flex flex-1 sm:hidden">
                     <icon

@@ -7,6 +7,6 @@ const files = ref(new Array<File>())
 </script>
 
 <template>
-    <tail-file-input v-model="files" />
+    <tail-input-file v-model="files" />
     <tail-heart v-model="state" />
 </template>
