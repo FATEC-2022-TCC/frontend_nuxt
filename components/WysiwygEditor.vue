@@ -17,7 +17,7 @@ onMounted(() => {
     editor.value = new Editor({
         editorProps: {
             attributes: {
-                class: 'p-4 border-2 rounded border-2 border-blue-violet focus:border-blue-violet'
+                class: 'flex flex-col p-4 border-2 rounded border-2 border-blue-violet focus:border-blue-violet'
             }
         },
         content: content.value,
@@ -30,6 +30,22 @@ onMounted(() => {
             Image.configure({
                 allowBase64: true,
                 inline: true,
+            }).extend({
+                renderHTML({ node, HTMLAttributes }) {
+                    const textAlign: string = node.attrs["textAlign"] ?? "left"
+                    const alignments: Record<string, string> = {
+                        "left": "self-start",
+                        "center": "self-center",
+                        "right": "self-end",
+                        "justify": "self-center"
+                    }
+                    return [
+                        'img',
+                        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
+                            class: `object-contain ${alignments[textAlign]}`
+                        })
+                    ]
+                }
             }),
             Paragraph,
             History,
@@ -77,18 +93,18 @@ type Level = 1 | 2 | 3
 
 const heading = ref<Level>(1)
 
-const toggleHeading = (level: Level) => getEditor(editor => {
-    editor.chain().toggleHeading({ level }).run()
-})
+const toggleHeading = (level: Level) => getEditor(
+    editor => editor.commands.toggleHeading({ level })
+)
 
 watch(heading, toggleHeading)
 
 
-type Alignment = "left" | "center" | "right"
+type Alignment = "left" | "center" | "right" | "justify"
 
-const toggleAlignment = (alignment: Alignment) => getEditor(editor => {
-    editor.chain().focus().setTextAlign(alignment).run()
-})
+const toggleAlignment = (alignment: Alignment) => getEditor(
+    editor => editor.commands.setTextAlign(alignment)
+)
 
 type UndoOrRedo = "undo" | "redo"
 
@@ -123,23 +139,28 @@ const pickImage = () => getEditor(editor => {
     input.click()
 })
 
+const toggleParagraph = () => getEditor(editor => editor.commands.setParagraph())
 </script>
 
 <template>
     <div>
         <br>
         <div class="p-2 rounded border-2 border-burnt-yellow flex items-center">
-            <select class="bg-transparent p-2 border-transparent" v-model="heading">
+            <icon @click="toggleParagraph()" name="bi:paragraph" size="2rem"
+                class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
+            <select class="bg-transparent border-transparent text-blue-violet text-2xl" v-model="heading">
                 <option v-for="num in 3" :value="num">
                     H{{num}}
                 </option>
             </select>
             <div class="mx-2"></div>
-            <icon @click="toggleAlignment('left')" name="ant-design:align-left-outlined" size="2rem"
+            <icon @click="toggleAlignment('left')" name="bi:justify-left" size="2rem"
                 class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
-            <icon @click="toggleAlignment('center')" name="ant-design:align-center-outlined" size="2rem"
+            <icon @click="toggleAlignment('center')" name="bi:text-center" size="2rem"
                 class="text-blue-violet cursor-pointer hover:text-burnt-yellow mx-2" />
-            <icon @click="toggleAlignment('right')" name="ant-design:align-right-outlined" size="2rem"
+            <icon @click="toggleAlignment('right')" name="bi-justify-right" size="2rem"
+                class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
+            <icon @click="toggleAlignment('justify')" name="bi:justify" size="2rem"
                 class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
             <div class="mx-2"></div>
             <icon @click="undoOrRedo('undo')" name="ant-design:undo-outlined" size="2rem"
