@@ -15,3 +15,9 @@ export interface ContentResponse {
     created: Date,
     until: Date
 }
+
+export interface ContentProjection {
+    title: string,
+    description: string,
+    background: string
+}
