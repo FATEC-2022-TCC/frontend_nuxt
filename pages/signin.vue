@@ -1,14 +1,33 @@
 <script setup lang="ts">
 
+interface SignInErrors {
+    username?: string,
+    password?: string
+}
+
 const session = useSession()
 const router = useRouter()
+
+const errors = ref<SignInErrors>({})
 
 const username = ref("")
 const password = ref("")
 
-const hasError = ref(false)
-
 function doLogin() {
+    const checked: SignInErrors = {}
+
+    if (!username.value) {
+        checked.username = "Digite seu nome de usuário"
+    }
+
+    if (!password.value) {
+        checked.password = "Digite a sua senha"
+    }
+
+    errors.value = checked
+
+    if (Object.keys(checked).length) return
+
     login({
         username: username.value,
         password: password.value
@@ -43,15 +62,15 @@ function doLogin() {
     <div class="flex h-screen flex-col-reverse sm:flex-row">
         <div class="hidden bg-blue-violet sm:block sm:w-1/2 md:w-3/5"></div>
         <div class="flex h-full sm:w-1/2 md:w-2/5">
-            <form class="m-auto p-4 flex flex-col space-y-4 w-4/5" @submit.prevent="doLogin">
+            <div class="m-auto p-4 flex flex-col space-y-4 w-4/5">
                 <h1 class="font-amatic-sc text-6xl">
                     Login
                 </h1>
                 <br>
-                <tail-input-base placeholder="Nome de usuário" v-model="username" required="required" />
-                <tail-input-base placeholder="Senha" type="password" v-model="password" required="required" />
+                <tail-input-base :error="errors.username" placeholder="Nome de usuário" v-model="username" />
+                <tail-input-base :error="errors.password" placeholder="Senha" type="password" v-model="password" />
                 <br>
-                <tail-button-blue-violet title="Fazer login" />
+                <tail-button-blue-violet title="Fazer login" @click="doLogin()"/>
                 <nuxt-link to="/signup">
                     <tail-button-seashell title="Criar conta" class="w-full" />
                 </nuxt-link>
@@ -69,7 +88,7 @@ function doLogin() {
                     </span>
                     <icon name="ant-design:home-filled" size="1.5rem" class="text-burnt-yellow" />
                 </nuxt-link>
-            </form>
+            </div>
         </div>
     </div>
 </template>
