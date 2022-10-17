@@ -13,7 +13,10 @@ const errors = ref<SignInErrors>({})
 const username = ref("")
 const password = ref("")
 
+const hasRemoteError = ref(false)
+
 function doLogin() {
+    hasRemoteError.value = false
     const checked: SignInErrors = {}
 
     if (!username.value) {
@@ -34,7 +37,8 @@ function doLogin() {
     }).then(handle(
         {
             onFailure: error => {
-                alert(`Error: ${error.message} and ${error.code}`)
+                console.log(JSON.stringify(error))
+                hasRemoteError.value = true
             },
             onSuccess: response => {
                 const { token, type } = response
@@ -69,8 +73,12 @@ function doLogin() {
                 <br>
                 <tail-input-base :error="errors.username" placeholder="Nome de usuário" v-model="username" />
                 <tail-input-base :error="errors.password" placeholder="Senha" type="password" v-model="password" />
+                <tail-error v-if="hasRemoteError">
+                    <p>Algo deu errado.</p>
+                    <p>Verifique seu nome de usuário e sua senha.</p>
+                </tail-error>
                 <br>
-                <tail-button-blue-violet title="Fazer login" @click="doLogin()"/>
+                <tail-button-blue-violet title="Fazer login" @click="doLogin()" />
                 <nuxt-link to="/signup">
                     <tail-button-seashell title="Criar conta" class="w-full" />
                 </nuxt-link>
