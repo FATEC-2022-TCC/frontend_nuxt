@@ -22,7 +22,7 @@ const isOpen = ref(false)
                 </div>
                 <img src="/quatro.png" class="h-full object-contain" />
             </header>
-            <div class="flex flex-1">
+            <div class="flex flex-1 self-center w-full lg:w-9/12">
                 <div class="shadow hidden sm:flex sm:w-2/5 md:w-2/6 lg:w-3/12 2xl:w-2/12">
                     <slot name="menu"></slot>
                 </div>

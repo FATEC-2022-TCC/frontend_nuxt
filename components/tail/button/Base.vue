@@ -3,7 +3,7 @@
         class="
             px-8
             py-2
-            rounded-2xl
+            rounded-md
             cursor-pointer
             hover:shadow-lg
             hover:shadow-blue-violet-light

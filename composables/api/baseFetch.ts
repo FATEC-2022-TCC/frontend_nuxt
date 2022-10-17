@@ -26,9 +26,11 @@ export const baseFetch = <T extends any>(
         onResponseError: async error => {
             const status = error.response.status
             if (status === 401 || status === 403) {
-                console.log("---")
-                console.log("Invalid token provided")
-                console.log("Redirecting")
+                const session = useSession()
+                session.value = {
+                    token: "",
+                    type: TokenType.NONE
+                }
                 showError("Sessão expirada. Por favor, faça o login novamente!")
             }
         }

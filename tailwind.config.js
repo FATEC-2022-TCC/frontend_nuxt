@@ -1,6 +1,10 @@
 /** @type {import('tailwindcss').Config} */
+
+const plugin = require('tailwindcss/plugin')
+
 module.exports = {
   content: [],
+  plugins: [],
   theme: {
     extend: {
       fontFamily: {
@@ -24,12 +28,11 @@ module.exports = {
       'burnt-yellow-light': 'rgba(217, 169, 24, 0.5)',
       'grape-light': 'rgba(108, 54, 89, 0.5)',
       'bondi-blue-light': 'rgba(8, 147, 185, 0.5)',
-      'white': '#FFF' ,
+      'white': '#FFF',
       'black': '#000',
       'transparent': 'transparent',
       'gray': 'gray',
-      'red': '#F00'
+      'red': '#FF2400'
     }
-  },
-  plugins: [],
+  }
 }

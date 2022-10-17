@@ -10,8 +10,13 @@ import Image from '@tiptap/extension-image'
 import { History } from '@tiptap/extension-history';
 import { mergeAttributes } from '@tiptap/core'
 
+const content = "<h1>Seu lindo título aqui</h1>"
+
 const editor = ref<Editor | null>(null)
-const content = ref("<h1>Seu lindo título aqui</h1>")
+
+const emit = defineEmits<{
+    (e: 'update:modelValue', content: string): void
+}>()
 
 onMounted(() => {
     editor.value = new Editor({
@@ -20,7 +25,7 @@ onMounted(() => {
                 class: 'flex flex-col p-4 border-2 rounded border-2 border-blue-violet focus:border-blue-violet'
             }
         },
-        content: content.value,
+        content,
         extensions: [
             Document,
             Text,
@@ -72,9 +77,8 @@ onMounted(() => {
                 }
             })
         ],
-        onUpdate: props => {
-            content.value = props.editor.getHTML()
-        }
+        onCreate: props => emit("update:modelValue", props.editor.getHTML()),
+        onUpdate: props => emit("update:modelValue", props.editor.getHTML())
     })
 })
 
@@ -119,38 +123,33 @@ const undoOrRedo = (undoOrRedo: UndoOrRedo) => getEditor(editor => {
     }
 })
 
-const pickImage = () => getEditor(editor => {
-    const input = document.createElement("input")
-    input.type = "file"
-    input.onchange = event => {
-        const file = input.files?.item(0)
-        if (!file) return
-        const reader = new FileReader()
-        reader.onload = load => {
-            const src = load.target?.result as string
-            if (!src) return
-            editor.chain().focus().setImage({
-                src
-            }).run()
-            input.remove()
-        }
-        reader.readAsDataURL(file)
+const files = ref<Array<File>>([])
+
+const toggleFile = (files: Array<File>) => getEditor(editor => {
+    const file = files[0]
+    if (!file) return
+    const reader = new FileReader()
+    reader.onload = load => {
+        const src = load.target?.result as string
+        if (!src) return
+        editor.commands.setImage({ src })
     }
-    input.click()
+    reader.readAsDataURL(file)
 })
+
+watch(files, toggleFile)
 
 const toggleParagraph = () => getEditor(editor => editor.commands.setParagraph())
 </script>
 
 <template>
     <div>
-        <br>
         <div class="p-2 rounded border-2 border-burnt-yellow flex items-center">
             <icon @click="toggleParagraph()" name="bi:paragraph" size="2rem"
                 class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
             <select class="bg-transparent border-transparent text-blue-violet text-2xl" v-model="heading">
                 <option v-for="num in 3" :value="num">
-                    H{{num}}
+                    H{{ num }}
                 </option>
             </select>
             <div class="mx-2"></div>
@@ -168,8 +167,10 @@ const toggleParagraph = () => getEditor(editor => editor.commands.setParagraph()
             <icon @click="undoOrRedo('redo')" name="ant-design:redo-outlined" size="2rem"
                 class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
             <div class="mx-2"></div>
-            <icon @click="pickImage()" name="ant-design:file-image-filled" size="2rem"
-                class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
+            <tail-input-file-dialog v-model="files" accept="image/*">
+                <icon name="ant-design:file-image-filled" size="2rem"
+                    class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
+            </tail-input-file-dialog>
         </div>
         <editor-content v-if="editor" :editor="editor" />
         <br>

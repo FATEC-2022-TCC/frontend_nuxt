@@ -8,9 +8,9 @@ defineProps({
 
 <template>
     <input
-        class="p-2 rounded-md bg-seashell border-2 border-blue-violet outline-none"
+        class="p-2 rounded-md border-2 border-blue-violet outline-none"
         :type="type" 
         :placeholder="placeholder" 
         :value="modelValue"
-        @input="$emit('update:modelValue', ($event.target as HTMLTextAreaElement).value)" />
+        @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)" />
 </template>
