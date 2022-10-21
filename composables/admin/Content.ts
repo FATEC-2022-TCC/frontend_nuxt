@@ -17,6 +17,7 @@ export interface ContentResponse {
 }
 
 export interface ContentProjection {
+    id: number,
     title: string,
     description: string,
     background: string

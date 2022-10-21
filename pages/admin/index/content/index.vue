@@ -10,6 +10,18 @@ getContentProjection().then(handle({
         projections.value = result
     }
 }))
+
+function onClick(projection: ContentProjection) {
+    console.log("click", projection)
+}
+
+function onDelete(projection: ContentProjection) {
+    console.log("delete", projection)
+}
+
+function onEdit(projection: ContentProjection) {
+    navigateTo(`/admin/content/edit?id=${projection.id}`)
+}
 </script>
 
 <template>
@@ -18,29 +30,13 @@ getContentProjection().then(handle({
             Conteúdo
         </h1>
         <div class="flex flex-wrap justify-center">
-            <div v-for="p in projections" 
-                class="
-                    mt-4
-                    mr-2
-                    w-64
-                    h-96
-                    rounded
-                    p-2
-                    flex
-                    flex-col
-                    items-center
-                    justify-center
-                    space-y-2
-                    border-2
-                    border-blue-violet
-                    cursor-pointer
-                    transition-shadow
-                    hover:shadow-2xl
-                ">
-                <img v-if="p.background" :src="p.background" class="h-32">
-                <h1 class="font-amatic-sc text-4xl">{{ p.title }}</h1>
-                <p class="text-center">{{ p.description }}</p>
-            </div>
+            <tail-admin-content-projection 
+                class="mt-4 mr-2" 
+                v-for="p in projections" 
+                :projection="p" 
+                @onClick="onClick"
+                @onDelete="onDelete" 
+                @onEdit="onEdit" />
         </div>
         <tail-fab-add @click="() => navigateTo('content/add')" />
     </div>
