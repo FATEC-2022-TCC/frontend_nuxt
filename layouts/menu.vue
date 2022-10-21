@@ -4,13 +4,13 @@ const isOpen = ref(false)
 
 <template>
     <div>
-        <div class="fixed inset-0 sm:hidden" :class="isOpen ? 'block' : 'hidden'" @click="isOpen = !isOpen">
-            <div class="w-4/5 h-full rounded shadow-2xl">
+        <div class="fixed inset-0 sm:hidden z-10" :class="isOpen ? 'block' : 'hidden'" @click="isOpen = !isOpen">
+            <div class="w-4/5 h-full rounded shadow-2xl bg-white">
                 <slot name="menu"></slot>
             </div>
         </div>
-        <div class="h-full flex flex-col sm:filter-none sm:pointer-events-auto sm:opacity-100"
-            :class="isOpen ? ['blur', 'pointer-events-none', 'opacity-50'] : 'filter-none'">
+        <div class="h-full flex flex-col sm:filter-none sm:pointer-events-auto"
+            :class="isOpen ? ['blur', 'pointer-events-none'] : 'filter-none'">
             <header class="h-16 shadow flex items-center p-4">
                 <div class="flex flex-1 sm:hidden">
                     <icon

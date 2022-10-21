@@ -1,6 +1,7 @@
 <template>
     <button 
         class="
+            w-full
             px-8
             py-2
             rounded-md

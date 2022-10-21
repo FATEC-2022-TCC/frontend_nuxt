@@ -10,12 +10,11 @@ defineProps<{
                     w-64
                     h-96
                     p-2
-                    pb-0
                     rounded
                     flex
                     flex-col
+                    justify-between
                     items-center
-                    justify-center
                     space-y-2
                     border-2
                     border-blue-violet
@@ -28,7 +27,7 @@ defineProps<{
         <img v-if="projection.background" :src="projection.background" class="h-32">
         <h1 class="font-amatic-sc text-4xl">{{ projection.title }}</h1>
         <p class="text-center">{{ projection.description }}</p>
-        <div class="self-end space-x-2">
+        <div class="self-end space-x-2 pb-2">
             <icon @click.stop="$emit('onEdit', projection)" name="ant-design:edit-filled" size="2rem" class="hover:cursor-pointer text-blue-violet" />
             <icon @click.stop="$emit('onDelete', projection)" name="ant-design:close-circle-filled" size="2rem" class="hover:cursor-pointer text-red" />
         </div>
