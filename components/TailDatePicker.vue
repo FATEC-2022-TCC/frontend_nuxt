@@ -4,5 +4,5 @@ import '@vuepic/vue-datepicker/dist/main.css'
 </script>
 
 <template>
-    <datepicker autoApply />
+    <datepicker autoApply :clearable="false" format="dd/MM/yyyy HH:mm"/>
 </template>
