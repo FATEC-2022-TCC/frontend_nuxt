@@ -6,33 +6,32 @@ const emit = defineEmits<{
     (e: 'update:modelValue', files: Array<File>): void
 }>()
 
-let input: HTMLInputElement | null = null
+const inputs = Array<HTMLInputElement>()
 
-onMounted(() => {
-    input = document.createElement("input")
+function onClick() {
+    const input = document.createElement("input")
     input.type = "file"
     input.accept = accept
     input.onchange = event => {
-        const files = (event.target as HTMLInputElement).files
-        const res: Array<File> = []
-        if (!!files) {
-            for (let i = 0; i < files.length; i++) {
-                const file = files.item(i)
+        const fileList = (event.target as HTMLInputElement).files
+        const files: Array<File> = []
+        if (!!fileList) {
+            for (let i = 0; i < fileList.length; i++) {
+                const file = fileList.item(i)
                 if (!file) continue
-                res.push(file)
+                files.push(file)
             }
         }
-        emit("update:modelValue", res)
+        emit("update:modelValue", files)
     }
-})
-
-onBeforeUnmount(() => {
-    input?.remove()
-})
-
-function onClick() {
-    input?.click()
+    inputs.push(input)
+    input.click()
 }
+
+//it's for do not leak HTML elements throught DOM
+onBeforeUnmount(() => {
+    for (const input of inputs) input.remove()
+})
 </script>
 
 <template>

@@ -144,7 +144,7 @@ const toggleParagraph = () => getEditor(editor => editor.commands.setParagraph()
 
 <template>
     <div>
-        <div class="p-2 rounded border-2 border-burnt-yellow flex items-center">
+        <div class="p-2 rounded border-2 border-burnt-yellow flex flex-wrap">
             <icon @click="toggleParagraph()" name="bi:paragraph" size="2rem"
                 class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
             <select class="bg-transparent border-transparent text-blue-violet text-2xl" v-model="heading">

@@ -4,5 +4,5 @@ import '@vuepic/vue-datepicker/dist/main.css'
 </script>
 
 <template>
-    <datepicker inline autoApply />
+    <datepicker autoApply />
 </template>

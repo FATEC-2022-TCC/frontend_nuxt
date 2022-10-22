@@ -6,6 +6,7 @@ defineProps({
 
 <template>
     <tail-button-base class="
+            w-full
             bg-seashell
             text-blue-violet
             box-border

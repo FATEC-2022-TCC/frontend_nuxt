@@ -15,14 +15,13 @@ const content = ref("")
 const until = ref(new Date())
 
 function onSave() {
-    const contentRequest = {
+    addContent({
         data: content.value,
         background: preview.value,
         title: title.value,
         description: description.value,
         until: until.value.toISOString()
-    }
-    addContent(contentRequest).then(handle({
+    }).then(handle({
         onFailure: error => alert(JSON.stringify(error)),
         onSuccess: _ => navigateTo("/admin/content")
     }))
@@ -30,7 +29,7 @@ function onSave() {
 </script>
 
 <template>
-    <div class="flex flex-col pb-32">
+    <div class="flex flex-col p-4 pb-32">
         <h1 class="font-amatic-sc text-6xl">
             Novo conteúdo
         </h1>
@@ -45,14 +44,18 @@ function onSave() {
             <tail-input-base placeholder="Uma breve descrição" maxlength="255" v-model="description" />
             <div class="flex space-x-2">
                 <tail-input-file-dialog v-model="files" class="flex-1" accept="image/*">
-                    <tail-button-blue-violet title="Escolha um arquivo como preview do artigo" class="w-full" />
+                    <tail-button-blue-violet title="Escolha um arquivo como preview do artigo" />
                 </tail-input-file-dialog>
                 <tail-button-base v-if="preview" class="bg-red" @click="preview = ''">
                     <icon name="ant-design:close-circle-filled" size="2rem"
                         class="m-auto hover:cursor-pointer text-white" />
                 </tail-button-base>
             </div>
-            <img v-if="preview" :src="preview" class="w-1/5 object-contain self-center" />
+            <img v-if="preview" :src="preview" class="w-full object-contain" />
+            <br>
+            <h2 class="font-amatic-sc text-4xl">
+                Até quando o conteúdo deve estar visível?
+            </h2>
             <tail-date-picker v-model="until" :minDate="new Date()" class="border-blue-violet" />
         </div>
         <tail-fab-save @click="onSave()" />
