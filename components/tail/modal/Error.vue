@@ -6,22 +6,26 @@ const seashell = resolveComponent("TailButtonSeashell")
 
 const modal = useModal()
 
-const { modalState } = defineProps<{
+defineProps<{
     modalState: ModalState
 }>()
 
 function dismiss() {
     modal.value = {
-        type: ModalType.None,
         title: "",
         messages: []
     }
 }
+
+function dismissTo(to: string) {
+    dismiss()
+    navigateTo(to)
+}
 </script>
 
 <template>
-    <div class="fixed inset-0 flex justify-center items-center z-10">
-        <div class="p-4 rounded shadow-3xl" :class="modalState.type == ModalType.Error ? 'bg-red' : 'bg-green'">
+    <tail-modal-base>
+        <div class="p-4 rounded shadow-3xl bg-red">
             <div class="flex justify-end">
                 <icon name="ant-design:close-circle-filled" size="2rem" class="hover:cursor-pointer text-white"
                     @click="dismiss()" />
@@ -30,16 +34,16 @@ function dismiss() {
                 {{ modalState.title }}
             </h1>
             <br>
-            <p v-for="message in modalState.messages" class="text-white text-4xl">
+            <p v-for="message in modalState.messages" class="text-white text-4xl text-center">
                 {{ message }}
             </p>
-            <div v-if="modalState.actions">
-                <div v-for="action in modalState.actions">
-                    <br>
-                    <component :is="action.type == ModalActionType.BLUE_VIOLET ? blueViolet : seashell"
-                        :title="action.title" @click="() => navigateTo(action.redirectTo)" />
-                </div>
+            <div v-if="modalState.actions" v-for="action in modalState.actions">
+                <br>
+                <tail-button-blue-violet v-if="action.type == ModalActionType.BLUE_VIOLET"
+                    @click="() => dismissTo(action.redirectTo)" :title="action.title" />
+                <tail-button-seashell v-if="action.type == ModalActionType.SEASHELL"
+                    @click="() => dismissTo(action.redirectTo)" :title="action.title" />
             </div>
         </div>
-    </div>
+    </tail-modal-base>
 </template>

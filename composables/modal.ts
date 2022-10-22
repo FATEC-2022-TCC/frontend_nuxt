@@ -11,19 +11,17 @@ export interface ModalAction {
 
 export enum ModalType {
     Error,
-    Success,
-    None
+    Success
 }
 
 export interface ModalState {
-    type: ModalType,
+    type?: ModalType,
     title: string,
     messages: string[],
     actions?: ModalAction[]
 }
 
 export const useModal = () => useState<ModalState>('modal', () => ({
-    type: ModalType.None,
     title: "",
     messages: []
 }))

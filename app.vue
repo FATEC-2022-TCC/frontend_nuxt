@@ -7,8 +7,10 @@ useHead({
 
 <template>
   <div>
-    <tail-modal v-if="modal.type != ModalType.None" :modal-state="modal" />
-    <nuxt-page :class="modal.type != ModalType.None ? 'blur-xl' : ''" />
+    <tail-modal-error v-if="modal.type == ModalType.Error" :modal-state="modal" />
+    <tail-modal-success v-if="modal.type == ModalType.Success" :modal-state="modal" />
+    <!-- !!modalType does not work since first enum value is treated as zero -->
+    <nuxt-page :class="modal.type != undefined ? 'blur-2xl' : ''" />
   </div>
 </template>
 
