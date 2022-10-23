@@ -1,5 +1,9 @@
 import { Result, When } from "./api/wrapper";
 
+export {
+    getContentProjectionInEvidence
+} from "./public"
+
 export { 
     login,
     signup

@@ -1,9 +1,9 @@
 <template>
     <nuxt-layout name="menu">
-        <template v-slot:menu>
+        <template #menu>
             <tail-user-menu />
         </template>
-        <template v-slot:content>
+        <template #content>
             <nuxt-page />
         </template>
     </nuxt-layout>
