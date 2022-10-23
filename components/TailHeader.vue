@@ -12,14 +12,14 @@ function signOut() {
 </script>
 
 <template>
-    <header class="select-none bg-[#222] flex flex-col justify-between sm:flex-row p-4">
+    <header class="select-none bg-[#222] flex flex-col justify-between md:flex-row p-4">
         <div class="flex items-center justify-between">
-            <div class="bg-lilac rounded p-1 aspect-square rotate-180 cursor-pointer sm:hidden" @click="isOpen = !isOpen">
+            <div class="bg-lilac rounded p-1 aspect-square rotate-180 cursor-pointer md:hidden" @click="isOpen = !isOpen">
                 <icon name="iconoir:menu-scale" size="2rem" class="text-blue-violet hover:text-black" />
             </div>
             <img src="/quatro.png" class="h-10 object-contain" />
         </div>
-        <ul class="mt-4 flex-col font-amatic-sc text-3xl sm:space-x-4 sm:flex-row sm:flex sm:m-0"
+        <ul class="mt-4 flex-col font-amatic-sc text-3xl md:space-x-4 md:flex-row md:flex md:m-0"
             :class="isOpen ? 'flex' : 'hidden'">
             <li>
                 <nuxt-link to="/home">Início</nuxt-link>
