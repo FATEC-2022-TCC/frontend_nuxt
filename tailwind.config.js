@@ -28,6 +28,7 @@ module.exports = {
       'burnt-yellow-light': 'rgba(217, 169, 24, 0.5)',
       'grape-light': 'rgba(108, 54, 89, 0.5)',
       'bondi-blue-light': 'rgba(8, 147, 185, 0.5)',
+      'lilac': '#D1A4FF',
       'white': '#FFF',
       'black': '#000',
       'transparent': 'transparent',
