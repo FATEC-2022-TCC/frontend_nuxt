@@ -1,4 +1,5 @@
 <script setup lang="ts">
+
 const modal = useModal()
 
 const content = ref("")
@@ -34,7 +35,7 @@ function onSave() {
                 content,
                 "Você precisa adicionar algum conteúdo",
                 [
-                    content => content === "<p></p>" ? "Você precisa adicionar algum conteúdo" : ""
+                    content => content == "<p></p>" && "Você precisa adicionar algum conteúdo"
                 ]
             ],
             title: [title, "Você precisa adicionar algum título", []],

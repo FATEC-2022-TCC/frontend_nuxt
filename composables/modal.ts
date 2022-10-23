@@ -11,7 +11,8 @@ export interface ModalAction {
 
 export enum ModalType {
     Error,
-    Success
+    Success,
+    Warn
 }
 
 export interface ModalState {

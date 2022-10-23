@@ -2,6 +2,12 @@
 
 const modal = useModal()
 
+const name = ref('')
+const username = ref('')
+const password = ref('')
+const email = ref('')
+const repeatedPassword = ref('')
+
 interface SignUpErrors {
     name?: string,
     username?: string,
@@ -13,40 +19,24 @@ interface SignUpErrors {
 const errors = ref<SignUpErrors>({})
 const hasRemoteError = ref(false)
 
-const name = ref('')
-const username = ref('')
-const password = ref('')
-const email = ref('')
-const repeatedPassword = ref('')
-
 function doSignUp() {
     hasRemoteError.value = false
-
-    const checked: SignUpErrors = {}
-
-    if (!name.value) {
-        checked.name = "Digite seu nome completo"
-    }
-
-    if (!username.value) {
-        checked.username = "Digite um nome de usuário"
-    }
-
-    if (!email.value) {
-        checked.email = "Digite um email"
-    }
-
-    if (!password.value) {
-        checked.password = "Digite uma senha"
-    }
-
-    if (password.value != repeatedPassword.value || !repeatedPassword.value) {
-        checked.repeatedPassword = "Senhas diferentes"
-    }
-
-    errors.value = checked
-
-    if (Object.keys(checked).length) return
+    if (errorsToObject<SignUpErrors>(
+        {
+            name: [name, "Digite seu nome completo", []],
+            username: [username, "Digite um nome de usuário", []],
+            email: [email, "Digite um email", []],
+            password: [password, "Digite uma senha", []],
+            repeatedPassword: [
+                repeatedPassword,
+                "Digite uma senha",
+                [
+                    repeated => repeated !== password.value && "Digite a mesma senha"
+                ]
+            ]
+        },
+        errors
+    )) return
 
     signup({
         name: name.value,
@@ -86,7 +76,8 @@ function doSignUp() {
                 <tail-input-base :error="errors.username" placeholder="Apelido único" v-model="username" />
                 <tail-input-base :error="errors.email" placeholder="E-mail" v-model="email" />
                 <tail-input-base :error="errors.password" placeholder="Senha" type="password" v-model="password" />
-                <tail-input-base :error="errors.repeatedPassword" placeholder="Repetir a senha" type="password" v-model="repeatedPassword" />
+                <tail-input-base :error="errors.repeatedPassword" placeholder="Repetir a senha" type="password"
+                    v-model="repeatedPassword" />
                 <tail-error v-if="hasRemoteError">
                     <p>Algo deu errado.</p>
                     <p>Você já está cadastrado?</p>

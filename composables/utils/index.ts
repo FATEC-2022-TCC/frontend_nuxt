@@ -10,7 +10,7 @@ export const fileToBase64 = (file: File): Promise<string> => new Promise(resolve
 })
 
 export const errorsToObject = <T, V = string>(
-    errors: { [Key in keyof T]: [Ref<V>, V, ((v: V) => V)[]] },
+    errors: { [Key in keyof T]: [Ref<V>, V, ((v: V) => V | boolean)[]] },
     notifier: Ref<{ [Key in keyof T]?: V }>
 ): boolean => {
     notifier.value = {}
@@ -25,7 +25,7 @@ export const errorsToObject = <T, V = string>(
         }
         for (const custom of customs) {
             const message = custom(ref.value)
-            if (message) {
+            if (message && !(typeof message == 'boolean')) {
                 hasError = true
                 object[key] = message
                 continue

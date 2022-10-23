@@ -1,18 +1,17 @@
 <script setup lang="ts">
 
+const session = useSession()
+const router = useRouter()
+
+const username = ref("")
+const password = ref("")
+
 interface SignInErrors {
     username?: string,
     password?: string
 }
 
-const session = useSession()
-const router = useRouter()
-
 const errors = ref<SignInErrors>({})
-
-const username = ref("")
-const password = ref("")
-
 const hasRemoteError = ref(false)
 
 function doLogin() {
