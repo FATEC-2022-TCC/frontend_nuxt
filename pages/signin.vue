@@ -57,8 +57,8 @@ function doLogin() {
 
 <template>
     <div class="flex h-screen flex-col-reverse sm:flex-row">
-        <div class="hidden bg-blue-violet sm:block sm:w-1/2 md:w-3/5"></div>
-        <div class="flex h-full sm:w-1/2 md:w-2/5">
+        <div class="hidden bg-blue-violet sm:block sm:w-1/2 md:w-3/5 lg:w-4/6 xl:w-9/12"></div>
+        <div class="flex h-full sm:w-1/2 md:w-2/5 lg:w-2/6 xl:w-3/12">
             <div class="m-auto p-4 flex flex-col space-y-4 w-4/5">
                 <h1 class="font-amatic-sc text-6xl">
                     Login
