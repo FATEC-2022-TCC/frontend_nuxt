@@ -5,5 +5,5 @@ import {
 } from "../admin/Content"
 
 export const getContentProjectionInEvidence = () => get<Array<ContentProjection>>(
-    "/public/content/evidence"
+    "/public/content/projection/evidence"
 )

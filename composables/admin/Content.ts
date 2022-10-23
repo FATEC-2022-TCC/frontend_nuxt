@@ -1,9 +1,28 @@
 export interface ContentRequest {
+    id: number,
     data: string,
     background: string,
     title: string,
     description: string,
-    until: string
+    created: Date,
+    until: Date
+}
+
+export interface NewContentRequest {
+    data: string,
+    background: string,
+    title: string,
+    description: string,
+    until: Date
+}
+
+export interface UpdateContentRequest {
+    id: number,
+    data: string,
+    background: string,
+    title: string,
+    description: string,
+    until: Date
 }
 
 export interface ContentResponse {

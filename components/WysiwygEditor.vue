@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import { Editor, EditorContent } from '@tiptap/vue-3'
-import StarterKit from '@tiptap/starter-kit'
 import Document from '@tiptap/extension-document'
 import Paragraph from '@tiptap/extension-paragraph'
 import Text from '@tiptap/extension-text'
@@ -10,12 +9,11 @@ import Image from '@tiptap/extension-image'
 import { History } from '@tiptap/extension-history';
 import { mergeAttributes } from '@tiptap/core'
 
-const content = "<h1>Seu lindo título aqui</h1>"
-
 const editor = ref<Editor | null>(null)
 
-defineProps({
-    error: String
+const { modelValue } = defineProps({
+    error: String,
+    modelValue: String
 })
 
 const emit = defineEmits<{
@@ -29,17 +27,14 @@ onMounted(() => {
                 class: 'flex flex-col p-4 border-2 rounded border-2 border-blue-violet focus:border-blue-violet'
             }
         },
-        content,
+        content: modelValue,
         extensions: [
             Document,
             Text,
             TextAlign.configure({
                 types: ['heading', 'paragraph', 'image']
             }),
-            Image.configure({
-                allowBase64: true,
-                inline: true,
-            }).extend({
+            Image.extend({
                 renderHTML({ node, HTMLAttributes }) {
                     const textAlign: string = node.attrs["textAlign"] ?? "left"
                     const alignments: Record<string, string> = {
@@ -48,19 +43,23 @@ onMounted(() => {
                         "right": "self-end",
                         "justify": "self-center"
                     }
+                    const classes = `object-contain ${alignments[textAlign] ?? ''}`
+                    console.log(classes)
                     return [
                         'img',
-                        mergeAttributes(this.options.HTMLAttributes, HTMLAttributes, {
-                            class: `object-contain ${alignments[textAlign]}`
-                        })
+                        mergeAttributes(
+                            this.options.HTMLAttributes,
+                            HTMLAttributes,
+                            { class: classes }
+                        )
                     ]
                 }
+            }).configure({
+                allowBase64: true
             }),
             Paragraph,
             History,
-            Heading.configure({
-                levels: [1, 2, 3]
-            }).extend({
+            Heading.extend({
                 levels: [1, 2, 3],
                 renderHTML({ node, HTMLAttributes }) {
                     const level = this.options.levels.includes(node.attrs.level)

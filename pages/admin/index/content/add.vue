@@ -7,14 +7,12 @@ const title = ref("")
 const description = ref("")
 const files = ref<Array<File>>([])
 const background = ref("")
-
 watch(files, async files => {
     const file = files[0]
     if (!file) return
     const base64 = await fileToBase64(file)
     background.value = base64
 })
-
 const until = ref(new Date())
 
 interface AddErrors {
@@ -50,7 +48,7 @@ function onSave() {
         background: background.value,
         title: title.value,
         description: description.value,
-        until: until.value.toISOString()
+        until: until.value
     }).then(handle({
         onFailure: error => {
             console.log(JSON.stringify(error))

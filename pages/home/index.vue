@@ -12,19 +12,14 @@ getContentProjectionInEvidence().then(handle({
 
 <template>
     <div>
-        <carousel :autoplay="5000" pause-autoplay-on-hover :items-to-show="1.01" wrap-around
+        <carousel :autoplay="5000" pause-autoplay-on-hover :items-to-show="1.2" wrap-around
             v-if="contentProjections.length">
             <slide v-for="(cp, index) in contentProjections" :key="cp.id">
-                <div class="h-80 w-full">
-                    <img :src="cp.background" class="object-cover w-full h-full rounded-bl-xl rounded-br-xl">
-                    <div class="
-                        absolute
-                        bottom-0
-                        left-0
-                        right-0
-                        rounded-bl-xl
-                        rounded-br-xl
-                    " :class="index % 2 == 0 ? 'bg-blue-violet' : 'bg-burnt-yellow'">
+                <div class="flex flex-col static h-80 w-full mx-2">
+                    <div class="flex-1 bg-burnt-yellow">
+                        <img :src="cp.background" class="object-fill h-full w-full object-center">
+                    </div>
+                    <div class="h-min rounded-bl-xl rounded-br-xl" :class="index % 2 == 0 ? 'bg-blue-violet' : 'bg-burnt-yellow'">
                         <h1 class="text-white text-6xl font-amatic-sc">
                             {{ cp.title }}
                         </h1>

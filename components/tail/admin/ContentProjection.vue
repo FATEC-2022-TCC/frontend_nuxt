@@ -16,7 +16,7 @@ defineProps<{
                     justify-between
                     items-center
                     space-y-2
-                    border-2
+                    border
                     border-blue-violet
                     cursor-pointer
                     transition-shadow

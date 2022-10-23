@@ -29,6 +29,7 @@ function onDeleteConfirmed() {
         onFailure: error => {
             console.log(error)
             hasRemoteError.value = true
+            onDeleteData.value = 0
         },
         onNullSucess: () => {
             onDeleteData.value = 0
@@ -49,12 +50,12 @@ getContent()
 </script>
 
 <template>
-    <div class="pt-4 pl-2 pb-32">
+    <div class="pt-4 pl-4 pb-32">
         <h1 class="font-amatic-sc text-6xl">
             Conteúdo
         </h1>
         <div class="flex flex-wrap justify-center" v-if="!hasRemoteError">
-            <tail-admin-content-projection class="mt-4 mr-2" v-for="projection in contentProjections"
+            <tail-admin-content-projection class="mt-4 mr-4" v-for="projection in contentProjections"
                 :projection="projection" @onClick="onClick" @onDelete="onDelete" @onEdit="onEdit" />
         </div>
         <tail-error class="mt-2" v-else>
