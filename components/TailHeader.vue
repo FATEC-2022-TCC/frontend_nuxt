@@ -12,7 +12,7 @@ function signOut() {
 </script>
 
 <template>
-    <header class="bg-[#222] flex flex-col justify-between sm:flex-row p-4">
+    <header class="select-none bg-[#222] flex flex-col justify-between sm:flex-row p-4">
         <div class="flex items-center justify-between">
             <div class="bg-lilac rounded p-1 aspect-square rotate-180 cursor-pointer sm:hidden" @click="isOpen = !isOpen">
                 <icon name="iconoir:menu-scale" size="2rem" class="text-blue-violet hover:text-black" />
