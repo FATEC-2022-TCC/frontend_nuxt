@@ -4,8 +4,8 @@ import Error from "./Error"
 
 export interface When<T> {
     onSuccess(data: T): void
+    onNullSucess(): void
     onFailure(error: Error): void
-    onNull(): void
 }
 
 export abstract class Result<T> {
@@ -17,8 +17,8 @@ export abstract class Result<T> {
             const data = this.data
             if (data && when.onSuccess) {
                 when.onSuccess(data)
-            } else if (when.onNull) {
-                when.onNull()
+            } else if (!data && when.onNullSucess) {
+                when.onNullSucess()
             } else {
                 console.log("No handler supplied")
             }

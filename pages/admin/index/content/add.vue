@@ -96,6 +96,7 @@ function onSave() {
             </div>
             <img v-if="background" :src="background" class="w-full object-contain" />
             <br>
+            <br>
             <h2 class="font-amatic-sc text-4xl">
                 Até quando o conteúdo deve estar visível?
             </h2>

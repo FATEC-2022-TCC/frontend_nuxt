@@ -22,7 +22,7 @@ export interface ModalState {
     actions?: ModalAction[]
 }
 
-export const useModal = () => useState<ModalState>('modal', () => ({
+export const useModal = () => useState<ModalState>("modal", () => ({
     title: "",
     messages: []
 }))
