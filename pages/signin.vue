@@ -27,31 +27,29 @@ function doLogin() {
     login({
         username: username.value,
         password: password.value
-    }).then(handle(
-        {
-            onFailure: error => {
-                console.log(JSON.stringify(error))
-                hasRemoteError.value = true
-            },
-            onSuccess: response => {
-                const { token, type } = response
-                const newSession = {
-                    token,
-                    type: TokenType.NONE
-                }
-                switch (type) {
-                    case "NORMAL":
-                        newSession.type = TokenType.NORMAL
-                        break;
-                    case "ADMIN":
-                        newSession.type = TokenType.ADMIN
-                        break;
-                }
-                session.value = newSession
-                router.replace("/home")
+    }).then(handle({
+        onFailure: error => {
+            console.log(JSON.stringify(error))
+            hasRemoteError.value = true
+        },
+        onSuccess: response => {
+            const { token, type } = response
+            const newSession = {
+                token,
+                type: TokenType.NONE
             }
+            switch (type) {
+                case "NORMAL":
+                    newSession.type = TokenType.NORMAL
+                    break;
+                case "ADMIN":
+                    newSession.type = TokenType.ADMIN
+                    break;
+            }
+            session.value = newSession
+            router.replace("/home")
         }
-    ))
+    }))
 }
 </script>
 
