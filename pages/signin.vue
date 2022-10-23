@@ -17,19 +17,13 @@ const hasRemoteError = ref(false)
 
 function doLogin() {
     hasRemoteError.value = false
-    const checked: SignInErrors = {}
-
-    if (!username.value) {
-        checked.username = "Digite seu nome de usuário"
-    }
-
-    if (!password.value) {
-        checked.password = "Digite a sua senha"
-    }
-
-    errors.value = checked
-
-    if (Object.keys(checked).length) return
+    if (errorsToObject<SignInErrors>(
+        {
+            username: [username, "Digite seu nome de usuário", []],
+            password: [password, "Digite a sua senha", []]
+        },
+        errors
+    )) return
 
     login({
         username: username.value,

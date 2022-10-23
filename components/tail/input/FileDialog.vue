@@ -1,6 +1,9 @@
 <script setup lang="ts">
-const { accept = "*" } = defineProps({
-    accept: String
+const { 
+    accept = "*"
+} = defineProps({
+    accept: String,
+    error: String
 })
 const emit = defineEmits<{
     (e: 'update:modelValue', files: Array<File>): void
@@ -37,5 +40,8 @@ onBeforeUnmount(() => {
 <template>
     <div @click="onClick()">
         <slot></slot>
+        <p v-if="error" class="ml-2 text-red">
+            {{ error }}
+        </p>
     </div>
 </template>

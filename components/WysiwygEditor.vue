@@ -14,6 +14,10 @@ const content = "<h1>Seu lindo título aqui</h1>"
 
 const editor = ref<Editor | null>(null)
 
+defineProps({
+    error: String
+})
+
 const emit = defineEmits<{
     (e: 'update:modelValue', content: string): void
 }>()
@@ -115,10 +119,10 @@ type UndoOrRedo = "undo" | "redo"
 const undoOrRedo = (undoOrRedo: UndoOrRedo) => getEditor(editor => {
     switch (undoOrRedo) {
         case 'redo':
-            editor.chain().focus().redo().run()
+            editor.commands.redo()
             break;
         case 'undo':
-            editor.chain().focus().undo().run()
+            editor.commands.undo()
             break;
     }
 })
@@ -173,6 +177,9 @@ const toggleParagraph = () => getEditor(editor => editor.commands.setParagraph()
             </tail-input-file-dialog>
         </div>
         <editor-content v-if="editor" :editor="editor" />
+        <p v-if="error" class="ml-2 text-red">
+            {{ error }}
+        </p>
         <br>
     </div>
 </template>
