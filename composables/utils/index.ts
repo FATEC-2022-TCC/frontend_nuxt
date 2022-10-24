@@ -35,3 +35,5 @@ export const errorsToObject = <T, V = string>(
     notifier.value = object
     return hasError
 }
+
+export const set = <T>(ref: Ref<T>) => (result: T) => ref.value = result

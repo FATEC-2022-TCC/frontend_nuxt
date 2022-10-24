@@ -12,7 +12,7 @@ function getContent() {
             console.log(JSON.stringify(error))
             hasRemoteError.value = true
         },
-        onSuccess: result => contentProjections.value = result
+        onSuccess: set(contentProjections)
     }))
 }
 

@@ -27,7 +27,8 @@ export {
 
 export {
     fileToBase64,
-    errorsToObject
+    errorsToObject,
+    set
 } from "./utils"
 
 export const handle = <T>(when: Partial<When<T>>) => (result: Result<T>) => result.handle(when)
