@@ -10,13 +10,20 @@ export {
 } from "./normal"
 
 export {
-    //uploadFile,
     addContent,
     getContent,
     updateContent,
     deleteContent,
     getContentProjection
 } from "./admin"
+
+export {
+    addAnimal,
+    getAnimal,
+    updateAnimal,
+    deleteAnimal,
+    getAnimalProjection
+} from "./user"
 
 export {
     fileToBase64,

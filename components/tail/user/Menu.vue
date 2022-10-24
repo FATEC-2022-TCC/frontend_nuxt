@@ -10,12 +10,20 @@
                     </p>
                 </li>
             </nuxt-link>
+            <nuxt-link to="/user/animal">
+                <li class="flex items-center p-4 hover:bg-bondi-blue hover:cursor-pointer hover:text-white">
+                    <icon name="icon-park-solid:dog" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
+                    <p class="text-xl">
+                        Animais
+                    </p>
+                </li>
+            </nuxt-link>
             <nuxt-link to="/home">
                 <li class="flex items-center p-4 hover:bg-bondi-blue hover:cursor-pointer hover:text-white">
                     <icon name="ant-design:left-circle-filled" size="1.5rem"
                         class="text-blue-violet cursor-pointer mr-4" />
                     <p class="text-xl">
-                        Sair
+                        Voltar
                     </p>
                 </li>
             </nuxt-link>

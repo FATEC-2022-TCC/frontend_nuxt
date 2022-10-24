@@ -3,12 +3,9 @@ import { get, post, put, del } from "../api"
 import {
     NewContentRequest,
     UpdateContentRequest,
-    ContentRequest,
     ContentResponse,
     ContentProjection
 } from "./Content"
-
-// export const uploadFile = (body: FormData) => post<null>("/file", body)
 
 export const addContent = (body: NewContentRequest) => post<ContentResponse>("/admin/content", body)
 
