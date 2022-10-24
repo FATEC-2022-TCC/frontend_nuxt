@@ -46,16 +46,20 @@ function onEdit({ id }: ContentProjection) {
     navigateTo(`/admin/content/edit?id=${id}`)
 }
 
+function onSearchEnter(value: string) {
+    alert(value)
+}
+
 getContent()
 </script>
 
 <template>
     <div class="pt-4 pl-4 pb-32">
-        <div class="flex items-center justify-between">
+        <div class="flex items-center justify-between space-x-2">
             <h1 class="font-amatic-sc text-6xl">
                 Conteúdo
             </h1>
-            <tail-input-search class="mr-4"/>
+            <tail-input-search class="pr-4" @onEnter="onSearchEnter" />
         </div>
         <div class="flex flex-wrap justify-center" v-if="!hasRemoteError">
             <tail-admin-content-projection class="mt-4 mr-4" v-for="projection in contentProjections"
