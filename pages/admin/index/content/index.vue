@@ -51,9 +51,12 @@ getContent()
 
 <template>
     <div class="pt-4 pl-4 pb-32">
-        <h1 class="font-amatic-sc text-6xl">
-            Conteúdo
-        </h1>
+        <div class="flex items-center justify-between">
+            <h1 class="font-amatic-sc text-6xl">
+                Conteúdo
+            </h1>
+            <tail-input-search class="mr-4"/>
+        </div>
         <div class="flex flex-wrap justify-center" v-if="!hasRemoteError">
             <tail-admin-content-projection class="mt-4 mr-4" v-for="projection in contentProjections"
                 :projection="projection" @onClick="onClick" @onDelete="onDelete" @onEdit="onEdit" />
