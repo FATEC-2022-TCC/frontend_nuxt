@@ -18,5 +18,5 @@ else getPublicContent(id).then(handle({
 </script>
 
 <template>
-    <div id="content" class="flex flex-col p-4" v-if="content" v-html="content.data"></div>
+    <div class="flex flex-col p-4" v-if="content" v-html="content.data"></div>
 </template>
