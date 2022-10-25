@@ -27,10 +27,10 @@ function signOut() {
                 <nuxt-link to="/home/adoption">Adoção</nuxt-link>
             </li>
             <li>
-                <nuxt-link to="/home/contact">Contato</nuxt-link>
+                <nuxt-link to="/home/compliant">Denúncia</nuxt-link>
             </li>
             <li>
-                <nuxt-link to="/home/rules">Regras</nuxt-link>
+                <nuxt-link to="/home/contact">Contato</nuxt-link>
             </li>
             <div class="hidden w-4 sm:block"></div>
             <li v-if="session.type == TokenType.NORMAL">

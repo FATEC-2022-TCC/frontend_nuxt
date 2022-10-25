@@ -1,8 +1,10 @@
 <script setup lang="ts">
 const { 
-    accept = "*"
+    accept = "*",
+    multiple = true
 } = defineProps({
     accept: String,
+    multiple: Boolean,
     error: String
 })
 const emit = defineEmits<{
@@ -14,6 +16,7 @@ const inputs = Array<HTMLInputElement>()
 function onClick() {
     const input = document.createElement("input")
     input.type = "file"
+    input.multiple = multiple
     input.accept = accept
     input.onchange = event => {
         const fileList = (event.target as HTMLInputElement).files
