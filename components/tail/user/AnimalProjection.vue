@@ -24,7 +24,7 @@ defineProps<{
                 "
                 @click="$emit('onClick', projection)"
                 >
-        <img v-if="projection.profile" :src="projection.profile" class="h-32">
+        <img v-if="projection.profilePic" :src="projection.profilePic" class="h-32">
         <h1 class="font-amatic-sc text-4xl">{{ projection.name }}</h1>
         <p class="text-center">{{ projection.species }}</p>
         <div class="self-end space-x-2 pb-2">

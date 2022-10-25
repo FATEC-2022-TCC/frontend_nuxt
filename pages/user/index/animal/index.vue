@@ -51,7 +51,7 @@ getAnimal()
 <template>
     <div class="pt-4 pl-2 pb-32">
         <h1 class="font-amatic-sc text-6xl">
-            Conteúdo
+            Animais
         </h1>
         <div class="flex flex-wrap justify-center" v-if="!hasRemoteError">
             <tail-user-animal-projection class="mt-4 mr-2" v-for="projection in animalProjections"
@@ -62,6 +62,6 @@ getAnimal()
             <p>Atualize a página e tente novamente.</p>
         </tail-error>
         <tail-modal-warn-delete v-if="onDeleteData" @onClick="onDeleteConfirmed" @onDismiss="onDeleteRevoked" />
-        <tail-fab-add @click="() => navigateTo('content/add')" />
+        <tail-fab-add @click="() => navigateTo('animal/add')" />
     </div>
 </template>
