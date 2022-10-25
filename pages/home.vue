@@ -1,5 +1,5 @@
 <template>
-    <div class="flex flex-col h-screen">
+    <div class="min-h-screen flex flex-col">
         <tail-header />
         <nuxt-layout name="page">
             <nuxt-page />

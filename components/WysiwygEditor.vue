@@ -6,6 +6,7 @@ import Text from '@tiptap/extension-text'
 import Heading from '@tiptap/extension-heading'
 import TextAlign from '@tiptap/extension-text-align';
 import Image from '@tiptap/extension-image'
+import HardBreak from '@tiptap/extension-hard-break'
 import { History } from '@tiptap/extension-history';
 import { mergeAttributes } from '@tiptap/core'
 
@@ -78,6 +79,9 @@ onMounted(() => {
                         0
                     ]
                 }
+            }),
+            HardBreak.configure({
+                keepMarks: true
             })
         ],
         onCreate: props => emit("update:modelValue", props.editor.getHTML()),
@@ -143,6 +147,8 @@ const toggleFile = (files: Array<File>) => getEditor(editor => {
 watch(files, toggleFile)
 
 const toggleParagraph = () => getEditor(editor => editor.commands.setParagraph())
+
+const toggleLineBreak = () => getEditor(editor => editor.commands.setHardBreak())
 </script>
 
 <template>
@@ -155,6 +161,8 @@ const toggleParagraph = () => getEditor(editor => editor.commands.setParagraph()
                     H{{ num }}
                 </option>
             </select>
+            <icon @click="toggleLineBreak()" name="ci:line-break" size="2rem"
+                class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
             <div class="mx-2"></div>
             <icon @click="toggleAlignment('left')" name="bi:justify-left" size="2rem"
                 class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />

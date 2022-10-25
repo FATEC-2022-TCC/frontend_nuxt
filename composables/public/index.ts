@@ -1,14 +1,15 @@
 import { get } from "../api"
 
 import {
-    ContentProjection
+    ContentProjection, 
+    ContentResponse
 } from "../admin/Content"
 
 export const getContentProjectionInEvidence = () => get<Array<ContentProjection>>(
     "/public/content/projection/evidence"
 )
 
-export const getContent = (id: string) => get<ContentProjection>(argsToURL(
+export const getPublicContent = (id: string) => get<ContentResponse>(argsToURL(
     "/public/content/{id}",
     { id }
 ))

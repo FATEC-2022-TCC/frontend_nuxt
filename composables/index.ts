@@ -1,7 +1,8 @@
 import { Result, When } from "./api/wrapper";
 
 export {
-    getContentProjectionInEvidence
+    getContentProjectionInEvidence,
+    getPublicContent,
 } from "./public"
 
 export {
