@@ -17,13 +17,12 @@ function signOut() {
             <div class="bg-lilac rounded p-1 aspect-square rotate-180 cursor-pointer md:hidden" @click="isOpen = !isOpen">
                 <icon name="iconoir:menu-scale" size="2rem" class="text-blue-violet hover:text-black" />
             </div>
-            <img src="/quatro.png" class="h-10 object-contain" />
+            <nuxt-link to="/home">
+                <img src="/quatro.png" class="h-10 object-contain" />
+            </nuxt-link>
         </div>
         <ul class="mt-4 flex-col font-amatic-sc text-3xl md:space-x-4 md:flex-row md:flex md:m-0"
             :class="isOpen ? 'flex' : 'hidden'">
-            <li>
-                <nuxt-link to="/home">Início</nuxt-link>
-            </li>
             <li>
                 <nuxt-link to="/home/adoption">Adoção</nuxt-link>
             </li>
