@@ -28,7 +28,9 @@ export {
 
 export {
     fileToBase64,
-    errorsToObject,
+    lengthValidator,
+    buildValidator,
+    hasError,
     set
 } from "./utils"
 

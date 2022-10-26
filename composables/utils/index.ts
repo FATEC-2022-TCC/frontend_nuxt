@@ -9,29 +9,59 @@ export const fileToBase64 = (file: File): Promise<string> => new Promise(resolve
     reader.readAsDataURL(file)
 })
 
-export const errorsToObject = <T, V = string>(
-    errors: { [Key in keyof T]: [Ref<V>, V, ((v: V) => V | boolean)[]] },
-    notifier: Ref<{ [Key in keyof T]?: V }>
+interface Validator {
+    run(): string | boolean
+}
+
+export const lengthValidator = <T extends string | Array<any>>(
+    notifier: Ref<T>,
+    message: string,
+    length: number = 0
+) => buildValidator({
+    notifier,
+    test: data => !!data.length && data.length > length,
+    message
+})
+
+export const buildValidator = <T>({
+    notifier,
+    test,
+    message,
+}: {
+    notifier: Ref<T>,
+    test: (type: T) => boolean,
+    message: string
+}): Validator => ({
+    run: () => !test(notifier.value) && message
+})
+
+export const hasError = <T>(
+    checks: {
+        [Key in keyof T]?: Array<Validator> | Validator
+    },
+    notifier: Ref<{ [Key in keyof T]?: string }>
 ): boolean => {
-    notifier.value = {}
-    const object: { [Key in keyof T]?: V } = {}
     let hasError = false
-    for (const key in errors) {
-        const [ref, message, customs] = errors[key]
-        if (!ref.value) {
-            hasError = true
-            object[key] = message
-            continue
-        }
-        for (const custom of customs) {
-            const message = custom(ref.value)
-            if (message && !(typeof message == 'boolean')) {
+
+    notifier.value = {}
+    const object: { [Key in keyof T]?: string } = {}
+
+    external: for (const key in checks) {
+        const union = checks[key]
+        if (!union) continue
+        //I don't understant yet how to differ from T or T[]
+        //That beauty shit resolves it for a while
+        const arr = [union].flat()
+        for (const check of arr) {
+            const res = check.run()
+            if (res) {
+                object[key] = res.toString()
                 hasError = true
-                object[key] = message
-                continue
+                continue external
             }
         }
     }
+
     notifier.value = object
     return hasError
 }

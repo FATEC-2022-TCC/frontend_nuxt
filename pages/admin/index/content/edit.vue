@@ -11,8 +11,7 @@ const background = ref("")
 watch(files, async files => {
     const file = files[0]
     if (!file) return
-    const base64 = await fileToBase64(file)
-    background.value = base64
+    background.value = await fileToBase64(file)
 })
 const until = ref(new Date())
 
@@ -52,18 +51,19 @@ else getContent(id).then(handle({
 
 function onSave() {
     hasRemoteError.value = false
-    if (errorsToObject<EditErrors>(
+    if (hasError<EditErrors>(
         {
             content: [
-                content,
-                "Você precisa adicionar algum conteúdo",
-                [
-                    content => content == "<p></p>" && "Você precisa adicionar algum conteúdo"
-                ]
+                lengthValidator(content, "Você precisa adicionar algum conteúdo"),
+                buildValidator({
+                    notifier: content,
+                    test: content => content !== "<p></p>",
+                    message: "Você precisa adicionar algum conteúdo"
+                })
             ],
-            title: [title, "Você precisa adicionar algum título", []],
-            description: [description, "Você precisa adicionar alguma descrição", []],
-            background: [background, "Você precisa adicionar alguma imagem de fundo", []]
+            title: lengthValidator(title, "Você precisa adicionar algum título"),
+            description: lengthValidator(description, "Você precisa adicionar alguma descrição"),
+            background: lengthValidator(background, "Você precisa adicionar alguma imagem de fundo")
         },
         errors
     )) return

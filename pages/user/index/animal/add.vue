@@ -32,14 +32,14 @@ const errors = ref<AddErrors>({})
 
 function onSave() {
     hasRemoteError.value = false
-    if (errorsToObject<AddErrors>(
+    if (hasError<AddErrors>(
         {
-            profilePic: [profilePic, "Precisamos de uma fotinho de perfil", []],
-            name: [name, "Faltou o nome do animalzinho", []],
-            species: [name, "Precisamos da espécie", []],
-            gender: [name, "Mas é menininho ou meninha?", []],
-            age: [name, "Precisamos saber o quão novo ele/ela é ", []],
-            size: [name, "Precisamos daber do tamanho", []],
+            profilePic: lengthValidator(profilePic, "Precisamos de uma fotinho de perfil"),
+            name: lengthValidator(name, "Faltou o nome do animalzinho"),
+            species: lengthValidator(species, "Precisamos da espécie"),
+            gender: lengthValidator(gender, "Mas é menininho ou meninha?"),
+            age: lengthValidator(age, "Precisamos saber o quão novo ele/ela é "),
+            size: lengthValidator(size, "Precisamos daber do tamanho"),
         },
         errors
     )) return

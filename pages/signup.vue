@@ -21,18 +21,19 @@ const hasRemoteError = ref(false)
 
 function doSignUp() {
     hasRemoteError.value = false
-    if (errorsToObject<SignUpErrors>(
+    if (hasError<SignUpErrors>(
         {
-            name: [name, "Digite seu nome completo", []],
-            username: [username, "Digite um nome de usuário", []],
-            email: [email, "Digite um email", []],
-            password: [password, "Digite uma senha", []],
+            name: lengthValidator(name, "Digite seu nome completo"),
+            username: lengthValidator(username, "Digite um nome de usuário"),
+            email: lengthValidator(email, "Digite um email"),
+            password: lengthValidator(password, "Digite uma senha"),
             repeatedPassword: [
-                repeatedPassword,
-                "Digite uma senha",
-                [
-                    repeated => repeated !== password.value && "Digite a mesma senha"
-                ]
+                lengthValidator(repeatedPassword, "Digite uma senha"),
+                buildValidator({
+                    notifier: repeatedPassword,
+                    test: repeated => repeated !== password.value,
+                    message: "Por favor, digite a mesma senha"
+                })
             ]
         },
         errors

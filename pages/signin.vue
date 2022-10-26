@@ -16,10 +16,10 @@ const hasRemoteError = ref(false)
 
 function doLogin() {
     hasRemoteError.value = false
-    if (errorsToObject<SignInErrors>(
+    if (hasError<SignInErrors>(
         {
-            username: [username, "Digite seu nome de usuário", []],
-            password: [password, "Digite a sua senha", []]
+            username: lengthValidator(username, "Digite seu nome de usuário"),
+            password: lengthValidator(password, "Digite a sua senha")
         },
         errors
     )) return
