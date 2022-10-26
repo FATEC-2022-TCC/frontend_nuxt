@@ -3,6 +3,7 @@ export {
     signup,
     getContentProjectionInEvidence,
     getPublicContent,
+    addCompliant
 } from "./public"
 
 export {
@@ -25,8 +26,10 @@ export {
     argsToURL,
     handle,
     fileToBase64,
+    base64ToBlob,
     lengthValidator,
     buildValidator,
     hasError,
-    set
+    onSuccess,
+    onFailure
 } from "./utils"

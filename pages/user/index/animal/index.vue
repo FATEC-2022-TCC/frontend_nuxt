@@ -8,11 +8,8 @@ const hasRemoteError = ref(false)
 
 function getAnimal() {
     getAnimalProjection().then(handle({
-        onFailure: error => {
-            console.log(JSON.stringify(error))
-            hasRemoteError.value = true
-        },
-        onSuccess: result => animalProjections.value = result
+        onFailure: onFailure(hasRemoteError),
+        onSuccess: onSuccess(animalProjections)
     }))
 }
 

@@ -1,5 +1,6 @@
 import { Ref } from "vue"
 import { Result, When } from "../api/wrapper";
+import Error from "../api/Error"
 
 export const handle = <T>(when: Partial<When<T>>) => (result: Result<T>) => result.handle(when)
 
@@ -24,6 +25,8 @@ export const fileToBase64 = (file: File): Promise<string> => new Promise(resolve
     }
     reader.readAsDataURL(file)
 })
+
+export const base64ToBlob = (base64: string) => fetch(base64).then(res => res.blob())
 
 interface Validator {
     run(): string | boolean
@@ -77,4 +80,11 @@ export const hasError = <T>(
     return hasError
 }
 
-export const set = <T>(ref: Ref<T>) => (result: T) => ref.value = result
+
+//to handle
+export const onSuccess = <T>(ref: Ref<T>) => (result: T) => ref.value = result
+
+export const onFailure = (ref: Ref<boolean>) => (error: Error) => {
+    console.log(JSON.stringify(error))
+    ref.value = true
+}

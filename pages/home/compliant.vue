@@ -1,5 +1,7 @@
 <script setup lang="ts">
-import { dataToEsm } from '@rollup/pluginutils'
+
+const modal = useModal()
+const router = useRouter()
 
 const local = ref("")
 const description = ref("")
@@ -31,6 +33,25 @@ function onSave() {
         },
         errors
     )) return
+
+    addCompliant({
+        local: local.value,
+        description: description.value,
+        files: previews.value
+    }).then(handle({
+        onFailure: onFailure(hasRemoteError),
+        onNullSucess: () => {
+            modal.value = {
+                type: ModalType.Success,
+                title: "Tudo certo!",
+                messages: [
+                    "Sua denúncia foi feita de forma anônima.",
+                    "Ela será analisada assim que possível."
+                ]
+            }
+            router.replace("/home")
+        }
+    }))
 }
 </script>
 
@@ -52,6 +73,10 @@ function onSave() {
             </div>
             <br>
             <tail-button-blue-violet title="Enviar" @click="onSave" />
+            <tail-error v-if="hasRemoteError">
+                <p>Algo deu errado.</p>
+                <p>Tente novamente mais tarde!</p>
+            </tail-error>
         </div>
     </div>
 </template>

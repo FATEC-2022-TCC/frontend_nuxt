@@ -13,7 +13,7 @@ else getPublicContent(id).then(handle({
         console.log(JSON.stringify(error))
         router.replace("/home")
     },
-    onSuccess: set(content)
+    onSuccess: onSuccess(content)
 }))
 </script>
 

@@ -50,10 +50,7 @@ function onSave() {
         description: description.value,
         until: until.value
     }).then(handle({
-        onFailure: error => {
-            console.log(JSON.stringify(error))
-            hasRemoteError.value = true
-        },
+        onFailure: onFailure(hasRemoteError),
         onSuccess: _ => {
             modal.value = {
                 type: ModalType.Success,

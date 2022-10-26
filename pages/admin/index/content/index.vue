@@ -8,11 +8,8 @@ const hasRemoteError = ref(false)
 
 function getContent() {
     getContentProjection().then(handle({
-        onFailure: error => {
-            console.log(JSON.stringify(error))
-            hasRemoteError.value = true
-        },
-        onSuccess: set(contentProjections)
+        onFailure: onFailure(hasRemoteError),
+        onSuccess: onSuccess(contentProjections)
     }))
 }
 

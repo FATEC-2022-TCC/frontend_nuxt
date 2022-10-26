@@ -6,7 +6,7 @@ import { ContentProjection } from '~~/composables/admin/Content';
 const contentProjections = ref<Array<ContentProjection>>([])
 
 getContentProjectionInEvidence().then(handle({
-    onSuccess: result => contentProjections.value = result
+    onSuccess: onSuccess(contentProjections)
 }))
 </script>
 

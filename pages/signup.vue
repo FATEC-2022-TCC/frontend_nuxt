@@ -45,10 +45,7 @@ function doSignUp() {
         email: email.value,
         password: password.value
     }).then(handle({
-        onFailure: error => {
-            console.log("Error: " + JSON.stringify(error))
-            hasRemoteError.value = true
-        },
+        onFailure: onFailure(hasRemoteError),
         onSuccess: _ => {
             modal.value = {
                 title: "Tudo certo!!!",

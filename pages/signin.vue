@@ -28,10 +28,7 @@ function doSignIn() {
         username: username.value,
         password: password.value
     }).then(handle({
-        onFailure: error => {
-            console.log(JSON.stringify(error))
-            hasRemoteError.value = true
-        },
+        onFailure: onFailure(hasRemoteError),
         onSuccess: response => {
             const { token, type } = response
             const newSession = {

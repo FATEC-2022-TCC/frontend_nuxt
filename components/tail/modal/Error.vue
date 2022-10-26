@@ -1,9 +1,6 @@
 <script setup lang="ts">
 import { ModalState } from '~~/composables/modal';
 
-const blueViolet = resolveComponent("TailButtonBlueViolet")
-const seashell = resolveComponent("TailButtonSeashell")
-
 const modal = useModal()
 
 defineProps<{

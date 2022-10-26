@@ -17,7 +17,7 @@ export abstract class Result<T> {
             const data = this.data
             if (data && when.onSuccess) {
                 when.onSuccess(data)
-            } else if (!data && when.onNullSucess) {
+            } else if (when.onNullSucess) {
                 when.onNullSucess()
             } else {
                 console.log("No handler supplied")
