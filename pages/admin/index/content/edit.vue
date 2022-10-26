@@ -69,7 +69,7 @@ function onSave() {
     )) return
 
     updateContent({
-        id: parseInt(id),
+        id,
         data: content.value,
         background: background.value,
         title: title.value,

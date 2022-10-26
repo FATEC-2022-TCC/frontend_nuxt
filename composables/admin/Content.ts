@@ -7,7 +7,7 @@ export interface NewContentRequest {
 }
 
 export interface UpdateContentRequest {
-    id: number,
+    id: string,
     data: string,
     background: string,
     title: string,

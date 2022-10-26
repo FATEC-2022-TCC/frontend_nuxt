@@ -3,7 +3,7 @@
         <div class="block h-48 bg-blue-violet"></div>
         <ul>
             <nuxt-link to="/user">
-                <li class="flex items-center p-4 hover:bg-bondi-blue hover:cursor-pointer hover:text-white">
+                <li>
                     <icon name="ant-design:home-filled" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
                     <p class="text-xl">
                         Página inicial
@@ -11,7 +11,7 @@
                 </li>
             </nuxt-link>
             <nuxt-link to="/user/animal">
-                <li class="flex items-center p-4 hover:bg-bondi-blue hover:cursor-pointer hover:text-white">
+                <li>
                     <icon name="icon-park-solid:dog" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
                     <p class="text-xl">
                         Animais
@@ -19,7 +19,7 @@
                 </li>
             </nuxt-link>
             <nuxt-link to="/home">
-                <li class="flex items-center p-4 hover:bg-bondi-blue hover:cursor-pointer hover:text-white">
+                <li>
                     <icon name="ant-design:left-circle-filled" size="1.5rem"
                         class="text-blue-violet cursor-pointer mr-4" />
                     <p class="text-xl">
@@ -30,3 +30,9 @@
         </ul>
     </div>
 </template>
+
+<style scoped lang="postcss">
+li {
+    @apply flex items-center p-4 hover:bg-burnt-yellow hover:cursor-pointer hover:text-white;
+}
+</style>
