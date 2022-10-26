@@ -54,11 +54,10 @@ export const hasError = <T>(
         const arr = [union].flat()
         for (const check of arr) {
             const res = check.run()
-            if (res) {
-                object[key] = res.toString()
-                hasError = true
-                continue external
-            }
+            if (!res) continue
+            object[key] = res.toString()
+            hasError = true
+            continue external
         }
     }
 
