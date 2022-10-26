@@ -14,7 +14,7 @@ interface SignInErrors {
 const errors = ref<SignInErrors>({})
 const hasRemoteError = ref(false)
 
-function doLogin() {
+function doSignIn() {
     hasRemoteError.value = false
     if (hasError<SignInErrors>(
         {
@@ -24,7 +24,7 @@ function doLogin() {
         errors
     )) return
 
-    login({
+    signin({
         username: username.value,
         password: password.value
     }).then(handle({
@@ -69,7 +69,7 @@ function doLogin() {
                     <p>Verifique seu nome de usuário e sua senha.</p>
                 </tail-error>
                 <br>
-                <tail-button-blue-violet title="Fazer login" @click="doLogin()" />
+                <tail-button-blue-violet title="Fazer login" @click="doSignIn" />
                 <nuxt-link to="/signup">
                     <tail-button-seashell title="Criar conta" class="w-full" />
                 </nuxt-link>

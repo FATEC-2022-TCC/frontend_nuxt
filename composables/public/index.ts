@@ -1,15 +1,23 @@
-import { get } from "../api"
+import { get, post } from "../api"
 
 import {
-    ContentProjection, 
+    SignInRequest,
+    SignInResponse
+} from "./SignIn";
+
+import {
+    SignUpRequest
+} from "./SignUp";
+
+import {
+    ContentProjection,
     ContentResponse
 } from "../admin/Content"
 
-export const getContentProjectionInEvidence = () => get<Array<ContentProjection>>(
-    "/public/content/projection/evidence"
-)
+export const signin = (body: SignInRequest) => post<SignInResponse>("/public/signin", body)
 
-export const getPublicContent = (id: string) => get<ContentResponse>(argsToURL(
-    "/public/content/{id}",
-    { id }
-))
+export const signup = (body: SignUpRequest) => post<null>("/public/signup", body)
+
+export const getContentProjectionInEvidence = () => get<Array<ContentProjection>>("/public/content/projection/evidence")
+
+export const getPublicContent = (id: string) => get<ContentResponse>(argsToURL("/public/content/{id}", { id }))

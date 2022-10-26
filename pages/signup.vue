@@ -31,7 +31,7 @@ function doSignUp() {
                 lengthValidator(repeatedPassword, "Digite uma senha"),
                 buildValidator(
                     repeatedPassword,
-                    repeated => repeated !== password.value,
+                    repeated => repeated === password.value,
                     "Por favor, digite a mesma senha"
                 )
             ]
