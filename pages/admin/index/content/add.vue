@@ -30,11 +30,11 @@ function onSave() {
         {
             content: [
                 lengthValidator(content, "Você precisa adicionar algum conteúdo"),
-                buildValidator({
-                    notifier: content,
-                    test: content => content !== "<p></p>",
-                    message: "Você precisa adicionar algum conteúdo"
-                })
+                buildValidator(
+                    content,
+                    content => content !== "<p></p>",
+                    "Você precisa adicionar algum conteúdo"
+                )
             ],
             title: lengthValidator(title, "Você precisa adicionar algum título"),
             description: lengthValidator(description, "Você precisa adicionar alguma descrição"),

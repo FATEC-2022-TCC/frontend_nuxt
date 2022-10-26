@@ -17,21 +17,17 @@ export const lengthValidator = <T extends string | Array<any>>(
     notifier: Ref<T>,
     message: string,
     length: number = 0
-) => buildValidator({
+) => buildValidator(
     notifier,
-    test: data => !!data.length && data.length > length,
+    data => !!data.length && data.length > length,
     message
-})
+)
 
-export const buildValidator = <T>({
-    notifier,
-    test,
-    message,
-}: {
+export const buildValidator = <T>(
     notifier: Ref<T>,
     test: (type: T) => boolean,
     message: string
-}): Validator => ({
+): Validator => ({
     run: () => !test(notifier.value) && message
 })
 

@@ -29,11 +29,11 @@ function doSignUp() {
             password: lengthValidator(password, "Digite uma senha"),
             repeatedPassword: [
                 lengthValidator(repeatedPassword, "Digite uma senha"),
-                buildValidator({
-                    notifier: repeatedPassword,
-                    test: repeated => repeated !== password.value,
-                    message: "Por favor, digite a mesma senha"
-                })
+                buildValidator(
+                    repeatedPassword,
+                    repeated => repeated !== password.value,
+                    "Por favor, digite a mesma senha"
+                )
             ]
         },
         errors
