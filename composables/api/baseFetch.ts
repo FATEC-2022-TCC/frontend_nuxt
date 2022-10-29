@@ -14,7 +14,12 @@ const getHeaders = (): HeadersInit => {
 export const baseFetch = <T extends any>(
     url: string,
     method: Method,
-    body?: Body,
+    { body, query }: {
+        body?: Body,
+        query?: {
+            [key: string]: any
+        }
+    } | undefined = {}
 ) => $fetch.raw<T>(
     url,
     {
@@ -22,6 +27,7 @@ export const baseFetch = <T extends any>(
         method,
         body,
         headers: getHeaders(),
+        query,
         cache: "no-cache",
         onResponseError: async error => {
             const status = error.response.status

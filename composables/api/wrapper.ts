@@ -1,11 +1,11 @@
 import { FetchResponse, FetchError } from 'ohmyfetch';
-
-import Error from "./Error"
+import { Error } from './Error';
 
 export interface When<T> {
     onSuccess(data: T): void
     onNullSucess(): void
     onFailure(error: Error): void
+    finally(): void
 }
 
 export abstract class Result<T> {
@@ -23,6 +23,7 @@ export abstract class Result<T> {
                 console.log("No handler supplied")
             }
         }
+        if (when.finally) when.finally()
     }
 }
 class Ignore<T> extends Result<T> { }

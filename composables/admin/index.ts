@@ -1,4 +1,5 @@
 import { get, post, put, del } from "../api"
+import Page from "../api/Page"
 
 import {
     NewContentRequest,
@@ -15,4 +16,12 @@ export const updateContent = (body: UpdateContentRequest) => put<ContentResponse
 
 export const deleteContent = (id: string) => del<null>(argsToURL("/admin/content/{id}", { id }))
 
-export const getContentProjection = () => get<Array<ContentProjection>>("/admin/content/projection")
+export const getContentProjection = (search: string, page: number) => get<Page<ContentProjection>>(
+    "/admin/content/projection",
+    {
+        query: {
+            search,
+            page
+        }
+    }
+)

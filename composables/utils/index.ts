@@ -1,6 +1,6 @@
 import { Ref } from "vue"
 import { Result, When } from "../api/wrapper";
-import Error from "../api/Error"
+import { Page, Error } from "../api";
 
 export const handle = <T>(when: Partial<When<T>>) => (result: Result<T>) => result.handle(when)
 
@@ -82,10 +82,18 @@ export const hasError = <T>(
 
 
 //to handle
-export const onSuccess = <T>(ref: Ref<T>) => (result: T) => ref.value = result
+export const onSuccess = <T>(ref: Ref<T>) => (result: T) => {
+    console.log(JSON.stringify(result))
+    ref.value = result
+}
 
 export const onFailure = (ref: Ref<boolean>, also?: () => void) => (error: Error) => {
     console.log(JSON.stringify(error))
     ref.value = true
     if (also) also()
 }
+
+export const emptyPage = <T>(): Page<T> => ({
+    pages: 0,
+    items: []
+})

@@ -1,4 +1,4 @@
 export default interface Page<T> {
-    items: Array<T>,
-    pages: number
+    pages: number,
+    items: Array<T>
 }
