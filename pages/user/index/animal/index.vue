@@ -23,10 +23,7 @@ function onDelete({ id }: AnimalProjection) {
 
 function onDeleteConfirmed() {
     deleteAnimal(`${onDeleteData.value}`).then(handle({
-        onFailure: error => {
-            console.log(error)
-            hasRemoteError.value = true
-        },
+        onFailure: onFailure(hasRemoteError),
         onNullSucess: () => {
             onDeleteData.value = 0
             getAnimal()

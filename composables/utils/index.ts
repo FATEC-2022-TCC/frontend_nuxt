@@ -84,7 +84,8 @@ export const hasError = <T>(
 //to handle
 export const onSuccess = <T>(ref: Ref<T>) => (result: T) => ref.value = result
 
-export const onFailure = (ref: Ref<boolean>) => (error: Error) => {
+export const onFailure = (ref: Ref<boolean>, also?: () => void) => (error: Error) => {
     console.log(JSON.stringify(error))
     ref.value = true
+    if (also) also()
 }

@@ -22,6 +22,7 @@
     "@tiptap/starter-kit": "^2.0.0-beta.199",
     "@tiptap/vue-3": "^2.0.0-beta.199",
     "@vuepic/vue-datepicker": "^3.5.2",
+    "i": "^0.3.7",
     "vue3-carousel": "^0.2.4"
   }
 }
