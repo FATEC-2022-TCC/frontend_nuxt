@@ -38,24 +38,26 @@ function toRender(currentPage: number = 0, minPage: number = 0, maxPage: number 
 
 <template>
     <ul>
-        <li @click="$emit('update:modelValue', minPage)" :class="modelValue > minPage ? 'bg-blue-violet' : 'bg-gray'">
+        <li @click="$emit('update:modelValue', minPage)"
+            :class="modelValue > minPage ? 'enabled' : 'disabled'">
             &lt&lt
         </li>
         <li @click="if (modelValue > minPage) $emit('update:modelValue', modelValue - 1);"
-            :class="modelValue > minPage ? 'bg-blue-violet' : 'bg-gray'">
+            :class="modelValue > minPage ? 'enabled' : 'disabled'">
             &lt
         </li>
         <li v-for="num in toRender(modelValue, minPage, maxPage)"
             @click="if (num != modelValue) $emit('update:modelValue', num);"
+            class="cursor-pointer"
             :class="num == modelValue ? 'bg-burnt-yellow' : 'bg-blue-violet'">
             {{ num }}
         </li>
         <li @click="if (modelValue < maxPage) $emit('update:modelValue', modelValue + 1);"
-            :class="modelValue < maxPage ? 'bg-blue-violet' : 'bg-gray'">
+            :class="modelValue < maxPage ? 'enabled' : 'disabled'">
             >
         </li>
         <li @click="if (modelValue < maxPage) $emit('update:modelValue', maxPage);"
-            :class="modelValue < maxPage ? 'bg-blue-violet' : 'bg-gray'">
+            :class="modelValue < maxPage ? 'enabled' : 'disabled'">
             >>
         </li>
     </ul>
@@ -67,6 +69,14 @@ ul {
 }
 
 li {
-    @apply rounded p-4 text-white text-sm cursor-pointer;
+    @apply rounded p-4 text-white text-sm;
+}
+
+.enabled {
+    @apply bg-blue-violet cursor-pointer;
+}
+
+.disabled {
+    @apply bg-gray cursor-not-allowed;
 }
 </style>

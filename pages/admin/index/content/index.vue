@@ -33,7 +33,7 @@ getContent()
 
 <template>
     <div class="flex flex-col pt-4 pl-4 pb-32">
-        <div class="flex items-center justify-between space-x-2">
+        <div class="flex flex-col items-center justify-between md:space-x-2 md:flex-row">
             <h1 class="font-amatic-sc text-6xl">
                 Conteúdo
             </h1>
@@ -51,7 +51,7 @@ getContent()
             </div>
             <br>
             <tail-pagination 
-                class="self-end" 
+                class="self-center md:self-end" 
                 v-model="currentPage"
                 @update:modelValue="getContent"
                 :min-page="1"
