@@ -25,7 +25,7 @@ export default defineNuxtConfig({
             "Amatic SC": true,
             "Nunito": true
         },
-        overwriting: true,
+        overwriting: false,
         download: true
     }
 })
