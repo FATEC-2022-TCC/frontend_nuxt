@@ -17,13 +17,14 @@ function getContent() {
     }))
 }
 
-watch(currentPage, getContent)
-
 function onDeleteConfirmed() {
     deleteContent(`${onDelete.value}`).then(handle({
         onFailure: onFailure(hasRemoteError),
         onNullSucess: getContent,
-        finally: () => onDelete.value = 0
+        finally: () => {
+            onDelete.value = 0
+            currentPage.value = 1
+        }
     }))
 }
 
@@ -51,7 +52,8 @@ getContent()
             <br>
             <tail-pagination 
                 class="self-end" 
-                v-model="currentPage" 
+                v-model="currentPage"
+                @update:modelValue="getContent"
                 :min-page="1"
                 :max-page="contentProjections.pages"
             />
@@ -60,7 +62,7 @@ getContent()
             <p>Algo deu errado!</p>
             <p>Atualize a página e tente novamente.</p>
         </tail-error>
-        <tail-modal-warn-delete v-if="onDelete" @onClick="onDeleteConfirmed" @onDismiss="onDelete = $event" />
+        <tail-modal-warn-delete v-if="onDelete" @on-confirm="onDeleteConfirmed" @on-dismiss="onDelete = 0" />
         <tail-fab-add @click="navigateTo('content/add')" />
     </div>
 </template>

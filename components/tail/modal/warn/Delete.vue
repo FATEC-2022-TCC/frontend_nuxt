@@ -1,3 +1,10 @@
+<script setup lang="ts">
+defineEmits<{
+    (event: 'onDismiss'): void
+    (event: 'onConfirm'): void
+}>()
+</script>
+
 <template>
     <tail-modal-base>
         <div class="shadow-3xl rounded p-4 bg-burnt-yellow text-white">
@@ -10,7 +17,7 @@
                 Deseja mesmo deletar esse item?
             </h1>
             <br>
-            <tail-button-blue-violet title="Sim, eu tenho certeza" @click="$emit('onClick')" />
+            <tail-button-blue-violet title="Sim, eu tenho certeza" @click="$emit('onConfirm')" />
         </div>
     </tail-modal-base>
 </template>
