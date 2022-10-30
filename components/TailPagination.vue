@@ -30,8 +30,7 @@ function toRender(currentPage: number = 0, minPage: number = 0, maxPage: number 
     }
     const render: number[] = []
     for (let i = aGoodStart(); i < currentPage; i++) render.push(i)
-    render.push(currentPage)
-    for (let i = currentPage + 1; i <= aGoodEnd(); i++) render.push(i)
+    for (let i = currentPage; i <= aGoodEnd(); i++) render.push(i)
     return render
 }
 </script>

@@ -22,7 +22,7 @@ defineEmits<{
                 :placeholder="placeholder" :value="modelValue"
                 @input="$emit('update:modelValue', ($event.target as HTMLInputElement).value)"
                 v-on:keyup.enter="$emit('onSearch')" />
-            <icon name="ant-design:search-outlined" size="2rem" class="text-blue-violet absolute right-2 cursor-pointer" @click="$emit('onEnter')" />
+            <icon name="ant-design:search-outlined" size="2rem" class="text-blue-violet absolute right-2 cursor-pointer" @click="$emit('onSearch')" />
         </div>
         <p v-if="error" class="ml-2 text-red text-start">
             {{ error }}
