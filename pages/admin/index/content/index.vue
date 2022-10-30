@@ -1,18 +1,18 @@
 <script setup lang="ts">
 import { ContentProjection } from '~~/composables/admin/Content'
 
-const currentPage = ref(1)
-const currentSearch = ref("")
+const page = ref(1)
+const search = ref("")
 
-const page = ref(emptyPage<ContentProjection>())
+const pagination = ref(emptyPage<ContentProjection>())
 
 const onDelete = ref(0)
 
 const hasRemoteError = ref(false)
 
-const getContent = () => getContentProjection(currentSearch.value, currentPage.value).then(handle({
+const getContent = () => getContentProjection(search.value, page.value).then(handle({
     onFailure: onFailure(hasRemoteError),
-    onSuccess: onSuccess(page)
+    onSuccess: onSuccess(pagination)
 }))
 
 const onDeleteConfirmed = () => deleteContent(`${onDelete.value}`).then(handle({
@@ -20,7 +20,7 @@ const onDeleteConfirmed = () => deleteContent(`${onDelete.value}`).then(handle({
     onNullSucess: getContent,
     finally: () => {
         onDelete.value = 0
-        currentPage.value = 1
+        page.value = 1
     }
 }))
 
@@ -29,20 +29,21 @@ getContent()
 
 <template>
     <div class="flex flex-col pt-4 pl-4 pb-32">
-        <div class="flex flex-col items-center justify-between md:space-x-2 md:flex-row">
-            <h1 class="font-amatic-sc text-6xl">
+        <div class="flex flex-col items-center justify-between">
+            <h1 class="font-amatic-sc text-6xl self-start">
                 Conteúdo
             </h1>
-            <tail-input-search class="pr-4" v-model="currentSearch" @on-search="currentPage = 1; getContent()" />
+            <br>
+            <tail-input-search class="pr-4" v-model="search" @on-search="page = 1; getContent()" />
         </div>
         <div v-if="!hasRemoteError" class="flex flex-col flex-1">
             <div class="flex flex-wrap justify-center flex-1">
-                <tail-admin-content-projection class="mt-4 mr-4" v-for="p in page.items" :projection="p"
+                <tail-admin-content-projection class="mt-4 mr-4" v-for="p in pagination.items" :projection="p"
                     @on-delete="onDelete = $event" @on-edit="navigateTo(`/admin/content/edit?id=${$event}`)" />
             </div>
             <br>
-            <tail-pagination class="self-center md:self-end" v-model="currentPage" @update:modelValue="getContent"
-                :min-page="1" :max-page="page.pages" />
+            <tail-pagination class="self-center md:self-end" v-model="page" @update:modelValue="getContent"
+                :min-page="1" :max-page="pagination.pages" />
         </div>
         <tail-error class="mt-2" v-else>
             <p>Algo deu errado!</p>

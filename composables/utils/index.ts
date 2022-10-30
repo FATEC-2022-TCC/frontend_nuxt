@@ -1,3 +1,4 @@
+import { format } from "date-fns";
 import { Ref } from "vue"
 import Page from "../api/Page";
 import { Result, When } from "../api/wrapper";
@@ -96,3 +97,5 @@ export const emptyPage = <T>(): Page<T> => ({
     pages: 0,
     items: []
 })
+
+export const formatDate = (date: string) => format(new Date(date), "dd/MM/yyyy hh:mm:ss")

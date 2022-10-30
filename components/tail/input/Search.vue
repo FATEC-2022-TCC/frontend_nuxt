@@ -16,7 +16,7 @@ defineEmits<{
 </script>
 
 <template>
-    <div>
+    <div class="w-full">
         <div class="relative flex items-center">
             <input class=" flex-1 pr-10 p-2 rounded-md border-2 border-blue-violet outline-none" :type="type"
                 :placeholder="placeholder" :value="modelValue"

@@ -3,7 +3,7 @@ export interface NewContentRequest {
     background: string,
     title: string,
     description: string,
-    until: Date
+    until: string
 }
 
 export interface UpdateContentRequest {
@@ -21,8 +21,8 @@ export interface ContentResponse {
     background: string,
     title: string,
     description: string,
-    created: Date,
-    until: Date
+    created: string,
+    until: string
 }
 
 export interface ContentProjection {

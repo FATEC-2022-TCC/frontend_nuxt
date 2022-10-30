@@ -21,6 +21,14 @@
                     </p>
                 </li>
             </nuxt-link>
+            <nuxt-link to="/admin/compliant">
+                <li>
+                    <icon name="ant-design:book-filled" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
+                    <p class="text-xl">
+                        Denúncias
+                    </p>
+                </li>
+            </nuxt-link>
             <nuxt-link to="/home">
                 <li>
                     <icon name="ant-design:left-circle-filled" size="1.5rem"
