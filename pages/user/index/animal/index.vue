@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import { AnimalProjection } from '~~/composables/user/Animal'
 
-const animalProjections = ref<Array<AnimalProjection>>([])
+const pagination = ref(emptyPage<AnimalProjection>())
 const onDeleteData = ref(0)
 
 const hasRemoteError = ref(false)
@@ -9,7 +9,7 @@ const hasRemoteError = ref(false)
 function getAnimal() {
     getAnimalProjection().then(handle({
         onFailure: onFailure(hasRemoteError),
-        onSuccess: onSuccess(animalProjections)
+        onSuccess: onSuccess(pagination)
     }))
 }
 
@@ -48,8 +48,8 @@ getAnimal()
             Animais
         </h1>
         <div class="flex flex-wrap justify-center" v-if="!hasRemoteError">
-            <tail-user-animal-projection class="mt-4 mr-2" v-for="projection in animalProjections"
-                :projection="projection" @onClick="onClick" @onDelete="onDelete" @onEdit="onEdit" />
+            <tail-user-animal-projection class="mt-4 mr-2" v-for="p in pagination.items"
+                :projection="p" @onClick="onClick" @onDelete="onDelete" @onEdit="onEdit" />
         </div>
         <tail-error class="mt-2" v-else>
             <p>Algo deu errado!</p>

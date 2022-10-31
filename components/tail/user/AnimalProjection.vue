@@ -24,9 +24,9 @@ defineProps<{
                 "
                 @click="$emit('onClick', projection)"
                 >
-        <img v-if="projection.profilePic" :src="projection.profilePic" class="h-32">
+        <img v-if="projection.picture" :src="projection.picture" class="h-32">
         <h1 class="font-amatic-sc text-4xl">{{ projection.name }}</h1>
-        <p class="text-center">{{ projection.species }}</p>
+        <p class="text-center">{{ projection.specie }}</p>
         <div class="self-end space-x-2 pb-2">
             <icon @click.stop="$emit('onEdit', projection)" name="ant-design:edit-filled" size="2rem" class="hover:cursor-pointer text-blue-violet" />
             <icon @click.stop="$emit('onDelete', projection)" name="ant-design:close-circle-filled" size="2rem" class="hover:cursor-pointer text-red" />

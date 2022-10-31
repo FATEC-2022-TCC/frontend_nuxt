@@ -1,4 +1,5 @@
 import { get, post, put, del } from "../api"
+import Page from "../api/Page"
 
 import {
     NewAnimalRequest,
@@ -15,4 +16,4 @@ export const updateAnimal = (body: UpdateAnimalRequest) => put<AnimalResponse>("
 
 export const deleteAnimal = (id: string) => del<null>(argsToURL("/user/animal/{id}", { id }))
 
-export const getAnimalProjection = () => get<Array<AnimalProjection>>("/user/animal/projection")
+export const getAnimalProjection = () => get<Page<AnimalProjection>>("/user/animal/projection")
