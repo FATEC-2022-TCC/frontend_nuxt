@@ -65,7 +65,7 @@ function onSave() {
             <tail-input-area rows="4" placeholder="Descreva sua denúncia" :error="errors.description"
                 v-model="description" />
             <tail-input-file-dialog multiple :error="errors.files" v-model="files">
-                <tail-button-blue-violet title="Evidências" />
+                <tail-button-blue-violet title="Fotos" />
             </tail-input-file-dialog>
             <div class="flex flex-wrap gap-2 justify-center">
                 <tail-image-preview v-for="(p, index) in previews" :content="p" :index="index"

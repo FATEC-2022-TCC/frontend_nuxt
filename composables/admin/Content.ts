@@ -3,7 +3,7 @@ export interface NewContentRequest {
     background: string,
     title: string,
     description: string,
-    until: string
+    until: Date
 }
 
 export interface UpdateContentRequest {

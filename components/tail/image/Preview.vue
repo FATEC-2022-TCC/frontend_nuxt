@@ -3,6 +3,9 @@ defineProps({
     content: String,
     index: Number
 })
+defineEmits<{
+    (event: "onDelete", value: number): void
+}>()
 </script>
 
 <template>

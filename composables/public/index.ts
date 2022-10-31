@@ -18,9 +18,9 @@ import {
     NewCompliantRequest
 } from "./Compliant"
 
-export const signin = (body: SignInRequest) => post<SignInResponse>("/public/signin", body)
+export const signin = (body: SignInRequest) => post<SignInResponse>("/public/sign/in", body)
 
-export const signup = (body: SignUpRequest) => post<null>("/public/signup", body)
+export const signup = (body: SignUpRequest) => post<null>("/public/sign/up", body)
 
 export const getContentProjectionInEvidence = () => get<Array<ContentProjection>>("/public/content/projection/evidence")
 

@@ -12,7 +12,9 @@ export {
     updateContent,
     deleteContent,
     getContentProjection,
-    getCompliantProjection
+    getCompliant,
+    getCompliantProjection,
+    updateCompliant
 } from "./admin"
 
 export {

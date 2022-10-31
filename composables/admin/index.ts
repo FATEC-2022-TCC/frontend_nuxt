@@ -9,7 +9,9 @@ import {
 } from "./Content"
 
 import {
-    CompliantProjection
+    Compliant,
+    CompliantProjection,
+    UpdateCompliantRequest
 } from "./Compliant"
 
 export const addContent = (body: NewContentRequest) => post<ContentResponse>("/admin/content", body)
@@ -30,6 +32,8 @@ export const getContentProjection = (text: string, page: number) => get<Page<Con
     }
 )
 
+export const getCompliant = (id: string) => get<Compliant>(argsToURL("/admin/compliant/{id}", { id }))
+
 export const getCompliantProjection = (text: string, closed: boolean, page: number) => get<Page<CompliantProjection>>(
     "/admin/compliant/projection",
     {
@@ -40,3 +44,5 @@ export const getCompliantProjection = (text: string, closed: boolean, page: numb
         }
     }
 )
+
+export const updateCompliant = (body: UpdateCompliantRequest) => put<Compliant>("/admin/compliant", body)

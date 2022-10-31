@@ -1,6 +1,6 @@
 import { FetchResponse, FetchError } from 'ohmyfetch';
 
-export interface When<T> {
+export interface When<T extends any> {
     onSuccess(data: T): void
     onNullSucess(): void
     onFailure(status: number): void

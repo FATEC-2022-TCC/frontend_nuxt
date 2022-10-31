@@ -42,10 +42,10 @@ getContent()
                     @on-delete="onDelete = $event" @on-edit="navigateTo(`/admin/content/edit?id=${$event}`)" />
             </div>
             <br>
-            <tail-pagination class="self-center md:self-end" v-model="page" @update:modelValue="getContent"
+            <tail-pagination class="self-center" v-model="page" @update:modelValue="getContent"
                 :min-page="1" :max-page="pagination.pages" />
         </div>
-        <tail-error class="mt-2" v-else>
+        <tail-error class="mt-2 mr-4" v-else>
             <p>Algo deu errado!</p>
             <p>Atualize a página e tente novamente.</p>
         </tail-error>

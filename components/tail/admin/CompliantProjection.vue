@@ -30,6 +30,6 @@ defineEmits<{
         <p class="text-center">{{ projection.local }}</p>
         <p class="text-center truncate max-w-full"> {{ projection.description }} </p>
         <p>{{ formatDate(projection.created) }}</p>
-        <icon @click.stop="$emit('onEdit', projection.id)" name="ant-design:edit-filled" size="2rem" class="text-blue-violet hover:cursor-pointer self-end" />
+        <icon @click.stop="$emit('onEdit', projection.id)" name="ant-design:eye-filled" size="2rem" class="text-blue-violet hover:cursor-pointer self-end" />
     </div>
 </template>

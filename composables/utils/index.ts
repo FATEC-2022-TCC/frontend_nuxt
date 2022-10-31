@@ -30,7 +30,7 @@ export const fileToBase64 = (file: File): Promise<string> => new Promise(resolve
 export const base64ToBlob = (base64: string) => fetch(base64).then(res => res.blob())
 
 interface Validator {
-    run(): string | boolean
+    (): string | boolean
 }
 
 export const lengthValidator = <T extends string | Array<any>>(
@@ -47,9 +47,7 @@ export const buildValidator = <T>(
     notifier: Ref<T>,
     test: (type: T) => boolean,
     message: string
-): Validator => ({
-    run: () => !test(notifier.value) && message
-})
+): Validator => () => !test(notifier.value) && message
 
 export const hasError = <T>(
     checks: {
@@ -69,7 +67,7 @@ export const hasError = <T>(
         //That beauty shit resolves it for a while
         const arr = [union].flat()
         for (const check of arr) {
-            const res = check.run()
+            const res = check()
             if (!res) continue
             object[key] = res.toString()
             hasError = true
@@ -82,9 +80,10 @@ export const hasError = <T>(
 }
 
 //to handle
-export const onSuccess = <T>(ref: Ref<T>) => (result: T) => {
+export const onSuccess = <T extends any>(ref: Ref<T>, also?: (result: T) => void) => (result: T) => {
     console.log(JSON.stringify(result))
     ref.value = result
+    if (also) also(result)
 }
 
 export const onFailure = (ref: Ref<boolean>, also?: () => void) => (status: number) => {

@@ -23,7 +23,7 @@
             </nuxt-link>
             <nuxt-link to="/admin/compliant">
                 <li>
-                    <icon name="ant-design:book-filled" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
+                    <icon name="ant-design:frown-filled" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
                     <p class="text-xl">
                         Denúncias
                     </p>

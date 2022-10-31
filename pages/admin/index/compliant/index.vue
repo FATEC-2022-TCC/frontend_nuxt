@@ -18,7 +18,7 @@ getCompliant()
 </script>
 
 <template>
-    <div class="flex flex-col p-4 pb-32">
+    <div class="flex flex-col p-4">
         <div class="flex flex-col items-center justify-between">
             <h1 class="font-amatic-sc text-6xl self-start">
                 Denúncias
@@ -28,8 +28,8 @@ getCompliant()
             <br>
             <div class="flex justify-between w-full">
                 <div class="flex">
-                    <h1 class="font-amatic-sc text-4xl">Denúncias em aberto:&nbsp;</h1>
-                    <p class="font-amatic-sc text-4xl" v-if="!closed">Sim</p>
+                    <h1 class="font-amatic-sc text-4xl">Denúncias em fechadas?&nbsp;</h1>
+                    <p class="font-amatic-sc text-4xl" v-if="closed">Sim</p>
                     <p class="font-amatic-sc text-4xl" v-else>Não</p>
                 </div>
                 <tail-switch v-model="closed" @update:modelValue="page = 1; getCompliant()" />
@@ -41,7 +41,7 @@ getCompliant()
                     @on-edit="navigateTo(`/admin/compliant/edit?id=${$event}`)" />
             </div>
             <br>
-            <tail-pagination class="self-center md:self-end" v-model="page" @update:modelValue="getCompliant"
+            <tail-pagination class="self-center" v-model="page" @update:modelValue="getCompliant"
                 :min-page="1" :max-page="pagination.pages" />
         </div>
         <tail-error class="mt-2" v-else>
