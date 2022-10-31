@@ -2,9 +2,9 @@
 
 const modal = useModal()
 
-const profilePic = ref("")
+const picture = ref("")
 const name = ref("")
-const species = ref("")
+const specie = ref("")
 const gender = ref("")
 const age = ref("")
 const size = ref("")
@@ -15,13 +15,13 @@ watch(files, async files => {
     const file = files[0]
     if (!file) return
     const base64 = await fileToBase64(file)
-    profilePic.value = base64
+    picture.value = base64
 })
 
 interface AddErrors {
-    profilePic?: string,
+    picture?: string,
     name?: string,
-    species?: string
+    specie?: string
     gender?: string
     age?: string
     size?: string
@@ -34,9 +34,9 @@ function onSave() {
     hasRemoteError.value = false
     if (hasError<AddErrors>(
         {
-            profilePic: lengthValidator(profilePic, "Precisamos de uma fotinho de perfil"),
+            picture: lengthValidator(picture, "Precisamos de uma fotinho de perfil"),
             name: lengthValidator(name, "Faltou o nome do animalzinho"),
-            species: lengthValidator(species, "Precisamos da espécie"),
+            specie: lengthValidator(specie, "Precisamos da espécie"),
             gender: lengthValidator(gender, "Mas é menininho ou meninha?"),
             age: lengthValidator(age, "Precisamos saber o quão novo ele/ela é "),
             size: lengthValidator(size, "Precisamos daber do tamanho"),
@@ -45,9 +45,9 @@ function onSave() {
     )) return
 
     addAnimal({
-        profilePic: profilePic.value,
+        picture: picture.value,
         name: name.value,
-        species: species.value,
+        specie: specie.value,
         gender: gender.value,
         age: age.value,
         size: size.value,
@@ -59,7 +59,7 @@ function onSave() {
                 type: ModalType.Success,
                 title: "Oba!!",
                 messages: [
-                    "Seu animalzinho está disponível para todos."
+                    "Seu animalzinho está cadastrado!"
                 ]
             }
             navigateTo("/user/animal")
@@ -73,22 +73,23 @@ function onSave() {
         <h1 class="font-amatic-sc text-6xl">
             Novo Animal
         </h1>
+        <br>
         <div class="flex flex-col space-y-2">
             <h2 class="font-amatic-sc text-4xl">
                 Vamos começar com informações sobre o bichinho
             </h2>
             <div class="flex space-x-2">
-                <tail-input-file-dialog v-model="files" class="flex-1" accept="image/*" :error="errors.profilePic">
+                <tail-input-file-dialog v-model="files" class="flex-1" accept="image/*" :error="errors.picture">
                     <tail-button-blue-violet title="Escolha uma foto de Perfil para o Animalzinho" />
                 </tail-input-file-dialog>
-                <tail-button-base v-if="profilePic" class="bg-red" @click="profilePic = ''">
+                <tail-button-base v-if="picture" class="bg-red" @click="picture = ''">
                     <icon name="ant-design:close-circle-filled" size="2rem"
                         class="m-auto hover:cursor-pointer text-white" />
                 </tail-button-base>
             </div>
-            <img v-if="profilePic" :src="profilePic" class="w-full object-contain" />
+            <img v-if="picture" :src="picture" class="w-full object-contain" />
             <tail-input-base placeholder="Nome do animalzinho" v-model="name" :error="errors.name" />
-            <tail-input-base placeholder="Espécie do bichinho" v-model="species" :error="errors.species" />
+            <tail-input-base placeholder="Espécie do bichinho" v-model="specie" :error="errors.specie" />
             <tail-input-base placeholder="Ele é Macho ou Femea" v-model="gender" :error="errors.gender" />
             <tail-input-base placeholder="Idade" v-model="age" :error="errors.age" />
             <tail-input-base placeholder="Tamanho" v-model="size" :error="errors.size" />

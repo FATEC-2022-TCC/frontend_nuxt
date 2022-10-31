@@ -4,7 +4,7 @@
             <tail-admin-menu />
         </template>
         <template #content>
-            <nuxt-page />
+            <nuxt-page class="min-h-full" />
         </template>
     </nuxt-layout>
 </template>

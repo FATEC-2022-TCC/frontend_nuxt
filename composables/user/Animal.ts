@@ -1,7 +1,7 @@
 export interface NewAnimalRequest {
-    profilePic: string,
+    picture: string,
     name: string,
-    species: string,
+    specie: string,
     gender: string,
     age: string,
     size: string,
@@ -10,33 +10,30 @@ export interface NewAnimalRequest {
 
 export interface UpdateAnimalRequest {
     id: number,
-    profilePic: string,
+    picture: string,
     name: string,
-    species: string,
+    specie: string,
     gender: string,
     age: string,
     size: string,
-    about: string,
-    adopted: Boolean
+    about: string
 }
 
 export interface AnimalResponse {
     id: number,
-    profilePic: string,
+    picture: string,
     name: string,
-    species: string,
+    specie: string,
     gender: string,
     age: string,
     size: string,
     about: string,
-    created: Date,
-    adopted: Boolean
+    created: Date
 }
 
 export interface AnimalProjection {
     id: number,
-    profilePic: string,
+    picture: string,
     name: string,
-    species: string,
-    adopted: Boolean
+    specie: string
 }
