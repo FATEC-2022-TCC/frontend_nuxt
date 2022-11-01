@@ -16,4 +16,12 @@ export const updateAnimal = (body: UpdateAnimalRequest) => put<AnimalResponse>("
 
 export const deleteAnimal = (id: string) => del<null>(argsToURL("/user/animal/{id}", { id }))
 
-export const getAnimalProjection = () => get<Page<AnimalProjection>>("/user/animal/projection")
+export const getAnimalProjection = (text: string, page: number) => get<Page<AnimalProjection>>(
+    "/user/animal/projection",
+    {
+        query: {
+            text,
+            page
+        }
+    }
+)
