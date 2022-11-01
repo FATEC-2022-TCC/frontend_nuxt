@@ -8,7 +8,8 @@ export const get = <Res>(
         query?: {
             [key: string]: any
         }
-    }) => wrapper<Res>(() => baseFetch(url, "GET", optional))
+    }
+) => wrapper<Res>(() => baseFetch(url, "GET", optional))
 
 export const post = <Res>(url: string, body: Body) => wrapper<Res>(() => baseFetch(url, "POST", { body }))
 
