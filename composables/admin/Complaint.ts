@@ -4,7 +4,9 @@ export interface Status {
     id: number,
     code: number,
     description: string,
-    files: Array<Base64>
+    files: Array<Base64>,
+    createdBy: string,
+    created: string
 }
 
 export interface ComplaintResponse {

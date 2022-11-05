@@ -46,4 +46,4 @@ export const getComplaintProjection = (text: string, closed: boolean, page: numb
     }
 )
 
-export const addComplaintStatus = (body: UpdateComplaintRequest) => put<Complaint>("/admin/complaint/status", body)
+export const addComplaintStatus = (body: UpdateComplaintRequest) => post<Complaint>("/admin/complaint/status", body)
