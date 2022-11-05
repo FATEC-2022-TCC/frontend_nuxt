@@ -9,14 +9,14 @@ const files = ref<Array<File>>([])
 const previews = ref<Array<string>>([])
 watch(files, async files => previews.value = await Promise.all(files.map(fileToBase64)))
 
-interface CompliantError {
+interface ComplaintError {
     local?: string,
     description?: string,
     files?: string,
 }
 
 const hasRemoteError = ref(false)
-const errors = ref<CompliantError>({})
+const errors = ref<ComplaintError>({})
 
 function onDeleteImage(index: number) {
     const cpy = previews.value
@@ -25,16 +25,19 @@ function onDeleteImage(index: number) {
 }
 
 function onSave() {
-    if (hasError<CompliantError>(
+    if (hasError<ComplaintError>(
         {
             local: lengthValidator(local, "Por favor, insira o local do incidente"),
-            description: lengthValidator(description, "Por favor, insira uma descrição", 50),
+            description: [
+                lengthValidator(description, "Por favor, insira uma descrição"),
+                buildValidator(description, text => text.length >= 50, "Insira uma descrição maior do que 50 letras")
+            ],
             files: lengthValidator(previews, "Por favor, insira algumas evidências")
         },
         errors
     )) return
 
-    addCompliant({
+    addComplaint({
         local: local.value,
         description: description.value,
         files: previews.value

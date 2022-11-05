@@ -27,7 +27,7 @@ function signOut() {
                 <nuxt-link to="/home/adoption">Adoção</nuxt-link>
             </li>
             <li>
-                <nuxt-link to="/home/compliant">Denúncia</nuxt-link>
+                <nuxt-link to="/home/complaint">Denúncia</nuxt-link>
             </li>
             <li>
                 <nuxt-link to="/home/contact">Contato</nuxt-link>

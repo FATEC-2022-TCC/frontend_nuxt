@@ -3,7 +3,7 @@ export {
     signup,
     getContentProjectionInEvidence,
     getPublicContent,
-    addCompliant
+    addComplaint
 } from "./public"
 
 export {
@@ -12,9 +12,9 @@ export {
     updateContent,
     deleteContent,
     getContentProjection,
-    getCompliant,
-    getCompliantProjection,
-    updateCompliant
+    getComplaint,
+    getComplaintProjection,
+    addComplaintStatus
 } from "./admin"
 
 export {

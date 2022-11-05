@@ -1,7 +1,7 @@
 <script setup lang="ts">
-import { CompliantProjection } from '~~/composables/admin/Compliant'
+import { ComplaintProjection } from '~~/composables/admin/Complaint'
 defineProps<{
-    projection: CompliantProjection
+    projection: ComplaintProjection
 }>()
 defineEmits<{
     (event: 'onEdit', value: number): void

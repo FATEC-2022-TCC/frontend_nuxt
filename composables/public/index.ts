@@ -15,8 +15,8 @@ import {
 } from "../admin/Content"
 
 import {
-    NewCompliantRequest
-} from "./Compliant"
+    NewComplaintRequest
+} from "./Complaint"
 
 export const signin = (body: SignInRequest) => post<SignInResponse>("/public/sign/in", body)
 
@@ -26,4 +26,4 @@ export const getContentProjectionInEvidence = () => get<Array<ContentProjection>
 
 export const getPublicContent = (id: string) => get<ContentResponse>(argsToURL("/public/content/{id}", { id }))
 
-export const addCompliant = (body: NewCompliantRequest) => post<null>("/public/compliant", body)
+export const addComplaint = (body: NewComplaintRequest) => post<null>("/public/complaint", body)

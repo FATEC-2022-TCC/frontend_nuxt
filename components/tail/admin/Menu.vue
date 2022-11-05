@@ -21,7 +21,7 @@
                     </p>
                 </li>
             </nuxt-link>
-            <nuxt-link to="/admin/compliant">
+            <nuxt-link to="/admin/complaint">
                 <li>
                     <icon name="ant-design:frown-filled" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
                     <p class="text-xl">
