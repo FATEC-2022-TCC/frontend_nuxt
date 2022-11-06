@@ -3,7 +3,8 @@ export default defineNuxtConfig({
     runtimeConfig: {
         public: {
             baseURL: 'http://localhost:8080',
-            publicImages: 'http://localhost:8080/public/images/'
+            publicImages: 'http://localhost:8080/public/images/',
+            webSocket: 'ws://localhost:8080/ws'
         }
     },
     modules: [

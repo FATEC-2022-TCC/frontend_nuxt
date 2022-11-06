@@ -3,7 +3,8 @@ export {
     signup,
     getContentProjectionInEvidence,
     getPublicContent,
-    addComplaint
+    addComplaint,
+    sendChatbotMessage
 } from "./public"
 
 export {
