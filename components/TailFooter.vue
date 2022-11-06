@@ -1,8 +1,8 @@
 <template>
     <footer class="flex flex-col">
-        <div class="flex bg-burnt-yellow-light p-2 items-center text-center">
+        <div class="gap-4 flex flex-col bg-burnt-yellow-light p-4 items-center text-center sm:flex-row">
             <img class="object-contain h-12 flex-1" src="/quatro.png" alt="logo">
-            <div class="flex-1 text-sm hidden sm:block">
+            <div class="text-sm flex-1">
                 <strong>
                     Quatro Patas Adoção de Animais
                 </strong>
@@ -14,12 +14,12 @@
                 </p>
             </div>
         </div>
-        <div class="flex bg-grape p-2 text-sm items-center justify-center">
+        <div class="gap-4 flex flex-col bg-grape p-2 text-sm items-center justify-center sm:flex-row">
             <p class="text-white text-center flex-1">
                 Copyright 2022. Todos os direitos.
             </p>
             <p class="text-white font-bold text-center flex-1">
-                Violência contra animais é crime. Denuncie 0800 600 6428
+                Violência contra animais é crime.<br>Denuncie 0800 600 6428
             </p>
         </div>
     </footer>
