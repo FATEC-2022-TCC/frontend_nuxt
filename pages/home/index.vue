@@ -35,6 +35,7 @@ getContentProjectionInEvidence().then(handle({
                 <navigation />
             </template>
         </carousel>
+        <tail-chatbot />
 
         <!-- Blocos de Animais - In Progress -->
         <!-- <div class="flex justify-evenly my-4">
