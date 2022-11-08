@@ -5,7 +5,8 @@ type Message = {
     owner: "me" | "bot"
     message: string
 }
-
+const stack: Array<string> = []
+let stackIndex = 0
 const messages = reactive<Array<Message>>([])
 const myMessage = ref("")
 
@@ -24,18 +25,39 @@ function sendMessage() {
         owner: 'me',
         message: myMessage.value
     })
+    stack.push(myMessage.value)
+    stackIndex = stack.length
     sendChatbotMessage({
         sessionId: sessionId,
         message: myMessage.value
     }).then(handle({
-        onSuccess: response => {
-            messages.push({
-                owner: 'bot',
-                message: response.message
-            })
-        }
+        onSuccess: ({ message }) => messages.push({
+            owner: 'bot',
+            message
+        })
     }))
     myMessage.value = ""
+}
+
+function onKeyUp(key: string) {
+    if (key == "ArrowUp") {
+        stackIndex--
+    } else if (key == "ArrowDown") {
+        stackIndex++
+    } else {
+        return
+    }
+    if (stackIndex >= stack.length) {
+        myMessage.value = ""
+        stackIndex = stack.length
+        return
+    }
+    if (stackIndex < 0) {
+        stackIndex = 0
+        myMessage.value = stack.length ? stack[stackIndex] : ""
+        return
+    }
+    myMessage.value = stack[stackIndex]
 }
 
 onUpdated(scrollDiv)
@@ -46,8 +68,7 @@ onUpdated(scrollDiv)
         <div>
             <img src="/icon.png"
                 class="bg-blue-violet shadow-2xl p-2 h-20 object-contain rounded-full m-auto mr-0 hover:cursor-pointer"
-                :class="isOpen ? 'animate-none' : 'animate-bounce'"
-                @click="isOpen = !isOpen" />
+                :class="isOpen ? 'animate-none' : 'animate-bounce'" @click="isOpen = !isOpen" />
         </div>
         <div class="mt-2 h-80 border-2 border-blue-violet p-4 rounded bg-white shadow-2xl flex flex-col"
             :class="isOpen ? 'block' : 'hidden'">
@@ -56,7 +77,7 @@ onUpdated(scrollDiv)
                     :class="m.owner == 'me' ? ['self-end', 'bg-bondi-blue', 'ml-10'] : ['self-start', 'bg-blue-violet', 'mr-10']">
                     {{ m.message }}</p>
             </div>
-            <tail-input-icon @on-icon="sendMessage" v-model="myMessage">
+            <tail-input-icon @on-key-up="onKeyUp" @on-icon="sendMessage" v-model="myMessage">
                 <icon name="ant-design:send-outlined" size="2rem" class="text-blue-violet cursor-pointer" />
             </tail-input-icon>
         </div>
