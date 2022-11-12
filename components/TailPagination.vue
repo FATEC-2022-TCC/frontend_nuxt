@@ -68,7 +68,7 @@ ul {
 }
 
 li {
-    @apply rounded p-4 text-white text-sm;
+    @apply rounded p-4 text-white text-sm select-none;
 }
 
 .enabled {

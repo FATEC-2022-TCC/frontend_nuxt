@@ -1,18 +1,23 @@
 <script setup lang="ts">
-import { ComplaintProjection } from '~~/composables/admin/Complaint';
+import { SearchComplaintProjectionResponse } from '~~/composables/admin/Complaint';
 
 const search = ref("")
-const closed = ref(false)
+const status = ref(0)
 const page = ref(1)
 
-const pagination = ref(emptyPage<ComplaintProjection>())
+const pagination = ref<SearchComplaintProjectionResponse>({
+    page: emptyPage(),
+    statuses: []
+})
 
 const hasRemoteError = ref(false)
 
-const getComplaint = () => getComplaintProjection(search.value, closed.value, page.value).then(handle({
+const getComplaint = () => searchComplaintProjection(status.value, search.value, page.value).then(handle({
     onSuccess: onSuccess(pagination),
     onFailure: onFailure(hasRemoteError)
 }))
+
+watch(status, getComplaint)
 
 getComplaint()
 </script>
@@ -25,24 +30,20 @@ getComplaint()
             </h1>
             <br>
             <tail-input-search v-model="search" @on-search="page = 1; getComplaint()" />
-            <br>
-            <div class="flex justify-between w-full">
-                <div class="flex">
-                    <h1 class="font-amatic-sc text-4xl">Denúncias em fechadas?&nbsp;</h1>
-                    <p class="font-amatic-sc text-4xl" v-if="closed">Sim</p>
-                    <p class="font-amatic-sc text-4xl" v-else>Não</p>
-                </div>
-                <tail-switch v-model="closed" @update:modelValue="page = 1; getComplaint()" />
-            </div>
+            <select class="w-full border-2 rounded p-2 text-blue-violet text-xl mt-2" v-model="status">
+                <option v-for="status in pagination.statuses" :value="status.code">
+                    {{ status.description }}
+                </option>
+            </select>
         </div>
         <div v-if="!hasRemoteError" class="flex flex-col flex-1">
             <div class="flex flex-wrap justify-center flex-1">
-                <tail-admin-complaint-projection class="mt-4 mr-4" v-for="p in pagination.items" :projection="p"
+                <tail-admin-complaint-projection class="mt-4 mr-4" v-for="p in pagination.page.items" :projection="p"
                     @on-edit="navigateTo(`/admin/complaint/edit?id=${$event}`)" />
             </div>
             <br>
             <tail-pagination class="self-center" v-model="page" @update:modelValue="getComplaint"
-                :min-page="1" :max-page="pagination.pages" />
+                :min-page="1" :max-page="pagination.page.pages" />
         </div>
         <tail-error class="mt-2" v-else>
             <p>Algo deu errado!</p>

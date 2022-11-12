@@ -14,7 +14,7 @@ export {
     deleteContent,
     getContentProjection,
     getComplaint,
-    getComplaintProjection,
+    searchComplaintProjection,
     addComplaintStatus
 } from "./admin"
 

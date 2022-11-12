@@ -12,6 +12,7 @@ import {
     Complaint,
     ComplaintProjection,
     ComplaintResponse,
+    SearchComplaintProjectionResponse,
     UpdateComplaintRequest
 } from "./Complaint"
 
@@ -35,12 +36,12 @@ export const getContentProjection = (text: string, page: number) => get<Page<Con
 
 export const getComplaint = (id: string) => get<ComplaintResponse>(argsToURL("/admin/complaint/{id}", { id }))
 
-export const getComplaintProjection = (text: string, closed: boolean, page: number) => get<Page<ComplaintProjection>>(
+export const searchComplaintProjection = (currentStatusCode: number, text: string, page: number) => get<SearchComplaintProjectionResponse>(
     "/admin/complaint/projection",
     {
         query: {
+            currentStatusCode,
             text,
-            closed,
             page
         }
     }

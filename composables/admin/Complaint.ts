@@ -1,4 +1,7 @@
 import { Base64 } from '~~/composables/api/Base64'
+import Page from '../api/Page'
+
+export type AllowedStatus = Array<{ code: number, description: string }>
 
 export interface Status {
     id: number,
@@ -11,7 +14,7 @@ export interface Status {
 
 export interface ComplaintResponse {
     complaint: Complaint,
-    allowedStatus: Array<{ code: number, description: string }>,
+    allowedStatus: AllowedStatus,
 }
 
 export interface Complaint {
@@ -38,4 +41,9 @@ export interface ComplaintProjection {
     description: string,
     created: string,
     closed: boolean
+}
+
+export interface SearchComplaintProjectionResponse {
+    page: Page<ComplaintProjection>,
+    statuses: AllowedStatus
 }

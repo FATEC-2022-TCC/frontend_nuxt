@@ -53,6 +53,7 @@ function onAddStatus(request: UpdateComplaintRequest) {
                 <div class="mt-2 flex flex-wrap justify-center gap-2">
                     <img v-for="f in response.complaint.files" :src="f.data" class="w-48">
                 </div>
+                <br>
                 <tail-admin-complaint-status v-for="status in response.complaint.statuses" :status="status" />
                 <br>
                 <tail-admin-complaint-add-status :key="addStatusKey" v-if="response.allowedStatus.length"

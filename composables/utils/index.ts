@@ -97,4 +97,11 @@ export const emptyPage = <T>(): Page<T> => ({
     items: []
 })
 
-export const formatDate = (date: string) => format(new Date(date), "dd/MM/yyyy hh:mm:ss")
+export const formatDate = (date: string) => {
+    try {
+        return format(new Date(date), "dd/MM/yyyy hh:mm:ss")
+    } catch (e) {
+        console.log(e)
+    }
+    return "Data inválida"
+}
