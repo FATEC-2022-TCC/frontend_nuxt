@@ -1,63 +1,88 @@
 <script setup lang="ts">
-import { ComplaintResponse, UpdateComplaintRequest } from '~~/composables/admin/Complaint';
-
+const modal = useModal()
 const route = useRoute()
 
-const response = ref<ComplaintResponse | null>(null)
-const addStatusKey = ref(0)
+const name = ref("")
+const description = ref("")
+const images = ref(new Array<string>())
 
 const hasRemoteError = ref(false)
+const isLoading = ref(true)
 
 const id = route.query["id"]?.toString() ?? ''
 
 function getCompliant() {
-    getComplaint(id).then(handle({
-        onSuccess: onSuccess(response),
-        onFailure: onFailure(hasRemoteError)
+    getCategory(id).then(handle({
+        onSuccess: response => {
+            name.value = response.name
+            description.value = response.description
+            images.value = response.images.map(base64 => base64.data)
+        },
+        onFailure: onFailure(hasRemoteError),
+        finally() {
+            isLoading.value = false
+        }
     }))
 }
 
-if (!id) navigateTo("/admin/complaint")
+if (!id) navigateTo("/admin/category")
 getCompliant()
 
-function onAddStatus(request: UpdateComplaintRequest) {
-    addComplaintStatus({
-        id: parseInt(id),
-        status: request.status
-    }).then(handle({
-        onSuccess: _ => {
-            getCompliant()
-            addStatusKey.value++
+interface Errors {
+    name?: string,
+    description?: string,
+    images?: string
+}
+
+const errors = ref<Errors>({})
+
+function onSave() {
+    hasRemoteError.value = false
+    if (hasError<Errors>(
+        {
+            name: lengthValidator(name, "Você precisa adicionar algum nome"),
+            description: lengthValidator(description, "Você precisa adicionar alguma descrição"),
         },
-        onFailure: onFailure(hasRemoteError)
+        errors
+    )) return
+
+    updateCategory({
+        id: parseInt(id),
+        name: name.value,
+        description: description.value,
+        images: images.value
+    }).then(handle({
+        onFailure: onFailure(hasRemoteError),
+        onSuccess: _ => {
+            modal.value = {
+                type: ModalType.Success,
+                title: "Oba, a nova categoria foi atualizada!",
+                messages: [
+                    "Ela já está disponível aos usuários"
+                ]
+            }
+            navigateTo("/admin/category")
+        }
     }))
 }
 
 </script>
 
 <template>
-    <div class="flex flex-col p-4">
+    <div class="flex flex-col p-4 pb-32">
         <h1 class="font-amatic-sc text-6xl">
-            Analisar denúncia
+            Editar categoria
         </h1>
         <br>
-        <div v-if="response && !hasRemoteError">
-            <div class="ml-4">
-                <h1 class="text-4xl font-amatic-sc">Local: &nbsp;</h1>
-                <p> {{ response.complaint.local }}</p>
-                <br>
-                <h1 class="text-4xl font-amatic-sc">Descrição: &nbsp;</h1>
-                <p> {{ response.complaint.description }}</p>
-                <br>
-                <h1 class="text-4xl font-amatic-sc">Imagens: &nbsp;</h1>
-                <div class="mt-2 flex flex-wrap justify-center gap-2">
-                    <img v-for="f in response.complaint.files" :src="f.data" class="w-48">
-                </div>
-                <br>
-                <tail-admin-complaint-status v-for="status in response.complaint.statuses" :status="status" />
-                <br>
-                <tail-admin-complaint-add-status :key="addStatusKey" v-if="response.allowedStatus.length"
-                    :statuses="response.allowedStatus" @on-add-status="onAddStatus" />
+        <div v-if="!isLoading && !hasRemoteError" class="space-y-2">
+            <tail-input-base placeholder="Nome" v-model="name" :error="errors.name" />
+            <tail-input-area placeholder="Uma breve descrição" maxlength="255" v-model="description"
+                :error="errors.description" />
+            <tail-input-base64-file-dialog multiple :error="errors.images" v-model="images">
+                <tail-button-blue-violet title="Fotos" />
+            </tail-input-base64-file-dialog>
+            <div class="flex flex-wrap gap-2 justify-center mt-4" v-if="images.length">
+                <tail-image-handler v-model="images" />
             </div>
         </div>
         <div v-else-if="!hasRemoteError">
@@ -67,5 +92,6 @@ function onAddStatus(request: UpdateComplaintRequest) {
             <p>Alguma coisa deu errada.</p>
             <p>Tente novamente mais tarde!</p>
         </tail-error>
+        <tail-fab-save @click="onSave()" />
     </div>
 </template>

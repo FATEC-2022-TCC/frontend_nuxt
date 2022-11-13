@@ -5,7 +5,7 @@ const router = useRouter()
 
 const local = ref("")
 const description = ref("")
-const previews = ref<Array<string>>([])
+const files = ref<Array<string>>([])
 
 interface ComplaintError {
     local?: string,
@@ -16,12 +16,6 @@ interface ComplaintError {
 const hasRemoteError = ref(false)
 const errors = ref<ComplaintError>({})
 
-function onDeleteImage(index: number) {
-    const cpy = previews.value
-    cpy.splice(index, 1)
-    previews.value = [...cpy]
-}
-
 function onSave() {
     if (hasError<ComplaintError>(
         {
@@ -30,7 +24,7 @@ function onSave() {
                 lengthValidator(description, "Por favor, insira uma descrição"),
                 buildValidator(description, text => text.length >= 50, "Insira uma descrição maior do que 50 letras")
             ],
-            files: lengthValidator(previews, "Por favor, insira algumas evidências")
+            files: lengthValidator(files, "Por favor, insira algumas evidências")
         },
         errors
     )) return
@@ -38,7 +32,7 @@ function onSave() {
     addComplaint({
         local: local.value,
         description: description.value,
-        files: previews.value
+        files: files.value
     }).then(handle({
         onFailure: onFailure(hasRemoteError),
         onNullSucess: () => {
@@ -65,12 +59,11 @@ function onSave() {
             <tail-input-base placeholder="Local do incidente" :error="errors.local" v-model="local" />
             <tail-input-area rows="4" placeholder="Descreva sua denúncia" :error="errors.description"
                 v-model="description" />
-            <tail-input-base64-file-dialog multiple v-model="previews">
+            <tail-input-base64-file-dialog multiple v-model="files">
                 <tail-button-blue-violet title="Fotos" />
             </tail-input-base64-file-dialog>
             <div class="flex flex-wrap gap-2 justify-center">
-                <tail-image-preview v-for="(p, index) in previews" :content="p" :index="index"
-                    class="w-56 aspect-square" @onDelete="onDeleteImage" />
+                <tail-image-handler v-model="files" />
             </div>
             <br>
             <tail-button-blue-violet title="Enviar" @click="onSave" />

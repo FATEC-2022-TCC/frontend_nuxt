@@ -10,7 +10,7 @@ const emit = defineEmits<{
 
 const status = ref<Status>({ code: -1, description: "Nenhum" })
 const description = ref("")
-const previews = ref<Array<string>>([])
+const files = ref<Array<string>>([])
 
 interface Errors {
     status?: string,
@@ -19,12 +19,6 @@ interface Errors {
 }
 
 const errors = ref<Errors>({})
-
-function onDeleteImage(index: number) {
-    const cpy = previews.value
-    cpy.splice(index, 1)
-    previews.value = [...cpy]
-}
 
 function onSave() {
     if (hasError<Errors>(
@@ -40,7 +34,7 @@ function onSave() {
         status: {
             code: status.value.code,
             description: `${status.value.description}\n\n${description.value}`,
-            files: previews.value
+            files: files.value
         }
     })
 }
@@ -67,12 +61,11 @@ function onSave() {
         <br>
         <tail-input-area v-model="description" :error="errors.description" />
         <br>
-        <tail-input-base64-file-dialog multiple :error="errors.files" v-model="previews">
+        <tail-input-base64-file-dialog multiple :error="errors.files" v-model="files">
             <tail-button-blue-violet title="Fotos" />
         </tail-input-base64-file-dialog>
-        <div class="flex flex-wrap gap-2 justify-center mt-4" v-if="previews.length">
-            <tail-image-preview v-for="(p, index) in previews" :content="p" :index="index" class="w-56 aspect-square"
-                @onDelete="onDeleteImage" />
+        <div class="flex flex-wrap gap-2 justify-center mt-4" v-if="files.length">
+            <tail-image-handler v-model="files" />
         </div>
         <br>
         <icon name="ant-design:save-filled" size="3rem"

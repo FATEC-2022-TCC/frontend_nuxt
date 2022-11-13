@@ -15,7 +15,8 @@ import {
     SearchComplaintProjectionResponse,
     UpdateComplaintRequest
 } from "./Complaint"
-import { AddCategoryRequest, CategoryProjection } from "../public/Category"
+import { AddCategoryRequest, CategoryProjection, UpdateCategoryRequest } from "../public/Category"
+import { CategoryResponse } from "./Category"
 
 export const addContent = (body: NewContentRequest) => post<ContentResponse>("/admin/content", body)
 
@@ -39,22 +40,25 @@ export const getContentProjection = (text: string, page: number) => get<Page<Con
 
 export const getComplaint = (id: string) => get<ComplaintResponse>(argsToURL("/admin/complaint/{id}", { id }))
 
-export const searchComplaintProjection = (currentStatusCode: number, text: string, page: number) => get<SearchComplaintProjectionResponse>(
-    "/admin/complaint/projection",
-    {
-        query: {
-            currentStatusCode,
-            text,
-            page
+export const searchComplaintProjection = (currentStatusCode: number, text: string, page: number) =>
+    get<SearchComplaintProjectionResponse>(
+        "/admin/complaint/projection",
+        {
+            query: {
+                currentStatusCode,
+                text,
+                page
+            }
         }
-    }
-)
+    )
 
 export const addComplaintStatus = (body: UpdateComplaintRequest) => post<Complaint>("/admin/complaint/status", body)
 
 // --
 
-export const addCategory = (body: AddCategoryRequest) => post<null>("/admin/category", body)
+export const addCategory = (body: AddCategoryRequest) => post<never>("/admin/category", body)
+
+export const getCategory = (id: string) => get<CategoryResponse>(argsToURL("/admin/category/{id}", { id }))
 
 export const searchCategoryProjection = (text: string, page: number) => get<Page<CategoryProjection>>(
     "/admin/category/projection",
@@ -65,3 +69,5 @@ export const searchCategoryProjection = (text: string, page: number) => get<Page
         }
     }
 )
+
+export const updateCategory = (body: UpdateCategoryRequest) => put<never>("/admin/category", body)

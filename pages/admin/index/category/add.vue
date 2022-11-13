@@ -4,10 +4,12 @@ const modal = useModal()
 
 const name = ref("")
 const description = ref("")
+const images = ref(new Array<string>())
 
 interface Errors {
     name?: string,
     description?: string,
+    images?: string,
 }
 
 const hasRemoteError = ref(false)
@@ -26,6 +28,7 @@ function onSave() {
     addCategory({
         name: name.value,
         description: description.value,
+        images: images.value
     }).then(handle({
         onFailure: onFailure(hasRemoteError),
         onSuccess: _ => {
@@ -53,8 +56,14 @@ function onSave() {
                 Precisamos de algumas informações sobre o novo conteúdo
             </h2>
             <tail-input-base placeholder="Nome" v-model="name" :error="errors.name" />
-            <tail-input-base placeholder="Uma breve descrição" maxlength="255" v-model="description"
+            <tail-input-area placeholder="Uma breve descrição" maxlength="255" v-model="description"
                 :error="errors.description" />
+            <tail-input-base64-file-dialog multiple :error="errors.images" v-model="images">
+                <tail-button-blue-violet title="Fotos" />
+            </tail-input-base64-file-dialog>
+            <div class="flex flex-wrap gap-2 justify-center mt-4" v-if="images.length">
+                <tail-image-handler v-model="images" />
+            </div>
         </div>
         <br>
         <tail-error v-if="hasRemoteError">

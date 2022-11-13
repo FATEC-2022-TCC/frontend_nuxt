@@ -28,14 +28,14 @@ getCategories()
         <div v-if="!hasRemoteError" class="flex flex-col flex-1">
             <div class="flex flex-wrap justify-center flex-1">
                 <tail-admin-category-projection class="mt-4" v-for="p in pagination.items" :projection="p"
-                    @on-edit="navigateTo(`/admin/complaint/edit?id=${$event}`)" />
+                    @on-edit="navigateTo(`/admin/category/edit?id=${$event}`)" />
             </div>
             <br>
             <div class="flex-1"></div>
             <tail-pagination
                 class="self-center"
                 v-model="page"
-                @update:modelValue="getComplaint"
+                @update:modelValue="getCategories"
                 :max-page="pagination.pages"
             />
         </div>
