@@ -45,7 +45,7 @@ getAnimal()
     <div class="pt-4 pl-2 pb-32">
         <div class="flex flex-col items-center justify-between">
             <h1 class="font-amatic-sc text-6xl self-start">
-                Conteúdo
+                Meus animais
             </h1>
             <br>
             <tail-input-search class="pr-4" v-model="search" @on-search="page = 1; getAnimal()" />

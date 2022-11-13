@@ -1,7 +1,7 @@
 export interface NewAnimalRequest {
     picture: string,
     name: string,
-    specie: string,
+    categoryId: number,
     gender: string,
     age: string,
     size: string,
@@ -12,7 +12,7 @@ export interface UpdateAnimalRequest {
     id: number,
     picture: string,
     name: string,
-    specie: string,
+    categoryId: number,
     gender: string,
     age: string,
     size: string,
@@ -34,6 +34,5 @@ export interface AnimalResponse {
 export interface AnimalProjection {
     id: number,
     picture: string,
-    name: string,
-    specie: string
+    name: string
 }

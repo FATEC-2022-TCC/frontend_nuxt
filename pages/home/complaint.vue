@@ -5,9 +5,7 @@ const router = useRouter()
 
 const local = ref("")
 const description = ref("")
-const files = ref<Array<File>>([])
 const previews = ref<Array<string>>([])
-watch(files, async files => previews.value = await Promise.all(files.map(fileToBase64)))
 
 interface ComplaintError {
     local?: string,
@@ -67,9 +65,9 @@ function onSave() {
             <tail-input-base placeholder="Local do incidente" :error="errors.local" v-model="local" />
             <tail-input-area rows="4" placeholder="Descreva sua denúncia" :error="errors.description"
                 v-model="description" />
-            <tail-input-file-dialog multiple :error="errors.files" v-model="files">
+            <tail-input-base64-file-dialog multiple v-model="previews">
                 <tail-button-blue-violet title="Fotos" />
-            </tail-input-file-dialog>
+            </tail-input-base64-file-dialog>
             <div class="flex flex-wrap gap-2 justify-center">
                 <tail-image-preview v-for="(p, index) in previews" :content="p" :index="index"
                     class="w-56 aspect-square" @onDelete="onDeleteImage" />

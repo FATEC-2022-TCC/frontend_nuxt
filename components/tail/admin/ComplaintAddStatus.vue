@@ -10,9 +10,7 @@ const emit = defineEmits<{
 
 const status = ref<Status>({ code: -1, description: "Nenhum" })
 const description = ref("")
-const files = ref<Array<File>>([])
 const previews = ref<Array<string>>([])
-watch(files, async files => previews.value = await Promise.all(files.map(fileToBase64)))
 
 interface Errors {
     status?: string,
@@ -69,9 +67,9 @@ function onSave() {
         <br>
         <tail-input-area v-model="description" :error="errors.description" />
         <br>
-        <tail-input-file-dialog multiple :error="errors.files" v-model="files">
+        <tail-input-base64-file-dialog multiple :error="errors.files" v-model="previews">
             <tail-button-blue-violet title="Fotos" />
-        </tail-input-file-dialog>
+        </tail-input-base64-file-dialog>
         <div class="flex flex-wrap gap-2 justify-center mt-4" v-if="previews.length">
             <tail-image-preview v-for="(p, index) in previews" :content="p" :index="index" class="w-56 aspect-square"
                 @onDelete="onDeleteImage" />

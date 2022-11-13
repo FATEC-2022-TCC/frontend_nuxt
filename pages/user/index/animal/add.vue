@@ -1,10 +1,12 @@
 <script setup lang="ts">
+import { CategoryProjection } from '~~/composables/public/Category';
+
 
 const modal = useModal()
 
 const picture = ref("")
 const name = ref("")
-const specie = ref("")
+const categoryId = ref(0)
 const gender = ref("")
 const age = ref("")
 const size = ref("")
@@ -18,10 +20,12 @@ watch(files, async files => {
     picture.value = base64
 })
 
+const categories = ref<Array<CategoryProjection>>([])
+
 interface AddErrors {
     picture?: string,
     name?: string,
-    specie?: string
+    categoryId?: string
     gender?: string
     age?: string
     size?: string
@@ -34,9 +38,9 @@ function onSave() {
     hasRemoteError.value = false
     if (hasError<AddErrors>(
         {
-            picture: lengthValidator(picture, "Precisamos de uma fotinho de perfil"),
+            picture: lengthValidator(picture, "Precisamos de uma fotinha de perfil"),
             name: lengthValidator(name, "Faltou o nome do animalzinho"),
-            specie: lengthValidator(specie, "Precisamos da espécie"),
+            categoryId: moreThanZeroValidator(categoryId, "Precisamos da espécie"),
             gender: lengthValidator(gender, "Mas é menininho ou meninha?"),
             age: lengthValidator(age, "Precisamos saber o quão novo ele/ela é "),
             size: lengthValidator(size, "Precisamos daber do tamanho"),
@@ -47,7 +51,7 @@ function onSave() {
     addAnimal({
         picture: picture.value,
         name: name.value,
-        specie: specie.value,
+        categoryId: categoryId.value,
         gender: gender.value,
         age: age.value,
         size: size.value,
@@ -66,6 +70,11 @@ function onSave() {
         }
     }))
 }
+
+getAllCategoryProjection().then(handle({
+    onFailure: onFailure(hasRemoteError),
+    onSuccess: onSuccess(categories)
+}))
 </script>
 
 <template>
@@ -80,7 +89,7 @@ function onSave() {
             </h2>
             <div class="flex space-x-2">
                 <tail-input-file-dialog v-model="files" class="flex-1" accept="image/*" :error="errors.picture">
-                    <tail-button-blue-violet title="Escolha uma foto de Perfil para o Animalzinho" />
+                    <tail-button-blue-violet title="Escolha uma foto de perfil para o animalzinho" />
                 </tail-input-file-dialog>
                 <tail-button-base v-if="picture" class="bg-red" @click="picture = ''">
                     <icon name="ant-design:close-circle-filled" size="2rem"
@@ -89,8 +98,22 @@ function onSave() {
             </div>
             <img v-if="picture" :src="picture" class="w-full object-contain" />
             <tail-input-base placeholder="Nome do animalzinho" v-model="name" :error="errors.name" />
-            <tail-input-base placeholder="Espécie do bichinho" v-model="specie" :error="errors.specie" />
-            <tail-input-base placeholder="Ele é Macho ou Femea" v-model="gender" :error="errors.gender" />
+            <tail-select 
+                :data="categories" 
+                v-model="categoryId" 
+                :error="errors.categoryId" 
+                :visual-transform="category => category.name"
+                :value-transform="category => category.id"
+            >
+                <option value="0">
+                    Espécie do animal
+                </option>
+            </tail-select>
+            <tail-select :data="['Macho', 'Fêmea']" v-model="gender" :error="errors.gender">
+                <option value="">
+                    Gênero do animal
+                </option>
+            </tail-select>
             <tail-input-base placeholder="Idade" v-model="age" :error="errors.age" />
             <tail-input-base placeholder="Tamanho" v-model="size" :error="errors.size" />
             <br>

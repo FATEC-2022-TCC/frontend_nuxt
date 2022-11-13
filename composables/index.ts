@@ -4,7 +4,8 @@ export {
     getContentProjectionInEvidence,
     getPublicContent,
     addComplaint,
-    sendChatbotMessage
+    sendChatbotMessage,
+    getAllCategoryProjection
 } from "./public"
 
 export {
@@ -32,6 +33,7 @@ export {
     fileToBase64,
     base64ToBlob,
     lengthValidator,
+    moreThanZeroValidator,
     buildValidator,
     hasError,
     onSuccess,

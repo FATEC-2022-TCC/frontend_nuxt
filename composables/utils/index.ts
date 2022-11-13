@@ -33,6 +33,15 @@ interface Validator {
     (): string | boolean
 }
 
+export const moreThanZeroValidator = (
+    notifier: Ref<number>,
+    message: string
+) => buildValidator(
+    notifier,
+    data => data > 0,
+    message
+)
+
 export const lengthValidator = <T extends string | Array<any>>(
     notifier: Ref<T>,
     message: string,

@@ -132,16 +132,11 @@ const undoOrRedo = (undoOrRedo: UndoOrRedo) => getEditor(editor => {
 
 const files = ref<Array<File>>([])
 
-const toggleFile = (files: Array<File>) => getEditor(editor => {
+const toggleFile = (files: Array<File>) => getEditor(async editor => {
     const file = files[0]
     if (!file) return
-    const reader = new FileReader()
-    reader.onload = load => {
-        const src = load.target?.result as string
-        if (!src) return
-        editor.commands.setImage({ src })
-    }
-    reader.readAsDataURL(file)
+    const src = await fileToBase64(file)
+    editor.commands.setImage({ src })
 })
 
 watch(files, toggleFile)

@@ -14,7 +14,7 @@
                 <li>
                     <icon name="icon-park-solid:dog" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
                     <p class="text-xl">
-                        Animais
+                        Meus animais
                     </p>
                 </li>
             </nuxt-link>
