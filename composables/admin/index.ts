@@ -15,8 +15,21 @@ import {
     SearchComplaintProjectionResponse,
     UpdateComplaintRequest
 } from "./Complaint"
-import { AddCategoryRequest, CategoryProjection, UpdateCategoryRequest } from "../public/Category"
-import { CategoryResponse } from "./Category"
+
+import {
+    AddCategoryRequest,
+    CategoryProjection,
+    UpdateCategoryRequest
+} from "../public/Category"
+
+import {
+    CategoryResponse
+} from "./Category"
+
+import {
+    AdoptionProjection,
+    SearchAdoptionProjectionResponse
+} from "./Adoption"
 
 export const addContent = (body: NewContentRequest) => post<ContentResponse>("/admin/content", body)
 
@@ -71,3 +84,15 @@ export const searchCategoryProjection = (text: string, page: number) => get<Page
 )
 
 export const updateCategory = (body: UpdateCategoryRequest) => put<never>("/admin/category", body)
+
+// --
+
+export const searchAdoptionProjection = (text: string, page: number) => get<SearchAdoptionProjectionResponse>(
+    "/admin/adoption/projection",
+    {
+        query: {
+            text,
+            page
+        }
+    }
+)

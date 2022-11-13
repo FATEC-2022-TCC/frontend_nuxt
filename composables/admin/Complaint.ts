@@ -1,20 +1,11 @@
 import { Base64 } from '~~/composables/api/Base64'
+import { Status, StateDescription } from '~~/composables/api/Status'
+
 import Page from '../api/Page'
 
-export type AllowedStatus = Array<{ code: number, description: string }>
-
-export interface Status {
-    id: number,
-    code: number,
-    description: string,
-    files: Array<Base64>,
-    createdBy: string,
-    created: string
-}
-
 export interface ComplaintResponse {
-    complaint: Complaint,
-    allowedStatus: AllowedStatus,
+    data: Complaint,
+    allowedStatus: Array<StateDescription>,
 }
 
 export interface Complaint {
@@ -45,5 +36,5 @@ export interface ComplaintProjection {
 
 export interface SearchComplaintProjectionResponse {
     page: Page<ComplaintProjection>,
-    statuses: AllowedStatus
+    statuses: Array<StateDescription>
 }

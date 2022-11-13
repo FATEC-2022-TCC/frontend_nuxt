@@ -20,7 +20,8 @@ export {
     addCategory,
     getCategory,
     searchCategoryProjection,
-    updateCategory
+    updateCategory,
+    searchAdoptionProjection
 } from "./admin"
 
 export {

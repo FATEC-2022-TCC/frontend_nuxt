@@ -44,17 +44,17 @@ function onAddStatus(request: UpdateComplaintRequest) {
         <div v-if="response && !hasRemoteError">
             <div class="ml-4">
                 <h1 class="text-4xl font-amatic-sc">Local: &nbsp;</h1>
-                <p> {{ response.complaint.local }}</p>
+                <p> {{ response.data.local }}</p>
                 <br>
                 <h1 class="text-4xl font-amatic-sc">Descrição: &nbsp;</h1>
-                <p> {{ response.complaint.description }}</p>
+                <p> {{ response.data.description }}</p>
                 <br>
                 <h1 class="text-4xl font-amatic-sc">Imagens: &nbsp;</h1>
                 <div class="mt-2 flex flex-wrap justify-center gap-2">
-                    <img v-for="f in response.complaint.files" :src="f.data" class="w-48">
+                    <img v-for="f in response.data.files" :src="f.data" class="w-48">
                 </div>
                 <br>
-                <tail-admin-complaint-status v-for="status in response.complaint.statuses" :status="status" />
+                <tail-admin-complaint-status v-for="status in response.data.statuses" :status="status" />
                 <br>
                 <tail-admin-complaint-add-status :key="addStatusKey" v-if="response.allowedStatus.length"
                     :statuses="response.allowedStatus" @on-add-status="onAddStatus" />
