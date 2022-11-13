@@ -16,7 +16,9 @@ export {
     getContentProjection,
     getComplaint,
     searchComplaintProjection,
-    addComplaintStatus
+    addComplaintStatus,
+    addCategory,
+    searchCategoryProjection
 } from "./admin"
 
 export {

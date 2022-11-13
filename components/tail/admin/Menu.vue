@@ -21,11 +21,27 @@
                     </p>
                 </li>
             </nuxt-link>
+            <nuxt-link to="/admin/category">
+                <li>
+                    <icon name="ant-design:folder-open-filled" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
+                    <p class="text-xl">
+                        Categoria
+                    </p>
+                </li>
+            </nuxt-link>
             <nuxt-link to="/admin/complaint">
                 <li>
                     <icon name="ant-design:frown-filled" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
                     <p class="text-xl">
                         Denúncias
+                    </p>
+                </li>
+            </nuxt-link>
+            <nuxt-link to="/admin/adoption">
+                <li>
+                    <icon name="ant-design:smile-filled" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
+                    <p class="text-xl">
+                        Adoção
                     </p>
                 </li>
             </nuxt-link>

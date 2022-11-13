@@ -9,8 +9,9 @@ defineProps({
         type: Number
     },
     minPage: {
-        required: true,
-        type: Number
+        required: false,
+        type: Number,
+        default: 1
     },
 })
 

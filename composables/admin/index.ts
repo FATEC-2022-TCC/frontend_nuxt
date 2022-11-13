@@ -15,6 +15,7 @@ import {
     SearchComplaintProjectionResponse,
     UpdateComplaintRequest
 } from "./Complaint"
+import { AddCategoryRequest, CategoryProjection } from "../public/Category"
 
 export const addContent = (body: NewContentRequest) => post<ContentResponse>("/admin/content", body)
 
@@ -34,6 +35,8 @@ export const getContentProjection = (text: string, page: number) => get<Page<Con
     }
 )
 
+// --
+
 export const getComplaint = (id: string) => get<ComplaintResponse>(argsToURL("/admin/complaint/{id}", { id }))
 
 export const searchComplaintProjection = (currentStatusCode: number, text: string, page: number) => get<SearchComplaintProjectionResponse>(
@@ -48,3 +51,17 @@ export const searchComplaintProjection = (currentStatusCode: number, text: strin
 )
 
 export const addComplaintStatus = (body: UpdateComplaintRequest) => post<Complaint>("/admin/complaint/status", body)
+
+// --
+
+export const addCategory = (body: AddCategoryRequest) => post<null>("/admin/category", body)
+
+export const searchCategoryProjection = (text: string, page: number) => get<Page<CategoryProjection>>(
+    "/admin/category/projection",
+    {
+        query: {
+            text,
+            page
+        }
+    }
+)
