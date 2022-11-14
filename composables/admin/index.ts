@@ -27,9 +27,10 @@ import {
 } from "./Category"
 
 import {
-    AdoptionProjection,
+    AdoptionResponse,
     NewAdoptionRequest,
-    SearchAdoptionProjectionResponse
+    SearchAdoptionProjectionResponse,
+    UpdateAdoptionStatusRequest
 } from "./Adoption"
 
 export const addContent = (body: NewContentRequest) => post<ContentResponse>("/admin/content", body)
@@ -89,6 +90,10 @@ export const updateCategory = (body: UpdateCategoryRequest) => put<never>("/admi
 // --
 
 export const addAdoption = (body: NewAdoptionRequest) => post<never>("/admin/adoption", body)
+
+export const addAdoptionStatus = (body: UpdateAdoptionStatusRequest) => post<never>("/admin/adoption/status", body)
+
+export const getAdoption = (id: string) => get<AdoptionResponse>(argsToURL("/admin/adoption/{id}", { id }))
 
 export const searchAdoptionProjection = (currentStatusCode: number, text: string, page: number) => get<SearchAdoptionProjectionResponse>(
     "/admin/adoption/projection",

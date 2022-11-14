@@ -1,5 +1,6 @@
 <script setup lang="ts">
-import { ComplaintResponse, UpdateComplaintRequest } from '~~/composables/admin/Complaint';
+import { ComplaintResponse } from '~~/composables/admin/Complaint';
+import { StatusRequest } from '~~/composables/api/Status';
 
 const route = useRoute()
 
@@ -20,10 +21,10 @@ function getCompliant() {
 if (!id) navigateTo("/admin/complaint")
 getCompliant()
 
-function onAddStatus(request: UpdateComplaintRequest) {
+function onAddStatus(statusRequest: StatusRequest) {
     addComplaintStatus({
         id: parseInt(id),
-        status: request.status
+        status: statusRequest
     }).then(handle({
         onSuccess: _ => {
             getCompliant()
@@ -54,9 +55,9 @@ function onAddStatus(request: UpdateComplaintRequest) {
                     <img v-for="f in response.data.files" :src="f.data" class="w-48">
                 </div>
                 <br>
-                <tail-admin-complaint-status v-for="status in response.data.statuses" :status="status" />
+                <tail-admin-status v-for="status in response.data.statuses" :status="status" />
                 <br>
-                <tail-admin-complaint-add-status :key="addStatusKey" v-if="response.allowedStatus.length"
+                <tail-admin-add-status :key="addStatusKey" v-if="response.allowedStatus.length"
                     :statuses="response.allowedStatus" @on-add-status="onAddStatus" />
             </div>
         </div>

@@ -1,5 +1,11 @@
 import { Base64 } from '~~/composables/api/Base64'
 
+export interface StatusRequest {
+    code: number,
+    description: string,
+    files: Array<string>,
+}
+
 export interface Status {
     id: number,
     code: number,

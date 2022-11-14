@@ -1,6 +1,31 @@
 import { Status, StateDescription } from '~~/composables/api/Status'
+import { Base64 } from '../api/Base64'
 
 import Page from '../api/Page'
+
+export interface AdoptionResponse {
+    data: Adoption,
+    allowedStatus: Array<StateDescription>
+}
+
+export interface Adoption {
+    id: number,
+    name: string,
+    description: string,
+    picture: string
+    images: Array<Base64>,
+    statuses: Array<Status>,
+    currentStatusCode: number
+}
+
+export interface UpdateAdoptionStatusRequest {
+    id: number,
+    status: {
+        code: number,
+        description: string,
+        files: Array<string>
+    }
+}
 
 export interface AdoptionProjection {
     id: number,

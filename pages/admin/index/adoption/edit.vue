@@ -1,32 +1,33 @@
 <script setup lang="ts">
-import { ComplaintResponse, UpdateComplaintRequest } from '~~/composables/admin/Complaint';
+import { AdoptionResponse } from '~~/composables/admin/Adoption';
+import { StatusRequest } from '~~/composables/api/Status';
 
 const route = useRoute()
 
-const response = ref<ComplaintResponse | null>(null)
+const response = ref<AdoptionResponse | null>(null)
 const addStatusKey = ref(0)
 
 const hasRemoteError = ref(false)
 
 const id = route.query["id"]?.toString() ?? ''
 
-function getCompliant() {
-    getComplaint(id).then(handle({
+function start() {
+    getAdoption(id).then(handle({
         onSuccess: onSuccess(response),
         onFailure: onFailure(hasRemoteError)
     }))
 }
 
 if (!id) navigateTo("/admin/complaint")
-getCompliant()
+else start()
 
-function onAddStatus(request: UpdateComplaintRequest) {
-    addComplaintStatus({
+function onAddStatus(request: StatusRequest) {
+    addAdoptionStatus({
         id: parseInt(id),
-        status: request.status
+        status: request
     }).then(handle({
         onSuccess: _ => {
-            getCompliant()
+            start()
             addStatusKey.value++
         },
         onFailure: onFailure(hasRemoteError)
@@ -38,25 +39,25 @@ function onAddStatus(request: UpdateComplaintRequest) {
 <template>
     <div class="flex flex-col p-4">
         <h1 class="font-amatic-sc text-6xl">
-            Analisar denúncia
+            Analisar adoção
         </h1>
         <br>
         <div v-if="response && !hasRemoteError">
             <div class="ml-4">
-                <h1 class="text-4xl font-amatic-sc">Local: &nbsp;</h1>
-                <p> {{ response.data.local }}</p>
+                <h1 class="text-4xl font-amatic-sc">Nome: &nbsp;</h1>
+                <p> {{ response.data.name }}</p>
                 <br>
                 <h1 class="text-4xl font-amatic-sc">Descrição: &nbsp;</h1>
                 <p> {{ response.data.description }}</p>
                 <br>
                 <h1 class="text-4xl font-amatic-sc">Imagens: &nbsp;</h1>
                 <div class="mt-2 flex flex-wrap justify-center gap-2">
-                    <img v-for="f in response.data.files" :src="f.data" class="w-48">
+                    <img v-for="f in response.data.images" :src="f.data" class="w-48">
                 </div>
                 <br>
-                <tail-admin-complaint-status v-for="status in response.data.statuses" :status="status" />
+                <tail-admin-status v-for="status in response.data.statuses" :status="status" />
                 <br>
-                <tail-admin-complaint-add-status :key="addStatusKey" v-if="response.allowedStatus.length"
+                <tail-admin-add-status :key="addStatusKey" v-if="response.allowedStatus.length"
                     :statuses="response.allowedStatus" @on-add-status="onAddStatus" />
             </div>
         </div>

@@ -1,13 +1,11 @@
 <script setup lang="ts">
-import { UpdateComplaintRequest } from '~~/composables/admin/Complaint';
-
-type Status = { code: number, description: string }
+import { StateDescription, StatusRequest } from '~/composables/api/Status'
 
 defineProps<{
-    statuses: Array<Status>
+    statuses: Array<StateDescription>
 }>()
 const emit = defineEmits<{
-    (event: 'onAddStatus', value: UpdateComplaintRequest): void
+    (event: 'onAddStatus', value: StatusRequest): void
 }>()
 
 const status = ref(-1)
@@ -22,7 +20,7 @@ interface Errors {
 
 const errors = ref<Errors>({})
 
-function onSave(statuses: Array<Status>) {
+function onSave(statuses: Array<StateDescription>) {
     if (hasError<Errors>(
         {
             status: buildValidator(status, status => status != -1, "Por favor, insira um status válido"),
@@ -35,12 +33,9 @@ function onSave(statuses: Array<Status>) {
     if (!object) return
 
     emit("onAddStatus", {
-        id: -1,
-        status: {
-            code: object.code,
-            description: `${object.description}\n\n${description.value}`,
-            files: files.value
-        }
+        code: object.code,
+        description: `${object.description}\n\n${description.value}`,
+        files: files.value
     })
 }
 </script>
@@ -51,13 +46,8 @@ function onSave(statuses: Array<Status>) {
         <br>
         <div class="flex flex-col">
             <h1 class="text-4xl font-amatic-sc">Tipo de status:</h1>
-            <tail-select
-                :data="statuses"
-                :visual-transform="status => status.description"
-                :value-transform="status => status.code"
-                :error="errors.status"
-                v-model="status"
-            >
+            <tail-select :data="statuses" :visual-transform="status => status.description"
+                :value-transform="status => status.code" :error="errors.status" v-model="status">
                 <option :value="-1">
                     Nenhum
                 </option>
@@ -74,6 +64,7 @@ function onSave(statuses: Array<Status>) {
         </div>
         <br>
         <icon name="ant-design:save-filled" size="3rem"
-            class="text-blue-violet hover:text-burnt-yellow hover:cursor-pointer m-auto mr-0" @click="onSave(statuses)" />
+            class="text-blue-violet hover:text-burnt-yellow hover:cursor-pointer m-auto mr-0"
+            @click="onSave(statuses)" />
     </div>
 </template>
