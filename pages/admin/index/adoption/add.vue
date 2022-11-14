@@ -4,12 +4,16 @@ const modal = useModal()
 
 const name = ref("")
 const description = ref("")
+const gender = ref("")
+const size = ref("")
 const picture = ref(new Array<string>())
 const images = ref(new Array<string>())
 
 interface Errors {
     name?: string,
     description?: string,
+    gender?: string,
+    size?: string,
     picture?: string,
     images?: string,
 }
@@ -23,6 +27,8 @@ function onSave() {
         {
             name: lengthValidator(name, "Você precisa adicionar algum nome"),
             description: lengthValidator(description, "Você precisa adicionar alguma descrição"),
+            gender: lengthValidator(gender, "Você precisa adicionar um gênero"),
+            size: lengthValidator(size, "Você precisa adicionar o porte do animal"),
             picture: lengthValidator(picture, "Você deve inserir uma foto de perfil"),
             images: lengthValidator(images, "Você precisa inserir ao menos uma imagem")
         },
@@ -32,6 +38,8 @@ function onSave() {
     addAdoption({
         name: name.value,
         description: description.value,
+        gender: gender.value,
+        size: size.value,
         picture: picture.value[0],
         images: images.value,
     }).then(handle({
@@ -64,6 +72,16 @@ function onSave() {
             <tail-input-base placeholder="Nome" v-model="name" :error="errors.name" />
             <tail-input-area placeholder="Uma breve descrição" maxlength="255" v-model="description"
                 :error="errors.description" />
+            <tail-select :data="['Macho', 'Fêmea']" v-model="gender" :error="errors.gender">
+                <option value="">
+                    Gênero do animal
+                </option>
+            </tail-select>
+            <tail-select :data="['Pequeno', 'Médio', 'Grande']" v-model="size" :error="errors.size">
+                <option value="">
+                    Porte do animal
+                </option>
+            </tail-select>
             <tail-input-base64-file-dialog :error="errors.picture" v-model="picture">
                 <tail-button-blue-violet title="Uma foto de perfil" />
             </tail-input-base64-file-dialog>

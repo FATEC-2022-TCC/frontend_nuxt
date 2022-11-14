@@ -95,12 +95,14 @@ export const addAdoptionStatus = (body: UpdateAdoptionStatusRequest) => post<nev
 
 export const getAdoption = (id: string) => get<AdoptionResponse>(argsToURL("/admin/adoption/{id}", { id }))
 
-export const searchAdoptionProjection = (currentStatusCode: number, text: string, page: number) => get<SearchAdoptionProjectionResponse>(
+export const searchAdoptionProjection = (currentStatusCode: number, text: string, gender: string, size: string, page: number) => get<SearchAdoptionProjectionResponse>(
     "/admin/adoption/projection",
     {
         query: {
             currentStatusCode,
             text,
+            gender,
+            size,
             page
         }
     }

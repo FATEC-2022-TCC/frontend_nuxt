@@ -42,6 +42,8 @@ export interface SearchAdoptionProjectionResponse {
 export interface NewAdoptionRequest {
     name: string,
     description: string,
+    gender: string,
+    size: string,
     picture: string,
     images: Array<string>
 }

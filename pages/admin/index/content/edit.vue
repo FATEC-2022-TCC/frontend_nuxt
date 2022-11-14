@@ -27,27 +27,31 @@ const errors = ref<EditErrors>({})
 
 const id = route.query["id"]?.toString() ?? ''
 
-if (!id) navigateTo("/admin/content")
-else getContent(id).then(handle({
-    onFailure: error => {
-        console.log(error)
-        modal.value = {
-            type: ModalType.Error,
-            title: "Ops!",
-            messages: [
-                "Parece que esse conteúdo não foi encontrado!"
-            ]
+function start() {
+    getContent(id).then(handle({
+        onFailure: error => {
+            console.log(error)
+            modal.value = {
+                type: ModalType.Error,
+                title: "Ops!",
+                messages: [
+                    "Parece que esse conteúdo não foi encontrado!"
+                ]
+            }
+            navigateTo("/admin/content")
+        },
+        onSuccess: result => {
+            content.value = result.data
+            title.value = result.title
+            description.value = result.description
+            background.value = result.background
+            until.value = new Date(result.until)
         }
-        navigateTo("/admin/content")
-    },
-    onSuccess: result => {
-        content.value = result.data
-        title.value = result.title
-        description.value = result.description
-        background.value = result.background
-        until.value = new Date(result.until)
-    }
-}))
+    }))
+}
+
+if (!id) navigateTo("/admin/content")
+else start()
 
 function onSave() {
     hasRemoteError.value = false

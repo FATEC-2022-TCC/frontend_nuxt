@@ -2,6 +2,8 @@
 import { SearchAdoptionProjectionResponse } from '~~/composables/admin/Adoption';
 
 const search = ref("")
+const gender = ref("")
+const size = ref("")
 const status = ref(0)
 const page = ref(1)
 
@@ -12,30 +14,44 @@ const pagination = ref<SearchAdoptionProjectionResponse>({
 
 const hasRemoteError = ref(false)
 
-const getAdoption = () => searchAdoptionProjection(status.value, search.value, page.value).then(handle({
+const start = () => searchAdoptionProjection(status.value, search.value, gender.value, size.value, page.value).then(handle({
     onSuccess: onSuccess(pagination),
     onFailure: onFailure(hasRemoteError)
 }))
 
-watch(status, getAdoption)
+watch(status, start)
+watch(gender, start)
+watch(size, start)
 
-getAdoption()
+start()
 </script>
 
 <template>
     <div class="flex flex-col p-4 pb-32">
-        <div class="flex flex-col items-center justify-between">
+        <div class="flex flex-col gap-2 items-center justify-between">
             <h1 class="font-amatic-sc text-6xl self-start">
                 Adoção
             </h1>
             <br>
-            <tail-input-search v-model="search" @on-search="page = 1; getAdoption()" />
-            <tail-select class="mt-2"
+            <tail-input-search v-model="search" @on-search="page = 1; start()" />
+            <tail-select
                 :data="pagination.statuses"
                 :visual-transform="status => status.description"
                 :value-transform="status => status.code"
                 v-model="status"
             />
+            <div class="w-full flex gap-2">
+                <tail-select :data="['Macho', 'Fêmea']" v-model="gender">
+                    <option value="">
+                        Gênero do animal
+                    </option>
+                </tail-select>
+                <tail-select :data="['Pequeno', 'Médio', 'Grande']" v-model="size">
+                    <option value="">
+                        Porte do animal
+                    </option>
+                </tail-select>
+            </div>
         </div>
         <div v-if="!hasRemoteError" class="flex flex-col flex-1">
             <br>

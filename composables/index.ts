@@ -5,7 +5,8 @@ export {
     getPublicContent,
     addComplaint,
     sendChatbotMessage,
-    getAllCategoryProjection
+    getAllCategoryProjection,
+    searchPublicAdoption
 } from "./public"
 
 export {

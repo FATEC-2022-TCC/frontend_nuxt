@@ -11,7 +11,7 @@ const isLoading = ref(true)
 
 const id = route.query["id"]?.toString() ?? ''
 
-function getCompliant() {
+function start() {
     getCategory(id).then(handle({
         onSuccess: response => {
             name.value = response.name
@@ -26,7 +26,7 @@ function getCompliant() {
 }
 
 if (!id) navigateTo("/admin/category")
-getCompliant()
+else start()
 
 interface Errors {
     name?: string,

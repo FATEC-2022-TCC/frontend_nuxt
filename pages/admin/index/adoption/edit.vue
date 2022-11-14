@@ -50,6 +50,10 @@ function onAddStatus(request: StatusRequest) {
                 <h1 class="text-4xl font-amatic-sc">Descrição: &nbsp;</h1>
                 <p> {{ response.data.description }}</p>
                 <br>
+                <br>
+                <h1 class="text-4xl font-amatic-sc">Foto de perfil: &nbsp;</h1>
+                <img :src="response.data.picture" />
+                <br>
                 <h1 class="text-4xl font-amatic-sc">Imagens: &nbsp;</h1>
                 <div class="mt-2 flex flex-wrap justify-center gap-2">
                     <img v-for="f in response.data.images" :src="f.data" class="w-48">

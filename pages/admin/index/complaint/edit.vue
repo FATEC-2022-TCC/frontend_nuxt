@@ -11,7 +11,7 @@ const hasRemoteError = ref(false)
 
 const id = route.query["id"]?.toString() ?? ''
 
-function getCompliant() {
+function start() {
     getComplaint(id).then(handle({
         onSuccess: onSuccess(response),
         onFailure: onFailure(hasRemoteError)
@@ -19,7 +19,7 @@ function getCompliant() {
 }
 
 if (!id) navigateTo("/admin/complaint")
-getCompliant()
+else start()
 
 function onAddStatus(statusRequest: StatusRequest) {
     addComplaintStatus({
@@ -27,7 +27,7 @@ function onAddStatus(statusRequest: StatusRequest) {
         status: statusRequest
     }).then(handle({
         onSuccess: _ => {
-            getCompliant()
+            start()
             addStatusKey.value++
         },
         onFailure: onFailure(hasRemoteError)

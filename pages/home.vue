@@ -1,5 +1,5 @@
 <template>
-    <div class="min-h-screen flex flex-col">
+    <div class="bg-seashell min-h-screen flex flex-col">
         <tail-header />
         <nuxt-layout name="page">
             <nuxt-page />

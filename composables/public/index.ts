@@ -27,6 +27,12 @@ import {
     CategoryProjection
 } from "./Category"
 
+import {
+    AdoptionProjection
+} from "./Adoption"
+
+import Page from "../api/Page";
+
 export const signin = (body: SignInRequest) => post<SignInResponse>("/public/sign/in", body)
 
 export const signup = (body: SignUpRequest) => post<null>("/public/sign/up", body)
@@ -46,3 +52,17 @@ export const sendChatbotMessage = (body: ChatbotRequest) => post<ChatbotResponse
 // --
 
 export const getAllCategoryProjection = () => get<Array<CategoryProjection>>("/public/category/project/all")
+
+// --
+
+export const searchPublicAdoption = (text: string, gender: string, size: string, page: number) => get<Page<AdoptionProjection>>(
+    "/public/adoption",
+    {
+        query: {
+            text,
+            gender,
+            size,
+            page
+        }
+    }
+)
