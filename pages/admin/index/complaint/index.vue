@@ -30,11 +30,12 @@ getComplaint()
             </h1>
             <br>
             <tail-input-search v-model="search" @on-search="page = 1; getComplaint()" />
-            <select class="w-full border-2 rounded p-2 text-blue-violet text-xl mt-2" v-model="status">
-                <option v-for="status in pagination.statuses" :value="status.code">
-                    {{ status.description }}
-                </option>
-            </select>
+            <tail-select class="mt-2"
+                :data="pagination.statuses"
+                :visual-transform="status => status.description"
+                :value-transform="status => status.code"
+                v-model="status"
+            />
         </div>
         <div v-if="!hasRemoteError" class="flex flex-col flex-1">
             <div class="flex flex-wrap justify-center flex-1">

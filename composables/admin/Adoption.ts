@@ -13,3 +13,10 @@ export interface SearchAdoptionProjectionResponse {
     page: Page<AdoptionProjection>,
     statuses: Array<StateDescription>
 }
+
+export interface NewAdoptionRequest {
+    name: string,
+    description: string,
+    picture: string,
+    images: Array<string>
+}

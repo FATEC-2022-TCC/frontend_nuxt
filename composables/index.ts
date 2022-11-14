@@ -21,6 +21,7 @@ export {
     getCategory,
     searchCategoryProjection,
     updateCategory,
+    addAdoption,
     searchAdoptionProjection
 } from "./admin"
 

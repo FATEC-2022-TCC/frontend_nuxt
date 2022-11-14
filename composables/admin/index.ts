@@ -28,6 +28,7 @@ import {
 
 import {
     AdoptionProjection,
+    NewAdoptionRequest,
     SearchAdoptionProjectionResponse
 } from "./Adoption"
 
@@ -87,10 +88,13 @@ export const updateCategory = (body: UpdateCategoryRequest) => put<never>("/admi
 
 // --
 
-export const searchAdoptionProjection = (text: string, page: number) => get<SearchAdoptionProjectionResponse>(
+export const addAdoption = (body: NewAdoptionRequest) => post<never>("/admin/adoption", body)
+
+export const searchAdoptionProjection = (currentStatusCode: number, text: string, page: number) => get<SearchAdoptionProjectionResponse>(
     "/admin/adoption/projection",
     {
         query: {
+            currentStatusCode,
             text,
             page
         }

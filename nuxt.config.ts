@@ -2,9 +2,7 @@ export default defineNuxtConfig({
     ssr: true,
     runtimeConfig: {
         public: {
-            baseURL: 'http://localhost:8080',
-            publicImages: 'http://localhost:8080/public/images/',
-            webSocket: 'ws://localhost:8080/ws'
+            baseURL: 'http://localhost:8080'
         }
     },
     modules: [
@@ -28,5 +26,6 @@ export default defineNuxtConfig({
         },
         overwriting: false,
         download: false
-    }
+    },
+    devServerHandlers: []
 })

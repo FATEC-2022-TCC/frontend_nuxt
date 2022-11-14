@@ -12,20 +12,16 @@ defineEmits<{
     <div
         class=
         "
-            w-64
-            h-48
-            p-2
-            rounded
+            p-4
             flex
             flex-col
-            justify-between
-            items-center
-            space-y-2
-            border
-            border-blue-violet
-            cursor-pointer
-            transition-shadow
+            rounded-lg
+            shadow-lg
+            bg-white
+            transition-all
             hover:shadow-2xl
+            hover:cursor-pointer
+            w-64
         ">
         <p class="text-center">{{ projection.local }}</p>
         <p class="text-center truncate max-w-full"> {{ projection.description }} </p>

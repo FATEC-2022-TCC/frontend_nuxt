@@ -9,6 +9,6 @@ definePageMeta({
 
 <template>
     <div>
-        <nuxt-page class="h-screen" />
+        <nuxt-page />
     </div>
 </template>

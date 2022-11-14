@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { UpdateComplaintRequest } from '~~/composables/admin/Complaint';
+
 type Status = { code: number, description: string }
+
 defineProps<{
     statuses: Array<Status>
 }>()
@@ -8,32 +10,35 @@ const emit = defineEmits<{
     (event: 'onAddStatus', value: UpdateComplaintRequest): void
 }>()
 
-const status = ref<Status>({ code: -1, description: "Nenhum" })
+const status = ref(-1)
 const description = ref("")
 const files = ref<Array<string>>([])
 
 interface Errors {
     status?: string,
     description?: string,
-    files?: ""
+    files?: string
 }
 
 const errors = ref<Errors>({})
 
-function onSave() {
+function onSave(statuses: Array<Status>) {
     if (hasError<Errors>(
         {
-            status: buildValidator(status, status => status.code != -1, "Por favor, insira um status válido"),
+            status: buildValidator(status, status => status != -1, "Por favor, insira um status válido"),
             description: lengthValidator(description, "Por favor, insira uma descrição")
         },
         errors
     )) return
 
+    const object = statuses.filter(object => object.code == status.value).pop()
+    if (!object) return
+
     emit("onAddStatus", {
         id: -1,
         status: {
-            code: status.value.code,
-            description: `${status.value.description}\n\n${description.value}`,
+            code: object.code,
+            description: `${object.description}\n\n${description.value}`,
             files: files.value
         }
     })
@@ -41,22 +46,22 @@ function onSave() {
 </script>
 
 <template>
-    <div class="p-4 border border-blue-violet flex flex-col">
+    <div class="bg-white p-4 border border-blue-violet flex flex-col">
         <h1 class="text-4xl font-amatic-sc">Adicionar novo status:</h1>
         <br>
         <div class="flex flex-col">
             <h1 class="text-4xl font-amatic-sc">Tipo de status:</h1>
-            <select class="border-2 rounded p-2 text-blue-violet text-xl mt-2" v-model="status">
-                <option :value="{ code: -1, description: 'Nenhum' }">
+            <tail-select
+                :data="statuses"
+                :visual-transform="status => status.description"
+                :value-transform="status => status.code"
+                :error="errors.status"
+                v-model="status"
+            >
+                <option :value="-1">
                     Nenhum
                 </option>
-                <option v-for="status in statuses" :value="status">
-                    {{ status.description }}
-                </option>
-            </select>
-            <p v-if="errors.status" class="ml-2 text-red">
-                {{ errors.status }}
-            </p>
+            </tail-select>
         </div>
         <br>
         <tail-input-area v-model="description" :error="errors.description" />
@@ -69,6 +74,6 @@ function onSave() {
         </div>
         <br>
         <icon name="ant-design:save-filled" size="3rem"
-            class="text-blue-violet hover:text-burnt-yellow hover:cursor-pointer m-auto mr-0" @click="onSave" />
+            class="text-blue-violet hover:text-burnt-yellow hover:cursor-pointer m-auto mr-0" @click="onSave(statuses)" />
     </div>
 </template>

@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { Status } from '~~/composables/admin/Complaint';
+import { Status } from '~~/composables/api/Status';
 defineProps<{
     status: Status
 }>()
 </script>
 
 <template>
-    <div class="border border-blue-violet p-4 rounded mt-4">
+    <div class="bg-white border border-blue-violet p-4 rounded mt-4">
         <h1 class="text-4xl font-amatic-sc">Descrição: &nbsp;</h1>
         <p class="whitespace-pre-wrap"> {{ status.description }}</p>
         <br>

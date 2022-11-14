@@ -1,11 +1,5 @@
 <script setup lang="ts">
-const {
-    data,
-    visualTransform,
-    valueTransform,
-    modelValue,
-    error
-} = defineProps<{
+defineProps<{
     data: Array<Object>,
     visualTransform?: (any: any) => string,
     valueTransform?: (any: any) => any
@@ -14,17 +8,17 @@ const {
 }>()
 
 defineEmits<{
-    (event: 'update:modelValue', value: any): any
+    (event: 'update:modelValue', value: any): void
 }>()
 </script>
 
 <template>
-    <div>
-        <select class="w-full border-2 border-blue-violet rounded p-2 bg-transparent text-blue-violet"
-            v-model="modelValue" @input="$emit('update:modelValue', ($event.target as HTMLSelectElement).value)">
+    <div class="w-full">
+        <select class="w-full border-2 border-blue-violet rounded p-2 bg-white text-blue-violet"
+            :value="modelValue" @input="$emit('update:modelValue', ($event.target as HTMLSelectElement).value)">
             <slot></slot>
             <option v-for="d in data" :value="valueTransform ? valueTransform(d) : d">
-                {{ visualTransform ? visualTransform(d) : `${d}` }}
+                {{ visualTransform ? visualTransform(d) : d }}
             </option>
         </select>
         <p v-if="error" class="ml-2 text-red">
