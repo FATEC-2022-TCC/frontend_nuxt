@@ -56,8 +56,8 @@ start()
         <div v-if="!hasRemoteError" class="flex flex-col flex-1">
             <br>
             <div class="flex flex-wrap gap-4 justify-center flex-1">
-                <tail-admin-adoption-projection
-                    @on-edit="navigateTo(`/admin/adoption/edit?id=${$event}`)"
+                <tail-public-adoption-projection
+                    @click="navigateTo(`/admin/adoption/edit?id=${p.id}`)"
                     v-for="p in pagination.page.items"
                     :projection="p"
                 />

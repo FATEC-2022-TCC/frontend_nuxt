@@ -70,7 +70,7 @@ function onSave() {
                 Precisamos de algumas informações sobre a nova adoção
             </h2>
             <tail-input-base placeholder="Nome" v-model="name" :error="errors.name" />
-            <tail-input-area placeholder="Uma breve descrição" maxlength="255" v-model="description"
+            <tail-input-area placeholder="Uma breve descrição" v-model="description"
                 :error="errors.description" />
             <tail-select :data="['Macho', 'Fêmea']" v-model="gender" :error="errors.gender">
                 <option value="">

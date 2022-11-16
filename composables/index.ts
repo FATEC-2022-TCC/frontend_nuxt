@@ -6,7 +6,8 @@ export {
     addComplaint,
     sendChatbotMessage,
     getAllCategoryProjection,
-    searchPublicAdoption
+    searchPublicAdoption,
+    getPublicAdoption
 } from "./public"
 
 export {

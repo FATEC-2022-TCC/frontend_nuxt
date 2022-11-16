@@ -28,6 +28,7 @@ import {
 } from "./Category"
 
 import {
+    Adoption,
     AdoptionProjection
 } from "./Adoption"
 
@@ -56,7 +57,7 @@ export const getAllCategoryProjection = () => get<Array<CategoryProjection>>("/p
 // --
 
 export const searchPublicAdoption = (text: string, gender: string, size: string, page: number) => get<Page<AdoptionProjection>>(
-    "/public/adoption",
+    "/public/adoption/projection",
     {
         query: {
             text,
@@ -66,3 +67,5 @@ export const searchPublicAdoption = (text: string, gender: string, size: string,
         }
     }
 )
+
+export const getPublicAdoption = (id: string) => get<Adoption>(argsToURL("/public/adoption/{id}", { id }))

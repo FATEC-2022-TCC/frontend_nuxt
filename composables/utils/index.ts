@@ -108,7 +108,7 @@ export const emptyPage = <T>(): Page<T> => ({
 
 export const formatDate = (date: string) => {
     try {
-        return format(new Date(date), "dd/MM/yyyy hh:mm:ss")
+        return format(new Date(date), "dd/MM/yyyy HH:mm:ss")
     } catch (e) {
         console.log(e)
     }
