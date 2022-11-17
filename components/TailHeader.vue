@@ -24,6 +24,9 @@ function signOut() {
         <ul class="mt-4 flex-col font-amatic-sc text-3xl md:space-x-4 md:flex-row md:flex md:m-0"
             :class="isOpen ? 'flex' : 'hidden'">
             <li>
+                <nuxt-link to="/home/blog">Blog</nuxt-link>
+            </li>
+            <li>
                 <nuxt-link to="/home/adoption">Adoção</nuxt-link>
             </li>
             <li>

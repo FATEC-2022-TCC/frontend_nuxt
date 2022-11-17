@@ -10,7 +10,7 @@ const onDelete = ref(0)
 
 const hasRemoteError = ref(false)
 
-const start = () => getContentProjection(search.value, page.value).then(handle({
+const start = () => searchContentProjection(search.value, page.value).then(handle({
     onFailure: onFailure(hasRemoteError),
     onSuccess: onSuccess(pagination)
 }))

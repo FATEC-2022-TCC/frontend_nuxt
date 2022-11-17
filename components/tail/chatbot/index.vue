@@ -7,7 +7,12 @@ type Message = {
 }
 const stack: Array<string> = []
 let stackIndex = 0
-const messages = reactive<Array<Message>>([])
+const messages = reactive<Array<Message>>([
+    {
+        message: "Olá, eu sou o Joselito. Eu ainda estou aprendendo. Seja gentil",
+        owner: "bot"
+    }
+])
 const myMessage = ref("")
 
 const sessionId = Math.random().toString()

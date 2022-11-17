@@ -1,12 +1,23 @@
 <script setup lang="ts">
 import 'vue3-carousel/dist/carousel.css'
-import { Carousel, Slide, Pagination, Navigation } from 'vue3-carousel'
+import { Carousel, Slide, Navigation } from 'vue3-carousel'
 import { ContentProjection } from '~~/composables/admin/Content';
+import { AdoptionProjection } from '~~/composables/public/Adoption';
 
 const contentProjections = ref<Array<ContentProjection>>([])
+const adoptionPagination = ref(emptyPage<AdoptionProjection>())
+const contentPagination = ref(emptyPage<ContentProjection>())
 
 getContentProjectionInEvidence().then(handle({
     onSuccess: onSuccess(contentProjections)
+}))
+
+searchPublicAdoption("", "", "", 1).then(handle({
+    onSuccess: onSuccess(adoptionPagination)
+}))
+
+searchPublicContentProjection("", 1).then(handle({
+    onSuccess: onSuccess(contentPagination)
 }))
 </script>
 
@@ -35,58 +46,30 @@ getContentProjectionInEvidence().then(handle({
                 <navigation />
             </template>
         </carousel>
+        <div class="p-4" v-if="adoptionPagination.items.length">
+            <h1 class="font-amatic-sc text-4xl font-bold text-blue-violet">Novos animais por aqui:</h1>
+            <br>
+            <div class="flex justify-center">
+                <tail-public-adoption-projection v-for="p in adoptionPagination.items" :projection="p"
+                    @click="navigateTo(`home/adoption/view?id=${p.id}`)" />
+            </div>
+            <br>
+            <tail-button-blue-violet
+                title="Encontrar mais"
+                @click="navigateTo('home/adoption')"
+            />
+        </div>
+        <div class="p-4" v-if="contentPagination.items.length">
+            <h1 class="font-amatic-sc text-4xl font-bold text-blue-violet">Nosso blog:</h1>
+            <br>
+            <div class="flex justify-center">
+                <tail-public-content-projection
+                    v-for="p in contentPagination.items"
+                    :projection="p"
+                    @click="navigateTo(`home/content?id=${p.id}`)"
+                />
+            </div>
+        </div>
         <tail-chatbot />
-
-        <!-- Blocos de Animais - In Progress -->
-        <!-- <div class="flex justify-evenly my-4">
-
-            <div class="flex flex-col rounded-md w-1/4 p-4 shadow-md shadow-blue-violet">
-                <img :src="contentProjections[0].background" class="rounded-md mb-2" />
-                <div class="mb-2">
-                    <h1 class="text-center text-4xl font-amatic-sc text-blue-violet font-bold">
-                        {{ contentProjections[0].title }}
-                    </h1>
-                    <p class="text-center text-xl font-amatic-sc">
-                        {{ contentProjections[0].description }}
-                    </p>
-                </div>
-                <div class="flex w-full justify-around gap-4">
-                    <tail-heart class="p-2" />
-                    <tail-button-blue-violet title="Adote agore" class="flex-1" />
-                </div>
-            </div>
-
-            <div class="flex flex-col rounded-md w-1/4 p-4 shadow-md shadow-blue-violet">
-                <img :src="contentProjections[0].background" class="rounded-md mb-2" />
-                <div class="mb-2">
-                    <h1 class="text-center text-4xl font-amatic-sc text-blue-violet font-bold">
-                        {{ contentProjections[0].title }}
-                    </h1>
-                    <p class="text-center text-xl font-amatic-sc">
-                        {{ contentProjections[0].description }}
-                    </p>
-                </div>
-                <div class="flex w-full justify-around gap-4">
-                    <tail-heart class="p-2" />
-                    <tail-button-blue-violet title="Adote agore" class="flex-1" />
-                </div>
-            </div>
-
-            <div class="flex flex-col rounded-md w-1/4 p-4 shadow-md shadow-blue-violet">
-                <img :src="contentProjections[0].background" class="rounded-md mb-2" />
-                <div class="mb-2">
-                    <h1 class="text-center text-4xl font-amatic-sc text-blue-violet font-bold">
-                        {{ contentProjections[0].title }}
-                    </h1>
-                    <p class="text-center text-xl font-amatic-sc">
-                        {{ contentProjections[0].description }}
-                    </p>
-                </div>
-                <div class="flex w-full justify-around gap-4">
-                    <tail-heart class="p-2" />
-                    <tail-button-blue-violet title="Adote agore" class="flex-1" />
-                </div>
-            </div>
-        </div> -->
     </div>
 </template>

@@ -47,7 +47,7 @@ export const updateContent = (body: UpdateContentRequest) => put<ContentResponse
 
 export const deleteContent = (id: string) => del<null>(argsToURL("/admin/content/{id}", { id }))
 
-export const getContentProjection = (text: string, page: number) => get<Page<ContentProjection>>(
+export const searchContentProjection = (text: string, page: number) => get<Page<ContentProjection>>(
     "/admin/content/projection",
     {
         query: {

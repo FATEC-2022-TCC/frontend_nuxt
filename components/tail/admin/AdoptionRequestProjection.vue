@@ -3,9 +3,6 @@ import { AdoptionRequestProjection } from '~~/composables/admin/AdoptionRequest'
 defineProps<{
     projection: AdoptionRequestProjection
 }>()
-defineEmits<{
-    (event: 'onRequestsView', value: number): void
-}>()
 </script>
 
 <template>

@@ -42,6 +42,16 @@ export const signup = (body: SignUpRequest) => post<null>("/public/sign/up", bod
 
 export const getContentProjectionInEvidence = () => get<Array<ContentProjection>>("/public/content/projection/evidence")
 
+export const searchPublicContentProjection = (text: string, page: number) => get<Page<ContentProjection>>(
+    "/public/content/projection",
+    {
+        query: {
+            text,
+            page
+        }
+    }
+)
+
 export const getPublicContent = (id: string) => get<ContentResponse>(argsToURL("/public/content/{id}", { id }))
 
 export const addComplaint = (body: NewComplaintRequest) => post<null>("/public/complaint", body)
