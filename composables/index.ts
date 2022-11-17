@@ -26,7 +26,8 @@ export {
     addAdoption,
     addAdoptionStatus,
     getAdoption,
-    searchAdoptionProjection
+    searchAdoptionProjection,
+    searchAdoptionRequestProjection
 } from "./admin"
 
 export {

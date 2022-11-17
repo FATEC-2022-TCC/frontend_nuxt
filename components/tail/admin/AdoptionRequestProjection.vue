@@ -1,0 +1,27 @@
+<script setup lang="ts">
+import { AdoptionRequestProjection } from '~~/composables/admin/AdoptionRequest';
+defineProps<{
+    projection: AdoptionRequestProjection
+}>()
+defineEmits<{
+    (event: 'onRequestsView', value: number): void
+}>()
+</script>
+
+<template>
+    <div>
+        <div class="
+            p-4
+            justify-between
+            rounded-lg
+            shadow-lg
+            bg-white
+            transition-all
+            hover:shadow-2xl
+            hover:cursor-pointer
+        ">
+            <h1 class="m-auto font-amatic-sc text-4xl">Requisitado por:</h1>
+            <h1 class="text-center font-amatic-sc text-4xl">{{ projection.createdBy }}</h1>
+        </div>
+    </div>
+</template>

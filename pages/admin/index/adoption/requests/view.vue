@@ -1,15 +1,26 @@
 <script setup lang="ts">
+import { AdoptionRequestProjection } from '~~/composables/admin/AdoptionRequest';
+
+const route = useRoute()
+
 const search = ref("")
 const page = ref(1)
 
-const pagination = ref(emptyPage<never>())
+const pagination = ref(emptyPage<AdoptionRequestProjection>())
 
 const hasRemoteError = ref(false)
 
-const start = () => {
+const id = route.query["id"]?.toString() ?? ''
 
+if (!id) navigateTo('/admin/adoption')
+else start()
+
+function start() {
+    // searchAdoptionRequestProjection(id, search.value, page.value).then(handle({
+    //     onFailure: onFailure(hasRemoteError),
+    //     onSuccess: onSuccess(pagination)
+    // }))
 }
-
 </script>
 
 <template>
