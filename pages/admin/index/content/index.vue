@@ -10,21 +10,21 @@ const onDelete = ref(0)
 
 const hasRemoteError = ref(false)
 
-const getContent = () => getContentProjection(search.value, page.value).then(handle({
+const start = () => getContentProjection(search.value, page.value).then(handle({
     onFailure: onFailure(hasRemoteError),
     onSuccess: onSuccess(pagination)
 }))
 
 const onDeleteConfirmed = () => deleteContent(`${onDelete.value}`).then(handle({
     onFailure: onFailure(hasRemoteError),
-    onNullSucess: getContent,
+    onNullSucess: start,
     finally: () => {
         onDelete.value = 0
         page.value = 1
     }
 }))
 
-getContent()
+start()
 </script>
 
 <template>
@@ -34,7 +34,7 @@ getContent()
                 Conteúdo
             </h1>
             <br>
-            <tail-input-search class="pr-4" v-model="search" @on-search="page = 1; getContent()" />
+            <tail-input-search class="pr-4" v-model="search" @on-search="page = 1; start()" />
         </div>
         <div v-if="!hasRemoteError" class="flex flex-col flex-1">
             <div class="flex flex-wrap justify-center flex-1">
@@ -42,7 +42,7 @@ getContent()
                     @on-delete="onDelete = $event" @on-edit="navigateTo(`/admin/content/edit?id=${$event}`)" />
             </div>
             <br>
-            <tail-pagination class="self-center" v-model="page" @update:modelValue="getContent"
+            <tail-pagination class="self-center" v-model="page" @update:modelValue="start"
                 :min-page="1" :max-page="pagination.pages" />
         </div>
         <tail-error class="mt-2 mr-4" v-else>

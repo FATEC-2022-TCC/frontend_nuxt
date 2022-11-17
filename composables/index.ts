@@ -34,7 +34,8 @@ export {
     getAnimal,
     updateAnimal,
     deleteAnimal,
-    getAnimalProjection
+    getAnimalProjection,
+    requestAdoption
 } from "./user"
 
 export {

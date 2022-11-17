@@ -9,7 +9,7 @@ const onDeleteData = ref(0)
 
 const hasRemoteError = ref(false)
 
-const getAnimal = () => getAnimalProjection(search.value, page.value).then(handle({
+const start = () => getAnimalProjection(search.value, page.value).then(handle({
     onFailure: onFailure(hasRemoteError),
     onSuccess: onSuccess(pagination)
 }))
@@ -26,7 +26,7 @@ const onDeleteConfirmed = () => deleteAnimal(`${onDeleteData.value}`).then(handl
     onFailure: onFailure(hasRemoteError),
     finally: () => {
         onDeleteData.value = 0
-        getAnimal()
+        start()
     }
 }))
 
@@ -38,7 +38,7 @@ function onEdit({ id }: AnimalProjection) {
     // navigateTo(`/user/user/edit?id=${id}`)
 }
 
-getAnimal()
+start()
 </script>
 
 <template>
@@ -48,7 +48,7 @@ getAnimal()
                 Meus animais
             </h1>
             <br>
-            <tail-input-search class="pr-4" v-model="search" @on-search="page = 1; getAnimal()" />
+            <tail-input-search class="pr-4" v-model="search" @on-search="page = 1; start()" />
         </div>
         <div v-if="!hasRemoteError" class="flex flex-col flex-1">
             <div class="flex flex-wrap justify-center flex-1">

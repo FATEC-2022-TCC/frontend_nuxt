@@ -24,6 +24,9 @@ watch(gender, start)
 watch(size, start)
 
 start()
+
+const onRequestsView = (id: number) => navigateTo(`adoption/requests?id=${id}`)
+
 </script>
 
 <template>
@@ -56,14 +59,15 @@ start()
         <div v-if="!hasRemoteError" class="flex flex-col flex-1">
             <br>
             <div class="flex flex-wrap gap-4 justify-center flex-1">
-                <tail-public-adoption-projection
+                <tail-admin-adoption-projection
                     @click="navigateTo(`/admin/adoption/edit?id=${p.id}`)"
+                    @on-requests-view="onRequestsView"
                     v-for="p in pagination.page.items"
                     :projection="p"
                 />
             </div>
             <br>
-            <tail-pagination class="self-center" v-model="page" @update:modelValue="getAdoption"
+            <tail-pagination class="self-center" v-model="page" @update:modelValue="start"
                 :min-page="1" :max-page="pagination.page.pages" />
         </div>
         <tail-error class="mt-2" v-else>

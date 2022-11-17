@@ -12,14 +12,14 @@ const pagination = ref<SearchComplaintProjectionResponse>({
 
 const hasRemoteError = ref(false)
 
-const getComplaint = () => searchComplaintProjection(status.value, search.value, page.value).then(handle({
+const start = () => searchComplaintProjection(status.value, search.value, page.value).then(handle({
     onSuccess: onSuccess(pagination),
     onFailure: onFailure(hasRemoteError)
 }))
 
-watch(status, getComplaint)
+watch(status, start)
 
-getComplaint()
+start()
 </script>
 
 <template>
@@ -29,7 +29,7 @@ getComplaint()
                 Denúncias
             </h1>
             <br>
-            <tail-input-search v-model="search" @on-search="page = 1; getComplaint()" />
+            <tail-input-search v-model="search" @on-search="page = 1; start()" />
             <tail-select class="mt-2"
                 :data="pagination.statuses"
                 :visual-transform="status => status.description"
@@ -43,7 +43,7 @@ getComplaint()
                     @on-edit="navigateTo(`/admin/complaint/edit?id=${$event}`)" />
             </div>
             <br>
-            <tail-pagination class="self-center" v-model="page" @update:modelValue="getComplaint"
+            <tail-pagination class="self-center" v-model="page" @update:modelValue="start"
                 :min-page="1" :max-page="pagination.page.pages" />
         </div>
         <tail-error class="mt-2" v-else>

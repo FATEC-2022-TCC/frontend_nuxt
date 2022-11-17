@@ -25,3 +25,7 @@ export const getAnimalProjection = (text: string, page: number) => get<Page<Anim
         }
     }
 )
+
+// --
+
+export const requestAdoption = (id: string) => get<never>("/user/adoption/request", { query: { id } })
