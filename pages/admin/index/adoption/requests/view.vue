@@ -1,12 +1,12 @@
 <script setup lang="ts">
-import { AdoptionRequestProjection } from '~~/composables/admin/AdoptionRequest';
+import { AdoptionRequestResponse } from '~~/composables/admin/AdoptionRequest';
+import { StatusRequest } from '~~/composables/api/Status';
 
 const route = useRoute()
 
-const search = ref("")
-const page = ref(1)
+const addStatusKey = ref(0)
 
-const pagination = ref(emptyPage<AdoptionRequestProjection>())
+const response = ref<AdoptionRequestResponse | null>(null)
 
 const hasRemoteError = ref(false)
 
@@ -16,34 +16,50 @@ if (!id) navigateTo('/admin/adoption')
 else start()
 
 function start() {
-    // searchAdoptionRequestProjection(id, search.value, page.value).then(handle({
-    //     onFailure: onFailure(hasRemoteError),
-    //     onSuccess: onSuccess(pagination)
-    // }))
+    getAdoptionRequest(id).then(handle({
+        onFailure: onFailure(hasRemoteError),
+        onSuccess: onSuccess(response)
+    }))
 }
+
+function onAddStatus(request: StatusRequest) {
+    addAdoptionRequestStatus({
+        id: parseInt(id),
+        status: request
+    }).then(handle({
+        onSuccess: _ => {
+            start()
+            addStatusKey.value++
+        },
+        onFailure: onFailure(hasRemoteError)
+    }))
+}
+
 </script>
 
 <template>
-    <div class="flex flex-col p-4 pb-32">
-        <div class="flex flex-col gap-2 items-center justify-between">
-            <h1 class="font-amatic-sc text-6xl self-start">
-                Adoção
-            </h1>
-            <br>
-            <tail-input-search v-model="search" @on-search="page = 1; start()" />
-        </div>
-        <div v-if="!hasRemoteError" class="flex flex-col flex-1">
-            <br>
-            <div class="flex flex-wrap gap-4 justify-center flex-1">
-
+    <div class="flex flex-col p-4">
+        <h1 class="font-amatic-sc text-6xl">
+            Analisar denúncia
+        </h1>
+        <br>
+        <div v-if="response && !hasRemoteError">
+            <div class="ml-4">
+                <h1 class="text-4xl font-amatic-sc">Criado por: &nbsp;</h1>
+                <p> {{ response.data.createdBy }}</p>
+                <br>
+                <tail-admin-status v-for="status in response.data.statuses" :status="status" />
+                <br>
+                <tail-admin-add-status :key="addStatusKey" v-if="response.allowedStatus.length"
+                    :statuses="response.allowedStatus" @on-add-status="onAddStatus" />
             </div>
-            <br>
-            <tail-pagination class="self-center" v-model="page" @update:modelValue="start"
-                :min-page="1" :max-page="pagination.pages" />
         </div>
-        <tail-error class="mt-2" v-else>
-            <p>Algo deu errado!</p>
-            <p>Atualize a página e tente novamente.</p>
+        <div v-else-if="!hasRemoteError">
+            <p>Carregando...</p>
+        </div>
+        <tail-error v-else>
+            <p>Alguma coisa deu errada.</p>
+            <p>Tente novamente mais tarde!</p>
         </tail-error>
     </div>
 </template>

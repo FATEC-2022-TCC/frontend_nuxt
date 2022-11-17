@@ -34,7 +34,9 @@ import {
 } from "./Adoption"
 
 import {
-    SearchAdoptionRequestProjectionResponse
+    SearchAdoptionRequestProjectionResponse,
+    AdoptionRequestResponse,
+    UpdateAdoptionRequestStatusRequest
 } from "./AdoptionRequest"
 
 export const addContent = (body: NewContentRequest) => post<ContentResponse>("/admin/content", body)
@@ -113,6 +115,10 @@ export const searchAdoptionProjection = (currentStatusCode: number, text: string
 )
 
 // --
+
+export const addAdoptionRequestStatus = (body: UpdateAdoptionRequestStatusRequest) => post<never>("/admin/adoption/request/status", body)
+
+export const getAdoptionRequest = (id: string) => get<AdoptionRequestResponse>(argsToURL("/admin/adoption/request/{id}", { id }))
 
 export const searchAdoptionRequestProjection = (id: string, text: string, currentStatusCode: number, page: number) => get<SearchAdoptionRequestProjectionResponse>(
     "/admin/adoption/request/projection",

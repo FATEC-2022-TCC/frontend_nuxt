@@ -48,10 +48,11 @@ watch(status, start)
         </div>
         <div v-if="!hasRemoteError" class="flex flex-col flex-1">
             <br>
-            <div class="flex flex-wrap gap-4 justify-center flex-1">
+            <div class="flex flex-col gap-4 flex-1">
                 <tail-admin-adoption-request-projection
                     v-for="p in pagination.page.items"
                     :projection="p"
+                    @click="navigateTo(`requests/view?id=${p.id}`)"
                 />
             </div>
             <br>
