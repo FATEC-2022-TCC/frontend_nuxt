@@ -49,9 +49,11 @@ searchPublicContentProjection("", 1).then(handle({
         <div class="p-4" v-if="adoptionPagination.items.length">
             <h1 class="font-amatic-sc text-4xl font-bold text-blue-violet">Novos animais por aqui:</h1>
             <br>
-            <div class="flex justify-center">
-                <tail-public-adoption-projection v-for="p in adoptionPagination.items" :projection="p"
-                    @click="navigateTo(`home/adoption/view?id=${p.id}`)" />
+            <div class="flex justify-center gap-4">
+                <tail-public-adoption-projection
+                    v-for="p in adoptionPagination.items" :projection="p"
+                    @click="navigateTo(`home/adoption/view?id=${p.id}`)"
+                />
             </div>
             <br>
             <tail-button-blue-violet

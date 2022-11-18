@@ -41,7 +41,7 @@ function onSave(statuses: Array<StateDescription>) {
 </script>
 
 <template>
-    <div class="bg-white p-4 border border-blue-violet flex flex-col">
+    <div class="flex flex-col bg-white p-4 rounded border border-blue-violet ">
         <h1 class="text-4xl font-amatic-sc">Adicionar novo status:</h1>
         <br>
         <div class="flex flex-col">

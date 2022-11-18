@@ -40,7 +40,7 @@ function onAddStatus(request: StatusRequest) {
 <template>
     <div class="flex flex-col p-4">
         <h1 class="font-amatic-sc text-6xl">
-            Analisar denúncia
+            Analisar requisição de adoção
         </h1>
         <br>
         <div v-if="response && !hasRemoteError">
