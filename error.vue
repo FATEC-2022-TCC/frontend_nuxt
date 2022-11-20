@@ -11,12 +11,12 @@ defineProps({
         </h1>
         <br>
         <h2 class="text-6xl font-amatic-sc text-white text-center">
-            {{ (error && error["message"]) ?? "Alguma coisa deu errada!"}}
+            {{ error?.message ?? "Alguma coisa deu errada!"}}
         </h2>
         <br>
         <br>
         <button class="bg-burnt-yellow text-blue-violet hover:text-white rounded shadow p-6 font-amatic-sc text-6xl"
-            @click="() => clearError({ redirect: '/home' })">
+            @click="clearError({ redirect: '/home' })">
             Voltar para a página inicial
         </button>
     </div>
