@@ -42,28 +42,43 @@ start()
 </script>
 
 <template>
-    <div class="pt-4 pl-2 pb-32">
+    <div class="p-4 pb-32">
         <div class="flex flex-col items-center justify-between">
             <h1 class="font-amatic-sc text-6xl self-start">
                 Meus animais
             </h1>
             <br>
-            <tail-input-search class="pr-4" v-model="search" @on-search="page = 1; start()" />
+            <tail-input-search v-model="search" @on-search="page = 1; start()" />
         </div>
+        <br>
         <div v-if="!hasRemoteError" class="flex flex-col flex-1">
             <div class="flex flex-wrap justify-center flex-1">
-                <tail-user-animal-projection class="mt-4 mr-2" v-for="p in pagination.items" :projection="p"
-                    @onClick="onClick" @onDelete="onDelete" @onEdit="onEdit" />
+                <tail-user-animal-projection
+                    v-for="p in pagination.items"
+                    :projection="p"
+                    @on-click="onClick"
+                    @on-delete="onDelete"
+                    @on-edit="onEdit"
+                />
             </div>
             <br>
-            <tail-pagination class="self-center" v-model="page" @update:modelValue="getContent" :min-page="1"
-                :max-page="pagination.pages" />
+            <tail-pagination
+                class="self-center"
+                v-model="page"
+                @update:model-value="start"
+                :min-page="1"
+                :max-page="pagination.pages"
+            />
         </div>
-        <tail-error class="mt-2 mr-4" v-else>
+        <tail-error v-else>
             <p>Algo deu errado!</p>
             <p>Atualize a página e tente novamente.</p>
         </tail-error>
-        <tail-modal-warn-delete v-if="onDeleteData" @onClick="onDeleteConfirmed" @onDismiss="onDeleteRevoked" />
-        <tail-fab-add @click="() => navigateTo('animal/add')" />
+        <tail-modal-warn-delete
+            v-if="onDeleteData"
+            @on-click="onDeleteConfirmed"
+            @on-dismiss="onDeleteRevoked"
+        />
+        <tail-fab-add @click="navigateTo('animal/add')" />
     </div>
 </template>

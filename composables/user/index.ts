@@ -8,6 +8,11 @@ import {
     AnimalProjection
 } from "./Animal"
 
+import {
+    Adoption,
+    AdoptionProjection
+} from "./Adoption"
+
 export const addAnimal = (body: NewAnimalRequest) => post<AnimalResponse>("/user/animal", body)
 
 export const getAnimal = (id: string) => get<AnimalResponse>(argsToURL("/user/animal/{id}", { id }))
@@ -28,4 +33,18 @@ export const getAnimalProjection = (text: string, page: number) => get<Page<Anim
 
 // --
 
-export const requestAdoption = (id: string) => get<never>("/user/adoption/request", { query: { id } })
+export const requestAdoption = (id: string) => get<never>("/user/adoption/request/create", { query: { id } })
+
+// --
+
+export const getUserAdoptionProjection = (text: string, page: number) => get<Page<AdoptionProjection>>(
+    "/user/adoption/projection",
+    {
+        query: {
+            text,
+            page
+        }
+    }
+)
+
+export const getUserAdoption = (id: string) => get<Adoption>(argsToURL("/user/adoption/{id}", { id }))

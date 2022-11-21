@@ -64,7 +64,7 @@ searchPublicContentProjection("", 1).then(handle({
         <div class="p-4" v-if="contentPagination.items.length">
             <h1 class="font-amatic-sc text-4xl font-bold text-blue-violet">Nosso blog:</h1>
             <br>
-            <div class="flex justify-center">
+            <div class="flex justify-center gap-4">
                 <tail-public-content-projection
                     v-for="p in contentPagination.items"
                     :projection="p"

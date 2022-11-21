@@ -28,24 +28,34 @@ start()
 </script>
 
 <template>
-    <div class="flex flex-col pt-4 pl-4 pb-32">
+    <div class="flex flex-col p-4 pb-32">
         <div class="flex flex-col items-center justify-between">
             <h1 class="font-amatic-sc text-6xl self-start">
                 Conteúdo
             </h1>
             <br>
-            <tail-input-search class="pr-4" v-model="search" @on-search="page = 1; start()" />
+            <tail-input-search v-model="search" @on-search="page = 1; start()" />
         </div>
+        <br>
         <div v-if="!hasRemoteError" class="flex flex-col flex-1">
-            <div class="flex flex-wrap justify-center flex-1">
-                <tail-admin-content-projection class="mt-4 mr-4" v-for="p in pagination.items" :projection="p"
-                    @on-delete="onDelete = $event" @on-edit="navigateTo(`/admin/content/edit?id=${$event}`)" />
+            <div class="flex flex-wrap justify-center flex-1 gap-4">
+                <tail-admin-content-projection
+                    v-for="p in pagination.items"
+                    :projection="p"
+                    @on-delete="onDelete = $event"
+                    @on-edit="navigateTo(`/admin/content/edit?id=${$event}`)"
+                />
             </div>
             <br>
-            <tail-pagination class="self-center" v-model="page" @update:modelValue="start"
-                :min-page="1" :max-page="pagination.pages" />
+            <tail-pagination
+                class="self-center"
+                v-model="page"
+                @update:model-value="start"
+                :min-page="1"
+                :max-page="pagination.pages"
+            />
         </div>
-        <tail-error class="mt-2 mr-4" v-else>
+        <tail-error v-else>
             <p>Algo deu errado!</p>
             <p>Atualize a página e tente novamente.</p>
         </tail-error>

@@ -6,27 +6,25 @@ defineProps<{
 </script>
 
 <template>
-    <div class="
-                    w-64
-                    h-96
-                    p-2
-                    rounded
-                    flex
-                    flex-col
-                    justify-between
-                    items-center
-                    space-y-2
-                    border
-                    border-blue-violet
-                    cursor-pointer
-                    transition-shadow
-                    hover:shadow-2xl
-                "
-                @click="$emit('onClick', projection)"
-                >
-        <img v-if="projection.picture" :src="projection.picture" class="h-32">
-        <h1 class="font-amatic-sc text-4xl">{{ projection.name }}</h1>
-        <div class="self-end space-x-2 pb-2">
+    <div
+        class="
+            flex
+            flex-col
+            justify-between
+            rounded-lg
+            shadow-lg
+            bg-white
+            transition-all
+            hover:shadow-2xl
+            hover:cursor-pointer
+            w-64
+        "
+        @click="$emit('onClick', projection)" >
+        <img class="rounded-t-lg object-fill" v-if="projection.picture" :src="projection.picture">
+        <div class="p-2">
+            <h1 class="font-amatic-sc text-4xl">{{ projection.name }}</h1>
+        </div>
+        <div class="flex self-end p-2">
             <icon @click.stop="$emit('onEdit', projection)" name="ant-design:edit-filled" size="2rem" class="hover:cursor-pointer text-blue-violet" />
             <icon @click.stop="$emit('onDelete', projection)" name="ant-design:close-circle-filled" size="2rem" class="hover:cursor-pointer text-red" />
         </div>

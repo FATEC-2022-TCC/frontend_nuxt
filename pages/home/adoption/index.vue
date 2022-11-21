@@ -55,7 +55,12 @@ start()
             />
         </div>
         <br>
-        <tail-pagination class="self-center" v-model="page" @update:modelValue="start" :min-page="1"
-            :max-page="pagination.pages" />
+        <tail-pagination
+            class="self-center"
+            v-model="page"
+            @update:model-value="start"
+            :min-page="1"
+            :max-page="pagination.pages"
+        />
     </div>
 </template>

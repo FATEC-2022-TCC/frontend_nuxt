@@ -1,6 +1,5 @@
 <template>
     <div class="w-full">
-        <div class="block h-48 bg-blue-violet"></div>
         <ul>
             <nuxt-link to="/user">
                 <li>
@@ -15,6 +14,14 @@
                     <icon name="icon-park-solid:dog" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
                     <p class="text-xl">
                         Meus animais
+                    </p>
+                </li>
+            </nuxt-link>
+            <nuxt-link to="/user/adoption">
+                <li>
+                    <icon name="ant-design:heart-filled" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
+                    <p class="text-xl">
+                        Minhas adoções
                     </p>
                 </li>
             </nuxt-link>

@@ -25,7 +25,8 @@ function start() {
 
             </div>
             <div class="flex-1"></div>
-            <tail-pagination class="self-center"
+            <tail-pagination
+                class="self-center"
                 v-model="page"
                 @update:model-value="start"
                 :min-page="1"

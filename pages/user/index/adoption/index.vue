@@ -1,37 +1,41 @@
 <script setup lang="ts">
-import { CategoryProjection } from '~~/composables/admin/Category';
+import { AdoptionProjection } from '~~/composables/user/Adoption';
 
 const search = ref("")
 const page = ref(1)
-
-const pagination = ref(emptyPage<CategoryProjection>())
+const pagination = ref(emptyPage<AdoptionProjection>())
 
 const hasRemoteError = ref(false)
 
-const start = () => searchCategoryProjection(search.value, page.value).then(handle({
-    onSuccess: onSuccess(pagination),
-    onFailure: onFailure(hasRemoteError)
-}))
+function start() {
+    getUserAdoptionProjection(search.value, page.value).then(handle({
+        onFailure: onFailure(hasRemoteError),
+        onSuccess: onSuccess(pagination)
+    }))
+}
 
 start()
 </script>
 
 <template>
-    <div class="flex flex-col p-4 pb-32">
+    <div class="p-4">
         <div class="flex flex-col items-center justify-between">
             <h1 class="font-amatic-sc text-6xl self-start">
-                Categorias
+                Minhas requisições de adoção
             </h1>
             <br>
             <tail-input-search v-model="search" @on-search="page = 1; start()" />
         </div>
+        <br>
         <div v-if="!hasRemoteError" class="flex flex-col flex-1">
-            <div class="flex flex-wrap justify-center flex-1">
-                <tail-admin-category-projection class="mt-4" v-for="p in pagination.items" :projection="p"
-                    @on-edit="navigateTo(`/admin/category/edit?id=${$event}`)" />
+            <div class="flex flex-wrap justify-center gap-4 flex-1">
+                <tail-user-adoption-projection
+                    v-for="p in pagination.items"
+                    :projection="p"
+                    @click="navigateTo(`adoption/view?id=${p.id}`)"
+                />
             </div>
             <br>
-            <div class="flex-1"></div>
             <tail-pagination
                 class="self-center"
                 v-model="page"
@@ -40,10 +44,9 @@ start()
                 :max-page="pagination.pages"
             />
         </div>
-        <tail-error class="mt-2" v-else>
+        <tail-error class="mt-2 mr-4" v-else>
             <p>Algo deu errado!</p>
             <p>Atualize a página e tente novamente.</p>
         </tail-error>
-        <tail-fab-add @click="navigateTo('category/add')" />
     </div>
 </template>

@@ -67,8 +67,13 @@ const onRequestsView = (id: number) => navigateTo(`adoption/requests?id=${id}`)
                 />
             </div>
             <br>
-            <tail-pagination class="self-center" v-model="page" @update:modelValue="start"
-                :min-page="1" :max-page="pagination.page.pages" />
+            <tail-pagination
+                class="self-center"
+                v-model="page"
+                @update:model-value="start"
+                :min-page="1"
+                :max-page="pagination.page.pages"
+            />
         </div>
         <tail-error class="mt-2" v-else>
             <p>Algo deu errado!</p>

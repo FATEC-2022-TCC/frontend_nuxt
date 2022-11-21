@@ -78,7 +78,7 @@ export const hasError = <T>(
         for (const check of arr) {
             const res = check()
             if (!res) continue
-            object[key] = res.toString()
+            object[key] = `${res}`
             hasError = true
             continue external
         }
