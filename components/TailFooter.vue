@@ -1,16 +1,16 @@
 <template>
     <footer class="flex flex-col">
         <div class="gap-4 flex flex-col bg-burnt-yellow-light p-4 items-center text-center sm:flex-row">
-            <img class="object-contain h-12 flex-1" src="/quatro.png" alt="logo">
+            <img class="object-contain h-20 flex-1" src="/mogi.png" alt="logo">
             <div class="text-sm flex-1">
                 <strong>
-                    Quatro Patas Adoção de Animais
+                    Prefeitura de Mogi Mirim
                 </strong>
                 <p>
-                    Rua das Oliveiras, 158 | Nova Floresta - São Paulo, SP 13999-008
+                    Rua Dr. José Alves, 129 | Centro - Mogi Mirim, SP 13801-100
                 </p>
                 <p>
-                    (021) 9921-8282 ou (019) 9923-5050
+                    (19) 3814-1000
                 </p>
             </div>
         </div>

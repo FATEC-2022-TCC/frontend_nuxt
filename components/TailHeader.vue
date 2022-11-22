@@ -12,13 +12,13 @@ function signOut() {
 </script>
 
 <template>
-    <header class="select-none bg-[#222] flex flex-col justify-between md:flex-row p-4">
+    <header class="select-none bg-[#444] flex flex-col justify-between md:flex-row p-4">
         <div class="flex items-center justify-between">
             <div class="bg-lilac rounded p-1 aspect-square rotate-180 cursor-pointer md:hidden" @click="isOpen = !isOpen">
                 <icon name="iconoir:menu-scale" size="2rem" class="text-blue-violet hover:text-black" />
             </div>
             <nuxt-link to="/home">
-                <img src="/quatro.png" class="h-10 object-contain" />
+                <img src="/mogi.png" class="h-10 object-contain" />
             </nuxt-link>
         </div>
         <ul class="mt-4 flex-col font-amatic-sc text-3xl md:space-x-4 md:flex-row md:flex md:m-0"

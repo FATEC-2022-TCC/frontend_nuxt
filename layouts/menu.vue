@@ -20,7 +20,7 @@ const isOpen = ref(false)
                         @click="isOpen = !isOpen"
                     />
                 </div>
-                <img src="/quatro.png" class="h-full object-contain" />
+                <img src="/mogi.png" class="h-full object-contain" />
             </header>
             <div class="flex flex-1 self-center w-full lg:w-9/12 bg-seashell">
                 <div class="shadow hidden sm:flex sm:w-2/5 md:w-2/6 lg:w-3/12 2xl:w-2/12">
