@@ -1,7 +1,9 @@
 <template>
     <footer class="flex flex-col">
         <div class="gap-4 flex flex-col bg-burnt-yellow-light p-4 items-center text-center sm:flex-row">
-            <img class="object-contain h-20 flex-1" src="/mogi.png" alt="logo">
+            <div class="flex flex-1">
+                <img class="object-contain h-16 m-auto" src="/mogi.png" alt="logo">
+            </div>
             <div class="text-sm flex-1">
                 <strong>
                     Prefeitura de Mogi Mirim
