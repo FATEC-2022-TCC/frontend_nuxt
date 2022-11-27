@@ -1,14 +1,21 @@
 <script setup lang="ts">
+import { ContentProjection } from '~~/composables/admin/Content';
+
 const search = ref("")
 const page = ref(1)
 
-const pagination = ref(emptyPage<never>())
+const pagination = ref(emptyPage<ContentProjection>())
 
 const hasRemoteError = ref(false)
 
 function start() {
-
+    searchPublicContentProjection(search.value, page.value).then(handle({
+        onFailure: onFailure(hasRemoteError),
+        onSuccess: onSuccess(pagination)
+    }))
 }
+
+start()
 </script>
 
 <template>
@@ -21,10 +28,15 @@ function start() {
             <tail-input-search v-model="search" @on-search="page = 1; start()" />
         </div>
         <div v-if="!hasRemoteError" class="flex flex-col flex-1">
+            <br>
             <div class="flex flex-wrap gap-4 justify-center flex-1">
-
+                <tail-public-content-projection
+                    v-for="p in pagination.items"
+                    :projection="p"
+                    @click="navigateTo(`content?id=${p.id}`)"
+                />
             </div>
-            <div class="flex-1"></div>
+            <br>
             <tail-pagination
                 class="self-center"
                 v-model="page"
