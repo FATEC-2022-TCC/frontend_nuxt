@@ -44,6 +44,7 @@ export interface NewAdoptionRequest {
     description: string,
     gender: string,
     size: string,
+    categoryId: number,
     picture: string,
     images: Array<string>
 }
