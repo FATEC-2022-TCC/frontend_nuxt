@@ -6,10 +6,20 @@ const name = ref("")
 const description = ref("")
 const images = ref(new Array<string>())
 
+interface Errors {
+    name?: string,
+    description?: string,
+    images?: string
+}
+
 const hasRemoteError = ref(false)
 const isLoading = ref(true)
+const errors = ref<Errors>({})
 
 const id = route.query["id"]?.toString() ?? ''
+
+if (!id) navigateTo("/admin/category")
+else start()
 
 function start() {
     getCategory(id).then(handle({
@@ -24,17 +34,6 @@ function start() {
         }
     }))
 }
-
-if (!id) navigateTo("/admin/category")
-else start()
-
-interface Errors {
-    name?: string,
-    description?: string,
-    images?: string
-}
-
-const errors = ref<Errors>({})
 
 function onSave() {
     hasRemoteError.value = false

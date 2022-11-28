@@ -13,6 +13,14 @@
                     </p>
                 </li>
             </nuxt-link>
+            <nuxt-link to="/admin/users">
+                <li>
+                    <icon name="ant-design:user-outlined" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
+                    <p class="text-xl">
+                        Usuários
+                    </p>
+                </li>
+            </nuxt-link>
             <nuxt-link to="/admin/content">
                 <li>
                     <icon name="ant-design:book-filled" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />

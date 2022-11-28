@@ -33,6 +33,16 @@ interface Validator {
     (): string | boolean
 }
 
+export const booleanValidator = (
+    notifier: Ref<boolean>,
+    message: string,
+    compare: boolean = true
+) => buildValidator(
+    notifier,
+    data => data == compare,
+    message
+)
+
 export const moreThanZeroValidator = (
     notifier: Ref<number>,
     message: string
@@ -48,7 +58,7 @@ export const lengthValidator = <T extends string | Array<any>>(
     length: number = 0
 ) => buildValidator(
     notifier,
-    data => !!data.length && data.length > length,
+    data => !!data.length && data.length >= length,
     message
 )
 
@@ -89,10 +99,21 @@ export const hasError = <T>(
 }
 
 //to handle
-export const onSuccess = <T extends any>(ref: Ref<T>, also?: (result: T) => void) => (result: T) => {
+export const onSuccess = <T extends NonNullable<any>>(ref: Ref<T>, also?: (result: T) => void) => (result: T) => {
     console.log(JSON.stringify(result))
     ref.value = result
     if (also) also(result)
+}
+
+export const onSpreadSuccess = <T extends NonNullable<any>>(ref: Ref<T>, obj: { [key in keyof T]?: Ref<any> }) => (result: T) => {
+    console.log(JSON.stringify(result))
+    ref.value = result
+    for (const key in obj) {
+        const value = result[key]
+        const objRef = obj[key]
+        if (!objRef) continue
+        objRef.value = value
+    }
 }
 
 export const onFailure = (ref: Ref<boolean>, also?: () => void) => (status: number) => {

@@ -26,9 +26,9 @@ function doSignUp() {
             name: lengthValidator(name, "Digite seu nome completo"),
             username: lengthValidator(username, "Digite um nome de usuário"),
             email: lengthValidator(email, "Digite um email"),
-            password: lengthValidator(password, "Digite uma senha"),
+            password: lengthValidator(password, "Digite uma senha de 8 caracteres", 8),
             repeatedPassword: [
-                lengthValidator(repeatedPassword, "Digite uma senha"),
+                lengthValidator(repeatedPassword, "Digite uma senha de 8 caracteres", 8),
                 buildValidator(
                     repeatedPassword,
                     repeated => repeated === password.value,

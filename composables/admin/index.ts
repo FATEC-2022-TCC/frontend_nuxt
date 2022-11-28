@@ -38,6 +38,7 @@ import {
     AdoptionRequestResponse,
     UpdateAdoptionRequestStatusRequest
 } from "./AdoptionRequest"
+import { UpdateUserPasswordRequest, UpdateUserRequest, User, UserProjection } from "./User"
 
 export const addContent = (body: NewContentRequest) => post<ContentResponse>("/admin/content", body)
 
@@ -131,3 +132,22 @@ export const searchAdoptionRequestProjection = (id: string, text: string, curren
         }
     }
 )
+
+// --
+
+export const searchUserProjection = (text: string, isActive: boolean, page: number) => get<Page<UserProjection>>(
+    "/admin/user/projection",
+    {
+        query: {
+            text,
+            isActive,
+            page
+        }
+    }
+)
+
+export const getUser = (id: string) => get<User>(argsToURL("/admin/user/{id}", { id }))
+
+export const updateUser = (body: UpdateUserRequest) => put<never>("/admin/user", body)
+
+export const updateUserPassword = (body: UpdateUserPasswordRequest) => put<never>("/admin/user/password", body)

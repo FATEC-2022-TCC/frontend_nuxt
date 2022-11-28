@@ -18,7 +18,7 @@ export enum ModalType {
 export interface ModalState {
     type?: ModalType,
     title: string,
-    messages: string[],
+    messages?: string[],
     actions?: ModalAction[]
 }
 
