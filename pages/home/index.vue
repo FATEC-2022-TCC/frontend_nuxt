@@ -51,7 +51,8 @@ searchPublicContentProjection("", 1).then(handle({
             <br>
             <div class="flex justify-center gap-4">
                 <tail-public-adoption-projection
-                    v-for="p in adoptionPagination.items" :projection="p"
+                    v-for="p in adoptionPagination.items"
+                    :projection="p"
                     @click="navigateTo(`home/adoption/view?id=${p.id}`)"
                 />
             </div>

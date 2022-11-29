@@ -20,11 +20,10 @@ defineEmits<{
             hover:shadow-2xl
             hover:cursor-pointer
             w-64
-            h-72
         ">
         <img class="rounded-t-lg object-fill" v-if="projection.picture" :src="projection.picture">
         <div class="flex flex-col p-2">
-            <h1 class="m-auto font-amatic-sc text-4xl">{{ projection.name }}</h1>
+            <h1 class="text-center font-amatic-sc text-4xl">{{ projection.name }}</h1>
             <icon @click.stop="$emit('onRequestsView', projection.id)" name="ant-design:folder-open-filled" size="2rem"
                 class="self-end hover:text-burnt-yellow hover:cursor-pointer text-blue-violet" />
         </div>

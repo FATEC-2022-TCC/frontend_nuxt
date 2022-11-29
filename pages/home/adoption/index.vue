@@ -47,20 +47,22 @@ start()
             </div>
         </div>
         <br>
-        <div class="flex-1 justify-center flex flex-wrap gap-4">
-            <tail-public-adoption-projection
-                v-for="p in pagination.items"
-                :projection="p"
-                @click="navigateTo(`adoption/view?id=${p.id}`)"
+        <div class="flex-1 flex flex-col justify-between">
+            <div class="justify-center flex flex-wrap gap-4">
+                <tail-public-adoption-projection
+                    v-for="p in pagination.items"
+                    :projection="p"
+                    @click="navigateTo(`adoption/view?id=${p.id}`)"
+                />
+            </div>
+            <br>
+            <tail-pagination
+                class="self-center"
+                v-model="page"
+                @update:model-value="start"
+                :min-page="1"
+                :max-page="pagination.pages"
             />
         </div>
-        <br>
-        <tail-pagination
-            class="self-center"
-            v-model="page"
-            @update:model-value="start"
-            :min-page="1"
-            :max-page="pagination.pages"
-        />
     </div>
 </template>

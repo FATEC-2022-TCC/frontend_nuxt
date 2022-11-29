@@ -17,7 +17,6 @@ defineProps<{
             hover:shadow-2xl
             hover:cursor-pointer
             w-64
-            h-72
         "
         >
         <img class="rounded-t-lg object-fill" v-if="projection.picture" :src="projection.picture">

@@ -18,7 +18,7 @@ start()
 </script>
 
 <template>
-    <div class="p-4">
+    <div class="flex flex-col p-4">
         <div class="flex flex-col items-center justify-between">
             <h1 class="font-amatic-sc text-6xl self-start">
                 Minhas requisições de adoção
@@ -27,8 +27,8 @@ start()
             <tail-input-search v-model="search" @on-search="page = 1; start()" />
         </div>
         <br>
-        <div v-if="!hasRemoteError" class="flex flex-col flex-1">
-            <div class="flex flex-wrap justify-center gap-4 flex-1">
+        <div v-if="!hasRemoteError" class="flex flex-col justify-between flex-1">
+            <div class="flex flex-wrap justify-center gap-4">
                 <tail-user-adoption-projection
                     v-for="p in pagination.items"
                     :projection="p"

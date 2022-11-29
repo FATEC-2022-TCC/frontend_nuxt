@@ -37,10 +37,14 @@ start()
                 v-model="status"
             />
         </div>
-        <div v-if="!hasRemoteError" class="flex flex-col flex-1">
-            <div class="flex flex-wrap justify-center flex-1">
-                <tail-admin-complaint-projection class="mt-4 mr-4" v-for="p in pagination.page.items" :projection="p"
-                    @on-edit="navigateTo(`/admin/complaint/edit?id=${$event}`)" />
+        <br>
+        <div v-if="!hasRemoteError" class="flex flex-col justify-between flex-1">
+            <div class="flex flex-wrap justify-center gap-4">
+                <tail-admin-complaint-projection
+                    v-for="p in pagination.page.items"
+                    :projection="p"
+                    @click="navigateTo(`/admin/complaint/view?id=${p.id}`)"
+                />
             </div>
             <br>
             <tail-pagination

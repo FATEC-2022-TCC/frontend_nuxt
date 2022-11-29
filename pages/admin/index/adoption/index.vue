@@ -56,14 +56,14 @@ const onRequestsView = (id: number) => navigateTo(`adoption/requests?id=${id}`)
                 </tail-select>
             </div>
         </div>
-        <div v-if="!hasRemoteError" class="flex flex-col flex-1">
-            <br>
-            <div class="flex flex-wrap gap-4 justify-center flex-1">
+        <br>
+        <div v-if="!hasRemoteError" class="flex flex-col justify-between flex-1">
+            <div class="flex flex-wrap gap-4 justify-center">
                 <tail-admin-adoption-projection
-                    @click="navigateTo(`/admin/adoption/edit?id=${p.id}`)"
-                    @on-requests-view="onRequestsView"
                     v-for="p in pagination.page.items"
                     :projection="p"
+                    @click="navigateTo(`/admin/adoption/view?id=${p.id}`)"
+                    @on-requests-view="onRequestsView"
                 />
             </div>
             <br>

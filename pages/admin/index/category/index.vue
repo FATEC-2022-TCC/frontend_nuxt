@@ -26,8 +26,8 @@ start()
             <tail-input-search v-model="search" @on-search="page = 1; start()" />
         </div>
         <br>
-        <div v-if="!hasRemoteError" class="flex flex-col flex-1">
-            <div class="flex flex-col flex-wrap justify-center flex-1 gap-4">
+        <div v-if="!hasRemoteError" class="flex flex-col justify-between flex-1">
+            <div class="flex flex-col gap-4">
                 <tail-admin-category-projection
                     v-for="p in pagination.items"
                     :projection="p"
@@ -35,7 +35,6 @@ start()
                 />
             </div>
             <br>
-            <div class="flex-1"></div>
             <tail-pagination
                 class="self-center"
                 v-model="page"

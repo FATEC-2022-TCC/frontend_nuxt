@@ -43,7 +43,7 @@ function onSave() {
             categoryId: moreThanZeroValidator(categoryId, "Precisamos da espécie"),
             gender: lengthValidator(gender, "Mas é menininho ou meninha?"),
             age: lengthValidator(age, "Precisamos saber o quão novo ele/ela é "),
-            size: lengthValidator(size, "Precisamos daber do tamanho"),
+            size: lengthValidator(size, "Precisamos saber do tamanho"),
         },
         errors
     )) return
@@ -114,8 +114,12 @@ getAllCategoryProjection().then(handle({
                     Gênero do animal
                 </option>
             </tail-select>
+            <tail-select :data="['Pequeno', 'Médio', 'Grande']" v-model="size" :error="errors.size">
+                <option value="">
+                    Porte do animal
+                </option>
+            </tail-select>
             <tail-input-base placeholder="Idade" v-model="age" :error="errors.age" />
-            <tail-input-base placeholder="Tamanho" v-model="size" :error="errors.size" />
             <br>
             <h1 class="font-amatic-sc text-6xl">
                 Sobre o Animalzinho

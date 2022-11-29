@@ -12,7 +12,7 @@ defineProps({
 </script>
 
 <template>
-    <div>
+    <div class="box-content">
         <div class="relative">
             <textarea v-bind="$attrs" class="w-full p-2 rounded-md border-2 border-blue-violet outline-none"
                 :type="type" :placeholder="placeholder" :value="modelValue"

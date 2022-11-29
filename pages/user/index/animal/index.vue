@@ -42,7 +42,7 @@ start()
 </script>
 
 <template>
-    <div class="p-4 pb-32">
+    <div class="flex flex-col p-4 pb-32">
         <div class="flex flex-col items-center justify-between">
             <h1 class="font-amatic-sc text-6xl self-start">
                 Meus animais
@@ -51,8 +51,8 @@ start()
             <tail-input-search v-model="search" @on-search="page = 1; start()" />
         </div>
         <br>
-        <div v-if="!hasRemoteError" class="flex flex-col flex-1">
-            <div class="flex flex-wrap justify-center flex-1">
+        <div v-if="!hasRemoteError" class="flex flex-col justify-between flex-1">
+            <div class="flex flex-wrap justify-center gap-4">
                 <tail-user-animal-projection
                     v-for="p in pagination.items"
                     :projection="p"

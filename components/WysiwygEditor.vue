@@ -148,17 +148,17 @@ const toggleLineBreak = () => getEditor(editor => editor.commands.setHardBreak()
 
 <template>
     <div>
-        <div class="p-2 rounded border-2 border-burnt-yellow flex flex-wrap">
+        <div class="bg-white p-2 rounded border-2 border-blue-violet flex flex-wrap">
             <icon @click="toggleParagraph()" name="bi:paragraph" size="2rem"
                 class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
-            <select class="bg-transparent border-transparent text-blue-violet text-2xl" v-model="heading">
+            <select class="bg-transparent border-transparent text-blue-violet text-2xl hover:text-burnt-yellow hover:cursor-pointer"
+                v-model="heading">
                 <option v-for="num in 3" :value="num">
                     H{{ num }}
                 </option>
             </select>
             <icon @click="toggleLineBreak()" name="ci:line-break" size="2rem"
                 class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
-            <div class="mx-2"></div>
             <icon @click="toggleAlignment('left')" name="bi:justify-left" size="2rem"
                 class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
             <icon @click="toggleAlignment('center')" name="bi:text-center" size="2rem"
@@ -167,21 +167,18 @@ const toggleLineBreak = () => getEditor(editor => editor.commands.setHardBreak()
                 class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
             <icon @click="toggleAlignment('justify')" name="bi:justify" size="2rem"
                 class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
-            <div class="mx-2"></div>
             <icon @click="undoOrRedo('undo')" name="ant-design:undo-outlined" size="2rem"
                 class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
             <icon @click="undoOrRedo('redo')" name="ant-design:redo-outlined" size="2rem"
                 class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
-            <div class="mx-2"></div>
             <tail-input-file-dialog v-model="files" accept="image/*">
                 <icon name="ant-design:file-image-filled" size="2rem"
                     class="text-blue-violet cursor-pointer hover:text-burnt-yellow" />
             </tail-input-file-dialog>
         </div>
-        <editor-content v-if="editor" :editor="editor" />
+        <editor-content class="bg-white" v-if="editor" :editor="editor" />
         <p v-if="error" class="ml-2 text-red">
             {{ error }}
         </p>
-        <br>
     </div>
 </template>

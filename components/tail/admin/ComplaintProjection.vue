@@ -9,12 +9,11 @@ defineEmits<{
 </script>
 
 <template>
-    <div
-        class=
-        "
+    <div class="
             p-4
             flex
             flex-col
+            justify-between
             rounded-lg
             shadow-lg
             bg-white
@@ -24,8 +23,20 @@ defineEmits<{
             w-64
         ">
         <p class="text-center">{{ projection.local }}</p>
-        <p class="text-center truncate max-w-full"> {{ projection.description }} </p>
-        <p>{{ formatDate(projection.created) }}</p>
-        <icon @click.stop="$emit('onEdit', projection.id)" name="ant-design:eye-filled" size="2rem" class="text-blue-violet hover:cursor-pointer self-end" />
+        <br>
+        <p class="text-center truncateLines"> {{ projection.description }} </p>
+        <br>
+        <p class="text-center">{{ formatDate(projection.created) }}</p>
     </div>
 </template>
+
+<style>
+.truncateLines {
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 5;
+    line-clamp: 5;
+    -webkit-box-orient: vertical;
+}
+</style>
