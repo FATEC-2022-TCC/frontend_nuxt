@@ -12,11 +12,11 @@ defineProps<{
         <br>
         <h1 class="text-4xl font-amatic-sc">Criado por: &nbsp;</h1>
         <p> {{ status.createdBy }} às {{ formatDate(status.created) }}</p>
-        <div v-if="status.files.length">
+        <div v-if="status.images.length">
             <br>
             <h1 class="text-4xl font-amatic-sc">Fotos: &nbsp;</h1>
             <div class="mt-2 flex flex-wrap justify-center gap-2">
-                <img v-for="f in status.files" :src="f.data" class="w-48">
+                <img v-for="f in status.images" :src="f.data" class="w-48">
             </div>
         </div>
     </div>

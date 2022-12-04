@@ -13,6 +13,10 @@ import {
     AdoptionProjection
 } from "./Adoption"
 
+import {
+    NewComplaintRequest
+} from "./Complaint"
+
 export const addAnimal = (body: NewAnimalRequest) => post<AnimalResponse>("/user/animal", body)
 
 export const getAnimal = (id: string) => get<AnimalResponse>(argsToURL("/user/animal/{id}", { id }))
@@ -48,3 +52,7 @@ export const getUserAdoptionProjection = (text: string, page: number) => get<Pag
 )
 
 export const getUserAdoption = (id: string) => get<Adoption>(argsToURL("/user/adoption/{id}", { id }))
+
+// --
+
+export const addComplaint = (body: NewComplaintRequest) => post<null>("/user/complaint", body)

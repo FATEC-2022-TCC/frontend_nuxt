@@ -52,7 +52,7 @@ function onAddStatus(statusRequest: StatusRequest) {
                 <br>
                 <h1 class="text-4xl font-amatic-sc">Imagens: &nbsp;</h1>
                 <div class="mt-2 flex flex-wrap justify-center gap-2">
-                    <img v-for="f in response.data.files" :src="f.data" class="w-48">
+                    <img v-for="f in response.data.images" :src="f.data" class="w-48">
                 </div>
                 <br>
                 <tail-admin-status v-for="status in response.data.statuses" :status="status" />

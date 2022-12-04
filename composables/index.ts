@@ -4,7 +4,6 @@ export {
     getContentProjectionInEvidence,
     searchPublicContentProjection,
     getPublicContent,
-    addComplaint,
     sendChatbotMessage,
     getAllCategoryProjection,
     searchPublicAdoption,
@@ -45,7 +44,8 @@ export {
     getAnimalProjection,
     requestAdoption,
     getUserAdoptionProjection,
-    getUserAdoption
+    getUserAdoption,
+    addComplaint,
 } from "./user"
 
 export {

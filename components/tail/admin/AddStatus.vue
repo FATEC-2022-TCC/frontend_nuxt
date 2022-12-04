@@ -10,12 +10,12 @@ const emit = defineEmits<{
 
 const status = ref(-1)
 const description = ref("")
-const files = ref<Array<string>>([])
+const images = ref<Array<string>>([])
 
 interface Errors {
     status?: string,
     description?: string,
-    files?: string
+    images?: string
 }
 
 const errors = ref<Errors>({})
@@ -35,36 +35,38 @@ function onSave(statuses: Array<StateDescription>) {
     emit("onAddStatus", {
         code: object.code,
         description: `${object.description}\n\n${description.value}`,
-        files: files.value
+        images: images.value
     })
 }
 </script>
 
 <template>
-    <div class="flex flex-col bg-white p-4 rounded border border-blue-violet ">
+    <div class="flex flex-col gap-4 bg-white p-4 rounded border border-blue-violet ">
         <h1 class="text-4xl font-amatic-sc">Adicionar novo status:</h1>
-        <br>
-        <div class="flex flex-col">
+        <div class="flex flex-col gap-4">
             <h1 class="text-4xl font-amatic-sc">Tipo de status:</h1>
-            <tail-select :data="statuses" :visual-transform="status => status.description"
-                :value-transform="status => status.code" :error="errors.status" v-model="status">
+            <tail-select
+                :data="statuses"
+                :visual-transform="status => status.description"
+                :value-transform="status => status.code"
+                :error="errors.status"
+                v-model="status"
+            >
                 <option :value="-1">
                     Nenhum
                 </option>
             </tail-select>
         </div>
-        <br>
         <tail-input-area v-model="description" :error="errors.description" />
-        <br>
-        <tail-input-base64-file-dialog multiple :error="errors.files" v-model="files">
+        <tail-input-base64-file-dialog multiple :error="errors.images" v-model="images">
             <tail-button-blue-violet title="Fotos" />
         </tail-input-base64-file-dialog>
-        <div class="flex flex-wrap gap-2 justify-center mt-4" v-if="files.length">
-            <tail-image-handler v-model="files" />
-        </div>
-        <br>
-        <icon name="ant-design:save-filled" size="3rem"
+        <tail-image-handler v-model="images" />
+        <icon
+            name="ant-design:save-filled"
+            size="3rem"
             class="text-blue-violet hover:text-burnt-yellow hover:cursor-pointer m-auto mr-0"
-            @click="onSave(statuses)" />
+            @click="onSave(statuses)"
+        />
     </div>
 </template>

@@ -15,10 +15,6 @@ import {
 } from "../admin/Content"
 
 import {
-    NewComplaintRequest
-} from "./Complaint"
-
-import {
     ChatbotRequest,
     ChatbotResponse
 } from "./Chatbot"
@@ -53,8 +49,6 @@ export const searchPublicContentProjection = (text: string, page: number) => get
 )
 
 export const getPublicContent = (id: string) => get<ContentResponse>(argsToURL("/public/content/{id}", { id }))
-
-export const addComplaint = (body: NewComplaintRequest) => post<null>("/public/complaint", body)
 
 // --
 

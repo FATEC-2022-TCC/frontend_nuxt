@@ -12,7 +12,7 @@ export interface Complaint {
     id: number,
     local: string,
     description: string,
-    files: Array<Base64>,
+    images: Array<Base64>,
     statuses: Array<Status>,
     currentStatusCode: number
 }
@@ -22,7 +22,7 @@ export interface UpdateComplaintRequest {
     status: {
         code: number,
         description: string,
-        files: Array<string>
+        images: Array<string>
     }
 }
 

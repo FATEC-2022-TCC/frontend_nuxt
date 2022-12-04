@@ -2,15 +2,15 @@
 
 const modal = useModal()
 const router = useRouter()
+const session = useSession()
 
 const local = ref("")
 const description = ref("")
-const files = ref<Array<string>>([])
+const images = ref<Array<string>>([])
 
 interface ComplaintError {
     local?: string,
-    description?: string,
-    files?: string,
+    description?: string
 }
 
 const hasRemoteError = ref(false)
@@ -23,8 +23,7 @@ function onSave() {
             description: [
                 lengthValidator(description, "Por favor, insira uma descrição"),
                 buildValidator(description, text => text.length >= 50, "Insira uma descrição maior do que 50 letras")
-            ],
-            files: lengthValidator(files, "Por favor, insira algumas evidências")
+            ]
         },
         errors
     )) return
@@ -32,7 +31,7 @@ function onSave() {
     addComplaint({
         local: local.value,
         description: description.value,
-        files: files.value
+        images: images.value
     }).then(handle({
         onFailure: onFailure(hasRemoteError),
         onNullSucess: () => {
@@ -51,26 +50,32 @@ function onSave() {
 </script>
 
 <template>
-    <div class="p-4">
+    <div class="flex flex-col gap-4 p-4">
         <h1 class="text-6xl font-amatic-sc">
             Denúncia
         </h1>
-        <div class="space-y-2 mt-4">
+        <div v-if="!hasRemoteError" class="flex flex-col gap-4">
             <tail-input-base placeholder="Local do incidente" :error="errors.local" v-model="local" />
             <tail-input-area rows="4" placeholder="Descreva sua denúncia" :error="errors.description"
                 v-model="description" />
-            <tail-input-base64-file-dialog multiple v-model="files">
+            <tail-input-base64-file-dialog multiple v-model="images" >
                 <tail-button-blue-violet title="Fotos" />
             </tail-input-base64-file-dialog>
-            <div class="flex flex-wrap gap-2 justify-center">
-                <tail-image-handler v-model="files" />
-            </div>
-            <br>
-            <tail-button-blue-violet title="Enviar" @click="onSave" />
-            <tail-error v-if="hasRemoteError">
-                <p>Algo deu errado.</p>
-                <p>Tente novamente mais tarde!</p>
-            </tail-error>
+            <tail-image-handler v-model="images" v-if="images.length" />
+            <tail-button-blue-violet
+                v-if="session.token"
+                title="Enviar"
+                @click="onSave"
+            />
+            <tail-button-blue-violet
+                v-else
+                title="Faça o login para poder criar uma denúncia"
+                @click="navigateTo('/signin')"
+            />
         </div>
+        <tail-error v-else>
+            <p>Algo deu errado.</p>
+            <p>Tente novamente mais tarde!</p>
+        </tail-error>
     </div>
 </template>

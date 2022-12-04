@@ -23,7 +23,7 @@ export interface UpdateAdoptionStatusRequest {
     status: {
         code: number,
         description: string,
-        files: Array<string>
+        images: Array<string>
     }
 }
 

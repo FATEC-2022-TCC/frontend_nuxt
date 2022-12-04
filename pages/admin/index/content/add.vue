@@ -66,42 +66,40 @@ function onSave() {
 </script>
 
 <template>
-    <div class="flex flex-col p-4 pb-32">
+    <div class="flex flex-col gap-4 p-4 pb-32">
         <h1 class="font-amatic-sc text-6xl">
             Novo conteúdo
         </h1>
-        <br>
         <wysiwyg-editor v-model="content" :error="errors.content" />
-        <br>
-        <div class="flex flex-col space-y-2">
+        <div v-if="!hasRemoteError" class="flex flex-col gap-4">
             <h2 class="font-amatic-sc text-4xl">
                 Precisamos de algumas informações sobre o novo conteúdo
             </h2>
             <tail-input-base placeholder="Título" v-model="title" :error="errors.title" />
             <tail-input-base placeholder="Uma breve descrição" maxlength="255" v-model="description"
                 :error="errors.description" />
-            <div class="flex space-x-2">
+            <div class="flex gap-4">
                 <tail-input-file-dialog v-model="files" class="flex-1" accept="image/*" :error="errors.background">
                     <tail-button-blue-violet title="Escolha um arquivo como preview do artigo" />
                 </tail-input-file-dialog>
                 <tail-button-base v-if="background" class="bg-red" @click="background = ''">
-                    <icon name="ant-design:close-circle-filled" size="2rem"
-                        class="m-auto hover:cursor-pointer text-white" />
+                    <icon
+                        name="ant-design:close-circle-filled"
+                        size="2rem"
+                        class="m-auto hover:cursor-pointer text-white"
+                    />
                 </tail-button-base>
             </div>
             <img v-if="background" :src="background" class="w-full object-contain" />
-            <br>
-            <br>
             <h2 class="font-amatic-sc text-4xl">
                 Até quando o conteúdo deve estar visível?
             </h2>
             <tail-date-picker v-model="until" :minDate="new Date()" class="border-blue-violet" />
+            <tail-fab-save @click="onSave" />
         </div>
-        <br>
-        <tail-error v-if="hasRemoteError">
+        <tail-error v-else>
             <p>Alguma coisa deu errada.</p>
             <p>Tente novamente mais tarde!</p>
         </tail-error>
-        <tail-fab-save @click="onSave()" />
     </div>
 </template>

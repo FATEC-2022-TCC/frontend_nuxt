@@ -4,8 +4,7 @@ export interface CategoryResponse {
     id: number,
     name: string,
     description: string,
-    images: Array<Base64>,
-    files: Array<Base64>
+    images: Array<Base64>
 }
 
 export interface CategoryProjection {
