@@ -26,7 +26,7 @@ function onAddStatus(request: StatusRequest) {
         id: parseInt(id),
         status: request
     }).then(handle({
-        onSuccess: _ => {
+        onNullSucess: () => {
             start()
             addStatusKey.value++
         },

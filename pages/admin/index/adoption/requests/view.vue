@@ -27,9 +27,9 @@ function onAddStatus(request: StatusRequest) {
         id: parseInt(id),
         status: request
     }).then(handle({
-        onSuccess: _ => {
-            start()
+        onNullSucess: () => {
             addStatusKey.value++
+            start()
         },
         onFailure: onFailure(hasRemoteError)
     }))

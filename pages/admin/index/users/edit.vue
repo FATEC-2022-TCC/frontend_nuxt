@@ -9,6 +9,7 @@ const name = ref("")
 const email = ref("")
 const authority = ref("")
 const isActive = ref(false)
+const isValidated = ref(false)
 
 const response = ref<User | null>(null)
 
@@ -29,7 +30,7 @@ else start()
 function start() {
     getUser(id).then(handle({
         onFailure: onFailure(hasRemoteError),
-        onSuccess: onSpreadSuccess(response, { name, email, authority, isActive })
+        onSuccess: onSpreadSuccess(response, { name, email, authority, isActive, isValidated })
     }))
 }
 
@@ -49,7 +50,8 @@ function onSave() {
         name: name.value,
         email: email.value,
         authority: authority.value,
-        isActive: isActive.value
+        isActive: isActive.value,
+        isValidated: isValidated.value
     }).then(handle({
         onFailure: onFailure(hasRemoteError),
         onNullSucess: () => {
@@ -100,6 +102,10 @@ function onPasswordChangeRequested(password: string) {
             <div class="flex items-center justify-between">
                 <p>O usuário está {{ isActive ? 'ativo' : 'inativo' }}</p>
                 <tail-switch v-model="isActive" />
+            </div>
+            <div class="flex items-center justify-between">
+                <p>O usuário {{ isValidated ? '' : 'não' }} está validado</p>
+                <tail-switch v-model="isValidated" />
             </div>
             <tail-admin-user-password @on-password-change-requested="onPasswordChangeRequested" />
         </div>

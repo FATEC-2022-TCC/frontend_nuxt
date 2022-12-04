@@ -13,6 +13,7 @@ export interface User {
     email: string,
     authority: string,
     isActive: boolean,
+    isValidated: boolean
 }
 
 export interface UpdateUserRequest {
@@ -21,6 +22,7 @@ export interface UpdateUserRequest {
     email: string,
     authority: string,
     isActive: boolean,
+    isValidated: boolean
 }
 
 export interface UpdateUserPasswordRequest {

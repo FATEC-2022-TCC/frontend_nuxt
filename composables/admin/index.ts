@@ -135,12 +135,13 @@ export const searchAdoptionRequestProjection = (id: string, text: string, curren
 
 // --
 
-export const searchUserProjection = (text: string, isActive: boolean, page: number) => get<Page<UserProjection>>(
+export const searchUserProjection = (text: string, isActive: boolean, isValidated: boolean, page: number) => get<Page<UserProjection>>(
     "/admin/user/projection",
     {
         query: {
             text,
             isActive,
+            isValidated,
             page
         }
     }

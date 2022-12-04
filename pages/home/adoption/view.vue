@@ -39,7 +39,7 @@ const onAdoptionRequest = () => requestAdoption(id).then(handle({
 <template>
     <div>
         <div v-if="response" class="flex-1 flex bg-white">
-            <div class="flex flex-col md:flex-row">
+            <div class="flex-1 flex flex-col md:flex-row">
                 <div class="flex-1">
                     <img class="w-full rounded" :src="response.picture">
                     <br>
@@ -48,7 +48,7 @@ const onAdoptionRequest = () => requestAdoption(id).then(handle({
                     </div>
                     <br>
                 </div>
-                <div class="flex flex-col justify-between flex-1 p-4">
+                <div class="flex-1 flex flex-col justify-between p-4">
                     <div>
                         <h1 class="text-4xl font-amatic-sc">Nome:</h1>
                         <p class="text-xl"> {{ response.name }}</p>
@@ -64,7 +64,7 @@ const onAdoptionRequest = () => requestAdoption(id).then(handle({
                         <p class="text-xl"> {{ formatDate(response.created) }}</p>
                     </div>
                     <br>
-                    <div>
+                    <div class="w-full">
                         <tail-button-blue-violet v-if="session.token" title="Requisitar adoção"
                             @click="onAdoptionRequest" />
                         <tail-button-blue-violet v-else title="Faça o login para poder requisitar uma adoção"

@@ -31,49 +31,33 @@ const onRequestsView = (id: number) => navigateTo(`adoption/requests?id=${id}`)
 
 <template>
     <div class="flex flex-col p-4 pb-32">
-        <div class="flex flex-col gap-2 items-center justify-between">
+        <div class="flex flex-col gap-4">
             <h1 class="font-amatic-sc text-6xl self-start">
                 Adoção
             </h1>
-            <br>
             <tail-input-search v-model="search" @on-search="page = 1; start()" />
-            <tail-select
-                :data="pagination.statuses"
-                :visual-transform="status => status.description"
-                :value-transform="status => status.code"
-                v-model="status"
-            />
-            <div class="w-full flex gap-2">
-                <tail-select :data="['Macho', 'Fêmea']" v-model="gender">
-                    <option value="">
-                        Gênero do animal
-                    </option>
-                </tail-select>
-                <tail-select :data="['Pequeno', 'Médio', 'Grande']" v-model="size">
-                    <option value="">
-                        Porte do animal
-                    </option>
-                </tail-select>
-            </div>
+            <tail-select :data="pagination.statuses" :visual-transform="status => status.description"
+                :value-transform="status => status.code" v-model="status" />
+            <tail-select :data="['Macho', 'Fêmea']" v-model="gender">
+                <option value="">
+                    Gênero do animal
+                </option>
+            </tail-select>
+            <tail-select :data="['Pequeno', 'Médio', 'Grande']" v-model="size">
+                <option value="">
+                    Porte do animal
+                </option>
+            </tail-select>
         </div>
         <br>
         <div v-if="!hasRemoteError" class="flex flex-col justify-between flex-1">
             <div class="flex flex-wrap gap-4 justify-center">
-                <tail-admin-adoption-projection
-                    v-for="p in pagination.page.items"
-                    :projection="p"
-                    @click="navigateTo(`/admin/adoption/view?id=${p.id}`)"
-                    @on-requests-view="onRequestsView"
-                />
+                <tail-admin-adoption-projection v-for="p in pagination.page.items" :projection="p"
+                    @click="navigateTo(`/admin/adoption/view?id=${p.id}`)" @on-requests-view="onRequestsView" />
             </div>
             <br>
-            <tail-pagination
-                class="self-center"
-                v-model="page"
-                @update:model-value="start"
-                :min-page="1"
-                :max-page="pagination.page.pages"
-            />
+            <tail-pagination class="self-center" v-model="page" @update:model-value="start" :min-page="1"
+                :max-page="pagination.page.pages" />
         </div>
         <tail-error class="mt-2" v-else>
             <p>Algo deu errado!</p>

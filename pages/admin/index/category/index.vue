@@ -18,11 +18,10 @@ start()
 
 <template>
     <div class="flex flex-col p-4 pb-32">
-        <div class="flex flex-col items-center justify-between">
+        <div class="flex flex-col gap-4">
             <h1 class="font-amatic-sc text-6xl self-start">
                 Categorias
             </h1>
-            <br>
             <tail-input-search v-model="search" @on-search="page = 1; start()" />
         </div>
         <br>
