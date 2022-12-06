@@ -34,6 +34,7 @@ export {
     getUser,
     updateUser,
     updateUserPassword,
+    addReality,
     searchRealityProjection
 } from "./admin"
 

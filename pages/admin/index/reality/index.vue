@@ -35,7 +35,7 @@ start()
         </div>
         <br>
         <div v-if="!hasRemoteError" class="flex flex-col flex-1 justify-between">
-            <div class="flex flex-col gap-4">
+            <div class="flex flex-col items-center gap-4">
                 <tail-admin-reality-projection
                     v-for="p in pagination.items"
                     :projection="p"

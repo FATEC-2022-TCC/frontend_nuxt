@@ -1,23 +1,18 @@
 <script setup lang="ts">
-import * as THREE from "three"
-import { OrbitControls } from 'three/examples/jsm/controls/OrbitControls'
 import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 
 const modal = useModal()
 
 const data = ref(new Array<string>())
-const scale = ref(1)
+const scale = ref("1")
 const title = ref("")
 const description = ref("")
 const background = ref(new Array<string>())
 const images = ref(new Array<string>())
 
 const loader = new GLTFLoader()
-const scene = new THREE.Scene();
-const light = new THREE.AmbientLight(0xffffff, 1)
-const axes = new THREE.AxesHelper(60)
-const renderRef = ref<HTMLDivElement | null>(null)
+const modelRef = ref<THREE.Group | null>(null)
+const scaleRef = ref(1)
 
 interface Errors {
     data?: string,
@@ -34,10 +29,19 @@ const errors = ref<Errors>({})
 watch(data, async data => {
     const toParse = data[0]
     if (!toParse) return
+    if (modelRef.value) {
+        modelRef.value = null
+    }
     const url = await base64ToURL(toParse)
-    const model = await loader.loadAsync(url)
-    initScene()
-    scene.add(model.scene)
+    const gltf = await loader.loadAsync(url)
+    modelRef.value = gltf.scene
+    const num = parseFloat(scale.value)
+    scaleRef.value = num
+})
+
+watch(scale, scale => {
+    const num = parseFloat(scale)
+    scaleRef.value = num
 })
 
 function onSave() {
@@ -47,82 +51,35 @@ function onSave() {
             title: lengthValidator(title, "Você precisa adicionar algum nome"),
             description: lengthValidator(description, "Você precisa adicionar alguma descrição"),
             background: lengthValidator(background, "Você deve inserir uma foto de perfil"),
-            images: lengthValidator(images, "Você precisa inserir ao menos uma imagem")
+            images: lengthValidator(images, "Você precisa inserir ao menos uma imagem"),
+            data: lengthValidator(data, "Você precisa inserir um modelo"),
+            scale: lengthValidator(scale, "Você precisa inserir a escala do modelo")
         },
         errors
     )) return
 
-    // addAdoption({
-    //     name: name.value,
-    //     description: description.value,
-    //     gender: gender.value,
-    //     size: size.value,
-    //     categoryId: categoryId.value,
-    //     picture: picture.value[0],
-    //     images: images.value,
-    // }).then(handle({
-    //     onFailure: onFailure(hasRemoteError),
-    //     onSuccess: _ => {
-    //         modal.value = {
-    //             type: ModalType.Success,
-    //             title: "Oba, a nova adoção foi inserida no sistema!",
-    //             messages: [
-    //                 "Ela ainda não está disponível aos usuários",
-    //                 "Você deve edita-la e torna-la visível"
-    //             ]
-    //         }
-    //         navigateTo("/admin/adoption")
-    //     }
-    // }))
+    addReality({
+        data: data.value[0],
+        scale: scaleRef.value,
+        title: title.value,
+        description: description.value,
+        background: background.value[0],
+        images: images.value,
+    }).then(handle({
+        onFailure: onFailure(hasRemoteError),
+        onNullSucess: () => {
+            modal.value = {
+                type: ModalType.Success,
+                title: "Oba, a nova realidade aumentada foi incluida no sistema!",
+                messages: [
+                    "Ela ainda não está disponível aos usuários",
+                    "Você deve edita-la e torna-la visível"
+                ]
+            }
+            navigateTo("/admin/reality")
+        }
+    }))
 }
-
-function initScene() {
-    scene.remove(...scene.children)
-    scene.add(light)
-    scene.add(axes)
-}
-
-onMounted(() => {
-    const div = renderRef.value
-    if (!div) return
-
-    const camera = new THREE.PerspectiveCamera(
-        75,
-        div.clientWidth / div.clientHeight,
-        0.1,
-        1000
-    )
-
-    camera.position.z = 5
-
-    initScene()
-
-    // const geometry = new THREE.BoxGeometry(1, 1, 1);
-    // const material = new THREE.MeshBasicMaterial({ color: 0x00ff00 });
-    // const cube = new THREE.Mesh(geometry, material);
-    // scene.add(cube);
-
-    const renderer = new THREE.WebGLRenderer({
-        alpha: true,
-        antialias: true
-    })
-    renderer.setSize(div.clientWidth, div.clientHeight)
-    
-    //necessary for metallics models
-    const pmremGenerator = new THREE.PMREMGenerator(renderer);
-    scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture
-
-    //only to user see model, we don't care for callbacks
-    const orbitControls = new OrbitControls(camera, renderer.domElement)
-
-    div.appendChild(renderer.domElement)
-
-    function animate() {
-        requestAnimationFrame(animate)
-        renderer.render(scene, camera)
-    }
-    animate()
-})
 </script>
 
 <template>
@@ -142,10 +99,12 @@ onMounted(() => {
                 <tail-button-blue-violet title="Escolha mais algumas fotos do modelo" />
             </tail-input-base64-file-dialog>
             <tail-image-handler v-model="images" v-if="images.length" />
-            <tail-input-base64-file-dialog :error="errors.data" v-model="data">
+            <tail-input-base64-file-dialog :error="errors.data" v-model="data" accept=".glb">
                 <tail-button-blue-violet title="Escolha o modelo" />
             </tail-input-base64-file-dialog>
-            <div ref="renderRef" class="bg-[#00F] w-full h-96 border-burnt-yellow rounded border-2"></div>
+            <tail-input-base type="number" step="0.1" placeholder="Escala do modelo" v-model="scale"
+                :error="errors.scale" />
+            <tail-three-preview :scale="scaleRef" :model="modelRef" :error="errors.data" />
             <tail-fab-save @click="onSave" />
         </div>
         <tail-error v-else>
