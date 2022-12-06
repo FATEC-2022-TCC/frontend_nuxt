@@ -33,7 +33,8 @@ export {
     searchUserProjection,
     getUser,
     updateUser,
-    updateUserPassword
+    updateUserPassword,
+    searchRealityProjection
 } from "./admin"
 
 export {
@@ -53,6 +54,7 @@ export {
     handle,
     fileToBase64,
     base64ToBlob,
+    base64ToURL,
     booleanValidator,
     lengthValidator,
     moreThanZeroValidator,

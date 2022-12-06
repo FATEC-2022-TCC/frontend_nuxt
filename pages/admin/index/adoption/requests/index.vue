@@ -46,8 +46,8 @@ watch(status, start)
                 v-model="status"
             />
         </div>
-        <div v-if="!hasRemoteError" class="flex flex-col flex-1">
-            <br>
+        <br>
+        <div v-if="!hasRemoteError" class="flex flex-col flex-1 justify-between">
             <div class="flex flex-col gap-4 flex-1">
                 <tail-admin-adoption-request-projection
                     v-for="p in pagination.page.items"

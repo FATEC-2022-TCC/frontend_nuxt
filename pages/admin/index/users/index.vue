@@ -40,7 +40,7 @@ start()
             </div>
         </div>
         <br>
-        <div v-if="!hasRemoteError" class="flex flex-col flex-1">
+        <div v-if="!hasRemoteError" class="flex flex-col flex-1 justify-between">
             <div class="flex flex-col gap-4">
                 <tail-admin-user-projection
                     v-for="p in pagination.items"
@@ -49,7 +49,6 @@ start()
                     @on-edit="navigateTo(`/admin/users/edit?id=${$event}`)"
                 />
             </div>
-            <div class="flex-1"></div>
             <br>
             <tail-pagination
                 class="self-center"

@@ -108,6 +108,7 @@ function onPasswordChangeRequested(password: string) {
                 <tail-switch v-model="isValidated" />
             </div>
             <tail-admin-user-password @on-password-change-requested="onPasswordChangeRequested" />
+            <tail-fab-save @click="onSave" />
         </div>
         <div v-else-if="!hasRemoteError">
             <p>Carregando...</p>
@@ -116,6 +117,5 @@ function onPasswordChangeRequested(password: string) {
             <p>Alguma coisa deu errada.</p>
             <p>Tente novamente mais tarde!</p>
         </tail-error>
-        <tail-fab-save @click="onSave()" />
     </div>
 </template>

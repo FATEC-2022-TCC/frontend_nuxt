@@ -80,9 +80,8 @@ function onSave() {
             <tail-input-base64-file-dialog multiple :error="errors.images" v-model="images">
                 <tail-button-blue-violet title="Fotos" />
             </tail-input-base64-file-dialog>
-            <div class="flex flex-wrap gap-2 justify-center mt-4" v-if="images.length">
-                <tail-image-handler v-model="images" />
-            </div>
+            <tail-image-handler v-model="images" v-if="images.length" />
+            <tail-fab-save @click="onSave" />
         </div>
         <div v-else-if="!hasRemoteError">
             <p>Carregando...</p>
@@ -91,6 +90,5 @@ function onSave() {
             <p>Alguma coisa deu errada.</p>
             <p>Tente novamente mais tarde!</p>
         </tail-error>
-        <tail-fab-save @click="onSave()" />
     </div>
 </template>

@@ -103,7 +103,7 @@ function onSave() {
         <br>
         <wysiwyg-editor v-if="content" v-model="content" :error="errors.content" />
         <br>
-        <div class="flex flex-col space-y-2">
+        <div v-if="!hasRemoteError" class="flex flex-col space-y-2">
             <h2 class="font-amatic-sc text-4xl">
                 Precisamos de algumas informações sobre o novo conteúdo
             </h2>
@@ -126,12 +126,11 @@ function onSave() {
                 Até quando o conteúdo deve estar visível?
             </h2>
             <tail-date-picker v-model="until" :minDate="new Date()" class="border-blue-violet" />
+            <tail-fab-save @click="onSave" />
         </div>
-        <br>
-        <tail-error v-if="hasRemoteError">
+        <tail-error v-else>
             <p>Alguma coisa deu errada.</p>
             <p>Tente novamente mais tarde!</p>
         </tail-error>
-        <tail-fab-save @click="onSave()" />
     </div>
 </template>

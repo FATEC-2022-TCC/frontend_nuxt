@@ -29,6 +29,8 @@ export const fileToBase64 = (file: File): Promise<string> => new Promise(resolve
 
 export const base64ToBlob = (base64: string) => fetch(base64).then(res => res.blob())
 
+export const base64ToURL = (base64: string) => base64ToBlob(base64).then(URL.createObjectURL)
+
 interface Validator {
     (): string | boolean
 }

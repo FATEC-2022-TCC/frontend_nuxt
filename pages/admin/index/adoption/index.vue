@@ -58,11 +58,11 @@ const onRequestsView = (id: number) => navigateTo(`adoption/requests?id=${id}`)
             <br>
             <tail-pagination class="self-center" v-model="page" @update:model-value="start" :min-page="1"
                 :max-page="pagination.page.pages" />
+            <tail-fab-add @click="navigateTo('adoption/add')" />
         </div>
-        <tail-error class="mt-2" v-else>
+        <tail-error v-else>
             <p>Algo deu errado!</p>
             <p>Atualize a página e tente novamente.</p>
         </tail-error>
-        <tail-fab-add @click="navigateTo('adoption/add')" />
     </div>
 </template>

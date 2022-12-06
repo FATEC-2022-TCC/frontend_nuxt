@@ -39,7 +39,7 @@ function onSave() {
                 type: ModalType.Success,
                 title: "Tudo certo!",
                 messages: [
-                    "Sua denúncia foi feita de forma anônima.",
+                    "Sua denúncia foi feita.",
                     "Ela será analisada assim que possível."
                 ]
             }
@@ -55,9 +55,10 @@ function onSave() {
             Denúncia
         </h1>
         <div v-if="!hasRemoteError" class="flex flex-col gap-4">
-            <tail-input-base placeholder="Local do incidente" :error="errors.local" v-model="local" />
-            <tail-input-area rows="4" placeholder="Descreva sua denúncia" :error="errors.description"
-                v-model="description" />
+            <tail-input-base placeholder="Local do incidente"
+                :error="errors.local" v-model="local" />
+            <tail-input-area placeholder="Descreva sua denúncia"
+                :error="errors.description" v-model="description" />
             <tail-input-base64-file-dialog multiple v-model="images" >
                 <tail-button-blue-violet title="Fotos" />
             </tail-input-base64-file-dialog>

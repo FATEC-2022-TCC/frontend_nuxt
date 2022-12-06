@@ -8,11 +8,11 @@
     "postinstall": "nuxt prepare"
   },
   "devDependencies": {
-    "@kevinmarrec/nuxt-pwa": "^0.6.1",
+    "@kevinmarrec/nuxt-pwa": "^0.13.0",
     "@nuxtjs/google-fonts": "^3.0.0-0",
     "@nuxtjs/tailwindcss": "^6.1.3",
     "@types/three": "^0.146.0",
-    "nuxt": "3.0.0-rc.13",
+    "nuxt": "3.0.0",
     "nuxt-icon": "^0.1.6",
     "postcss-import": "^15.0.0"
   },

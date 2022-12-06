@@ -53,12 +53,12 @@ start()
                 :min-page="1"
                 :max-page="pagination.pages"
             />
+            <tail-modal-warn-delete v-if="onDelete" @on-confirm="onDeleteConfirmed" @on-dismiss="onDelete = 0" />
+            <tail-fab-add @click="navigateTo('content/add')" />
         </div>
         <tail-error v-else>
             <p>Algo deu errado!</p>
             <p>Atualize a página e tente novamente.</p>
         </tail-error>
-        <tail-modal-warn-delete v-if="onDelete" @on-confirm="onDeleteConfirmed" @on-dismiss="onDelete = 0" />
-        <tail-fab-add @click="navigateTo('content/add')" />
     </div>
 </template>

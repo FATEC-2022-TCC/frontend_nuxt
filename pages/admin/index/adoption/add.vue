@@ -112,11 +112,11 @@ getAllCategoryProjection().then(handle({
                 <tail-button-blue-violet title="Escolha mais algumas fotos para aumentar as chances de adoção" />
             </tail-input-base64-file-dialog>
             <tail-image-handler v-model="images" v-if="images.length" />
+            <tail-fab-save @click="onSave" />
         </div>
         <tail-error v-else>
             <p>Alguma coisa deu errada.</p>
             <p>Tente novamente mais tarde!</p>
         </tail-error>
-        <tail-fab-save @click="onSave()" />
     </div>
 </template>

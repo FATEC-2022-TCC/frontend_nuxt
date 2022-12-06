@@ -39,6 +39,7 @@ import {
     UpdateAdoptionRequestStatusRequest
 } from "./AdoptionRequest"
 import { UpdateUserPasswordRequest, UpdateUserRequest, User, UserProjection } from "./User"
+import { RealityProjection } from "./Reality"
 
 export const addContent = (body: NewContentRequest) => post<ContentResponse>("/admin/content", body)
 
@@ -152,3 +153,16 @@ export const getUser = (id: string) => get<User>(argsToURL("/admin/user/{id}", {
 export const updateUser = (body: UpdateUserRequest) => put<never>("/admin/user", body)
 
 export const updateUserPassword = (body: UpdateUserPasswordRequest) => put<never>("/admin/user/password", body)
+
+// --
+
+export const searchRealityProjection = (text: string, isVisible: boolean, page: number) => get<Page<RealityProjection>>(
+    "/admin/reality/projection",
+    {
+        query: {
+            text,
+            isVisible,
+            page
+        }
+    }
+)
