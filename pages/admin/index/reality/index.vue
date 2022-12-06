@@ -39,8 +39,8 @@ start()
                 <tail-admin-reality-projection
                     v-for="p in pagination.items"
                     :projection="p"
-                    @click="navigateTo(`/admin/users/view?id=${p.id}`)"
-                    @on-edit="navigateTo(`/admin/users/edit?id=${$event}`)"
+                    @click="navigateTo(`/admin/reality/view?id=${p.id}`)"
+                    @on-edit="navigateTo(`/admin/reality/edit?id=${$event}`)"
                 />
             </div>
             <br>

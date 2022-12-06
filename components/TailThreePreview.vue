@@ -6,7 +6,7 @@ import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment
 const props = defineProps<{
     scale: number,
     model: THREE.Group | null,
-    error: string | undefined
+    error?: string
 }>()
 
 const scene = new THREE.Scene();
@@ -57,12 +57,18 @@ onMounted(() => {
         renderer.render(scene, camera)
     }
     animate()
+
+    window.addEventListener('resize', _ => {
+        camera.aspect = div.clientWidth / div.clientHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(div.clientWidth, div.clientHeight)
+    })
 })
 </script>
 
 <template>
     <div>
-        <div ref="renderRef" class="bg-[#acacac] w-full h-96 border-burnt-yellow rounded border-2"></div>
+        <div ref="renderRef" class="bg-[#acacac] w-full aspect-video border-burnt-yellow rounded border-2"></div>
         <p v-if="error" class="ml-2 text-red">
             {{ error }}
         </p>

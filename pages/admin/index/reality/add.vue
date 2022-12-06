@@ -1,6 +1,4 @@
 <script setup lang="ts">
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-
 const modal = useModal()
 
 const data = ref(new Array<string>())
@@ -10,8 +8,7 @@ const description = ref("")
 const background = ref(new Array<string>())
 const images = ref(new Array<string>())
 
-const loader = new GLTFLoader()
-const modelRef = ref<THREE.Group | null>(null)
+const model = ref<THREE.Group | null>(null)
 const scaleRef = ref(1)
 
 interface Errors {
@@ -29,12 +26,8 @@ const errors = ref<Errors>({})
 watch(data, async data => {
     const toParse = data[0]
     if (!toParse) return
-    if (modelRef.value) {
-        modelRef.value = null
-    }
-    const url = await base64ToURL(toParse)
-    const gltf = await loader.loadAsync(url)
-    modelRef.value = gltf.scene
+    const gltf = await base64ToGLTF(toParse)
+    model.value = gltf.scene
     const num = parseFloat(scale.value)
     scaleRef.value = num
 })
@@ -104,7 +97,7 @@ function onSave() {
             </tail-input-base64-file-dialog>
             <tail-input-base type="number" step="0.1" placeholder="Escala do modelo" v-model="scale"
                 :error="errors.scale" />
-            <tail-three-preview :scale="scaleRef" :model="modelRef" :error="errors.data" />
+            <tail-three-preview :scale="scaleRef" :model="model" :error="errors.data" />
             <tail-fab-save @click="onSave" />
         </div>
         <tail-error v-else>

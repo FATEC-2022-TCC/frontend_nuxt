@@ -35,7 +35,8 @@ export {
     updateUser,
     updateUserPassword,
     addReality,
-    searchRealityProjection
+    searchRealityProjection,
+    getReality
 } from "./admin"
 
 export {
@@ -67,3 +68,7 @@ export {
     emptyPage,
     formatDate
 } from "./utils"
+
+export {
+    base64ToGLTF
+} from "./three"

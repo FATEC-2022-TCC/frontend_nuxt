@@ -48,6 +48,7 @@ import {
 
 import { 
     NewRealityRequest, 
+    Reality, 
     RealityProjection
 } from "./Reality"
 
@@ -178,3 +179,5 @@ export const searchRealityProjection = (text: string, isVisible: boolean, page: 
         }
     }
 )
+
+export const getReality = (id: string) => get<Reality>(argsToURL("/admin/reality/{id}", { id }))
