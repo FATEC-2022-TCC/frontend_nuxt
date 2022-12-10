@@ -49,9 +49,8 @@ function onKeyUp(key: string) {
         stackIndex--
     } else if (key == "ArrowDown") {
         stackIndex++
-    } else {
-        return
-    }
+    } else return
+
     if (stackIndex >= stack.length) {
         myMessage.value = ""
         stackIndex = stack.length

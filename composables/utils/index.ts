@@ -107,16 +107,24 @@ export const onSuccess = <T extends NonNullable<any>>(ref: Ref<T>, also?: (resul
     if (also) also(result)
 }
 
-export const onSpreadSuccess = <T extends NonNullable<any>>(ref: Ref<T>, obj: { [key in keyof T]?: Ref<any> }) => (result: T) => {
-    console.log(JSON.stringify(result))
-    ref.value = result
+export const spread = <T>(generic: T, obj: { [key in keyof T]?: Ref<any> }) => {
+    if (!generic) return
     for (const key in obj) {
-        const value = result[key]
-        const objRef = obj[key]
-        if (!objRef) continue
-        objRef.value = value
+        const value = generic[key]
+        const ref = obj[key]
+        if (!ref) continue
+        ref.value = value
     }
 }
+
+//ignore this shit
+//it's only to avoid wrinting repeated code to transform T to T[] into a ref when spreading API response
+export const spreadListFromSingle = <T>(ref: Ref<Array<T>>): Ref<T | null> => new Proxy({} as Ref<T>, {
+    set(target, name, value) {
+        ref.value = new Array(value)
+        return true
+    }
+})
 
 export const onFailure = (ref: Ref<boolean>, also?: () => void) => (status: number) => {
     console.log(status)
@@ -128,6 +136,8 @@ export const emptyPage = <T>(): Page<T> => ({
     pages: 0,
     items: []
 })
+
+export const emptyList = <T>(): Array<T> => []
 
 export const formatDate = (date: string) => {
     try {

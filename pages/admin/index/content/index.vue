@@ -28,37 +28,20 @@ start()
 </script>
 
 <template>
-    <div class="flex flex-col p-4 pb-32">
-        <div class="flex flex-col gap-4">
-            <h1 class="font-amatic-sc text-6xl self-start">
-                Conteúdo
-            </h1>
-            <tail-input-search v-model="search" @on-search="page = 1; start()" />
-        </div>
-        <br>
-        <div v-if="!hasRemoteError" class="flex flex-col justify-between flex-1">
-            <div class="flex justify-center flex-wrap gap-4">
-                <tail-admin-content-projection
-                    v-for="p in pagination.items"
-                    :projection="p"
-                    @on-delete="onDelete = $event"
-                    @on-edit="navigateTo(`/admin/content/edit?id=${$event}`)"
-                />
+    <tail-loading-page class="flex flex-col p-4 gap-4 pb-32" :has-remote-error="hasRemoteError">
+        <h1 class="font-amatic-sc text-6xl self-start">
+            Conteúdo
+        </h1>
+        <tail-input-search v-model="search" @on-search="page = 1; start()" />
+        <div class="flex-1 flex flex-col gap-4 justify-between">
+            <div class="flex gap-4 justify-center">
+                <tail-admin-content-projection v-for="p in pagination.items" :projection="p"
+                    @on-delete="onDelete = $event" @on-edit="navigateTo(`/admin/content/edit?id=${$event}`)" />
             </div>
-            <br>
-            <tail-pagination
-                class="self-center"
-                v-model="page"
-                @update:model-value="start"
-                :min-page="1"
-                :max-page="pagination.pages"
-            />
-            <tail-modal-warn-delete v-if="onDelete" @on-confirm="onDeleteConfirmed" @on-dismiss="onDelete = 0" />
-            <tail-fab-add @click="navigateTo('content/add')" />
+            <tail-pagination class="self-center" v-model="page" @update:model-value="start" :min-page="1"
+                :max-page="pagination.pages" />
         </div>
-        <tail-error v-else>
-            <p>Algo deu errado!</p>
-            <p>Atualize a página e tente novamente.</p>
-        </tail-error>
-    </div>
+        <tail-modal-warn-delete v-if="onDelete" @on-confirm="onDeleteConfirmed" @on-dismiss="onDelete = 0" />
+        <tail-fab-add @click="navigateTo('content/add')" />
+    </tail-loading-page>
 </template>

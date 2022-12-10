@@ -68,27 +68,17 @@ function onSave() {
 </script>
 
 <template>
-    <div class="flex flex-col p-4 pb-32">
+    <tail-loading-page class="flex flex-col gap-4 p-4 pb-32" :is-loading="isLoading" :has-remote-error="hasRemoteError">
         <h1 class="font-amatic-sc text-6xl">
             Editar categoria
         </h1>
-        <br>
-        <div v-if="!isLoading && !hasRemoteError" class="space-y-2">
-            <tail-input-base placeholder="Nome" v-model="name" :error="errors.name" />
-            <tail-input-area placeholder="Uma breve descrição" maxlength="255" v-model="description"
-                :error="errors.description" />
-            <tail-input-base64-file-dialog multiple :error="errors.images" v-model="images">
-                <tail-button-blue-violet title="Fotos" />
-            </tail-input-base64-file-dialog>
-            <tail-image-handler v-model="images" v-if="images.length" />
-            <tail-fab-save @click="onSave" />
-        </div>
-        <div v-else-if="!hasRemoteError">
-            <p>Carregando...</p>
-        </div>
-        <tail-error v-else>
-            <p>Alguma coisa deu errada.</p>
-            <p>Tente novamente mais tarde!</p>
-        </tail-error>
-    </div>
+        <tail-input-base placeholder="Nome" v-model="name" :error="errors.name" />
+        <tail-input-area placeholder="Uma breve descrição" maxlength="255" v-model="description"
+            :error="errors.description" />
+        <tail-input-base64-file-dialog multiple :error="errors.images" v-model="images">
+            <tail-button-blue-violet title="Fotos" />
+        </tail-input-base64-file-dialog>
+        <tail-image-handler v-model="images" v-if="images.length" />
+        <tail-fab-save @click="onSave" />
+    </tail-loading-page>
 </template>

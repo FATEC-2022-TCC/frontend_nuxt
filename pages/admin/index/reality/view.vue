@@ -32,12 +32,11 @@ else start()
 </script>
 
 <template>
-    <div class="flex flex-col p-4">
+    <tail-loading-page class="p-4" :has-remote-error="hasRemoteError" :is-loading="!response">
         <h1 class="font-amatic-sc text-6xl">
             Análisar realidade aumentada
         </h1>
-        <br>
-        <div v-if="response && !hasRemoteError">
+        <template v-if="response">
             <h1 class="text-4xl font-amatic-sc">Título: &nbsp;</h1>
             <p> {{ response.title }}</p>
             <br>
@@ -57,13 +56,6 @@ else start()
             <br>
             <h1 class="text-4xl font-amatic-sc">Modelo: &nbsp;</h1>
             <tail-three-preview :scale="response.scale" :model="model" />
-        </div>
-        <div v-else-if="!hasRemoteError">
-            <p>Carregando...</p>
-        </div>
-        <tail-error v-else>
-            <p>Alguma coisa deu errada.</p>
-            <p>Tente novamente mais tarde!</p>
-        </tail-error>
-    </div>
+        </template>
+    </tail-loading-page>
 </template>

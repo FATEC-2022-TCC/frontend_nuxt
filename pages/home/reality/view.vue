@@ -1,11 +1,37 @@
 <script setup lang="ts">
 import * as THREE from "three"
-import { GLTFLoader } from 'three/examples/jsm/loaders/GLTFLoader'
-import { DragControls } from 'three/examples/jsm/controls/DragControls'
+import { RoomEnvironment } from 'three/examples/jsm/environments/RoomEnvironment';
 
-const loader = new GLTFLoader();
+import { Reality } from '~~/composables/public/Reality';
 
-const loadModel = (url: string): Promise<THREE.Group> => new Promise(resolve => loader.load(url, gltf => resolve(gltf.scene)))
+const route = useRoute()
+
+const response = ref<Reality | null>(null)
+const modelRef = ref<THREE.Group | null>(null)
+
+const hasRemoteError = ref(false)
+const canAR = ref(false)
+
+const id = route.query["id"]?.toString() ?? ''
+
+function start() {
+    getPublicReality(id).then(handle({
+        onSuccess: onSuccess(response),
+        onFailure: onFailure(hasRemoteError)
+    }))
+}
+
+watch(response, async res => {
+    if (!res) return
+    const gltf = await base64ToGLTF(res.data)
+    const scene = gltf.scene
+    const scale = res.scale
+    scene.scale.set(scale, scale, scale)
+    modelRef.value = gltf.scene
+})
+
+if (!id) navigateTo("/home/reality")
+else start()
 
 async function isSessionSupported(): Promise<boolean> {
     if (!navigator.xr) return false
@@ -19,11 +45,12 @@ async function requestSession() {
         alert("A sessão de AR não é suportada. Tente em outro dispositivo.")
         return
     }
+    const model = modelRef.value?.clone()
+    if (!model) return
+    model.visible = false
     try {
-        // const flower = await loadModel("https://immersive-web.github.io/webxr-samples/media/gltf/sunflower/sunflower.gltf")
-        const reticle = await loadModel("https://immersive-web.github.io/webxr-samples/media/gltf/reticle/reticle.gltf")
-        const model = await loadModel("/model.glb")
-        model.visible = false
+        const reticle = (await loadModel("/reticle.glb")).scene
+        reticle.visible = false
 
         const canvas = document.createElement('canvas')
         const gl = canvas.getContext('webgl', { xrCompatible: true })
@@ -34,11 +61,11 @@ async function requestSession() {
         const light = new THREE.AmbientLight(0xffffff, 1);
 
         scene.add(light)
-        scene.add(model)
         scene.add(reticle)
+        scene.add(model)
 
         const camera = new THREE.PerspectiveCamera();
-        camera.matrixAutoUpdate = false;
+        camera.matrixAutoUpdate = false
 
         const renderer = new THREE.WebGLRenderer({
             antialias: true,
@@ -46,7 +73,11 @@ async function requestSession() {
             context: gl,
             canvas: gl.canvas
         })
-        renderer.autoClear = true
+        renderer.autoClear = false
+
+        //necessary for metallics models
+        const pmremGenerator = new THREE.PMREMGenerator(renderer);
+        scene.environment = pmremGenerator.fromScene(new RoomEnvironment(), 0.04).texture
 
         const xr = navigator.xr
         if (!xr) throw "XRSystem is null"
@@ -55,7 +86,10 @@ async function requestSession() {
         })
         session.updateRenderState({ baseLayer: new XRWebGLLayer(session, gl) })
 
-        session.addEventListener('select', _ => model.position.copy(reticle.position))
+        session.addEventListener('select', _ => {
+            model.position.copy(reticle.position)
+            model.visible = true
+        })
 
         //where session was created
         const local = await session.requestReferenceSpace('local')
@@ -93,8 +127,8 @@ async function requestSession() {
                     pose.transform.position.y,
                     pose.transform.position.z
                 )
+                reticle.visible = true
                 reticle.updateMatrixWorld(true)
-                renderer.render(scene, camera)
             }
             renderer.render(scene, camera)
         }
@@ -105,10 +139,37 @@ async function requestSession() {
         alert("Alguma coisa deu errada ao carregar a sessão de AR. Atualize página e tente novamente!")
     }
 }
+
+isSessionSupported().then(value => canAR.value = value)
 </script>
 
 <template>
-    <div>
-        <tail-button-blue-violet title="Iniciar sessão" @click="requestSession" />
-    </div>
+    <tail-loading-page class="p-4" :has-remote-error="hasRemoteError" :is-loading="!response">
+        <h1 class="font-amatic-sc text-6xl">
+            Realidade aumentada
+        </h1>
+        <template v-if="response">
+            <h1 class="text-4xl font-amatic-sc">Título: &nbsp;</h1>
+            <p> {{ response.title }}</p>
+            <br>
+            <h1 class="text-4xl font-amatic-sc">Descrição: &nbsp;</h1>
+            <p> {{ response.description }}</p>
+            <br>
+            <h1 class="text-4xl font-amatic-sc">Foto de preview: &nbsp;</h1>
+            <img :src="response.background" />
+            <br>
+            <h1 class="text-4xl font-amatic-sc">Imagens: &nbsp;</h1>
+            <div class="mt-2 flex flex-wrap justify-center gap-2">
+                <img v-for="f in response.images" :src="f.data" class="w-48">
+            </div>
+            <br>
+            <h1 class="text-4xl font-amatic-sc">Modelo: &nbsp;</h1>
+            <tail-three-preview :scale="response.scale" :model="modelRef" />
+            <br>
+            <br>
+            <tail-button-blue-violet v-if="canAR" title="Iniciar sessão de realidade aumentada"
+                @click="requestSession" />
+            <tail-button-blue-violet v-else title="A sessão não é suportada neste dispositivo" />
+        </template>
+    </tail-loading-page>
 </template>

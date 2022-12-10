@@ -1,5 +1,4 @@
 export default defineNuxtConfig({
-    ssr: true,
     runtimeConfig: {
         public: {
             baseURL: 'http://localhost:8080'
@@ -26,6 +25,5 @@ export default defineNuxtConfig({
         },
         overwriting: false,
         download: false
-    },
-    devServerHandlers: []
+    }
 })

@@ -26,3 +26,14 @@ export interface Reality {
     isVisible: boolean,
     images: Array<Base64>
 }
+
+export interface UpdateRealityRequest {
+    id: number,
+    data: string,
+    scale: number,
+    title: string,
+    description: string,
+    background: string,
+    isVisible: boolean,
+    images: Array<string>
+}

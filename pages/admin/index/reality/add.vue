@@ -81,28 +81,26 @@ function onSave() {
             Nova realidade aumentada
         </h1>
         <br>
-        <div v-if="!hasRemoteError" class="flex flex-col gap-4">
-            <tail-input-base placeholder="Título" v-model="title" :error="errors.title" />
-            <tail-input-area placeholder="Uma breve descrição" v-model="description" :error="errors.description" />
-            <tail-input-base64-file-dialog :error="errors.background" v-model="background">
-                <tail-button-blue-violet title="Uma foto de preview" />
-            </tail-input-base64-file-dialog>
-            <tail-image-handler v-model="background" v-if="background.length" />
-            <tail-input-base64-file-dialog multiple :error="errors.images" v-model="images">
-                <tail-button-blue-violet title="Escolha mais algumas fotos do modelo" />
-            </tail-input-base64-file-dialog>
-            <tail-image-handler v-model="images" v-if="images.length" />
-            <tail-input-base64-file-dialog :error="errors.data" v-model="data" accept=".glb">
-                <tail-button-blue-violet title="Escolha o modelo" />
-            </tail-input-base64-file-dialog>
-            <tail-input-base type="number" step="0.1" placeholder="Escala do modelo" v-model="scale"
-                :error="errors.scale" />
-            <tail-three-preview :scale="scaleRef" :model="model" :error="errors.data" />
-            <tail-fab-save @click="onSave" />
-        </div>
-        <tail-error v-else>
-            <p>Alguma coisa deu errada.</p>
-            <p>Tente novamente mais tarde!</p>
-        </tail-error>
+        <tail-loading-page :has-remote-error="hasRemoteError">
+            <div class="flex flex-col gap-4">
+                <tail-input-base placeholder="Título" v-model="title" :error="errors.title" />
+                <tail-input-area placeholder="Uma breve descrição" v-model="description" :error="errors.description" />
+                <tail-input-base64-file-dialog :error="errors.background" v-model="background">
+                    <tail-button-blue-violet title="Uma foto de preview" />
+                </tail-input-base64-file-dialog>
+                <tail-image-handler v-model="background" v-if="background.length" />
+                <tail-input-base64-file-dialog multiple :error="errors.images" v-model="images">
+                    <tail-button-blue-violet title="Escolha mais algumas fotos do modelo" />
+                </tail-input-base64-file-dialog>
+                <tail-image-handler v-model="images" v-if="images.length" />
+                <tail-input-base64-file-dialog :error="errors.data" v-model="data" accept=".glb">
+                    <tail-button-blue-violet title="Escolha o modelo" />
+                </tail-input-base64-file-dialog>
+                <tail-input-base type="number" step="0.1" placeholder="Escala do modelo" v-model="scale"
+                    :error="errors.scale" />
+                <tail-three-preview :scale="scaleRef" :model="model" :error="errors.data" />
+                <tail-fab-save @click="onSave" />
+            </div>
+        </tail-loading-page>
     </div>
 </template>

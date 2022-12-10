@@ -96,21 +96,21 @@ function onSave() {
 </script>
 
 <template>
-    <div class="flex flex-col p-4 pb-32">
+    <tail-loading-page class="flex flex-col p-4 pb-32" :has-remote-error="hasRemoteError">
         <h1 class="font-amatic-sc text-6xl">
             Editar conteúdo
         </h1>
         <br>
         <wysiwyg-editor v-if="content" v-model="content" :error="errors.content" />
         <br>
-        <div v-if="!hasRemoteError" class="flex flex-col space-y-2">
+        <div class="flex flex-col gap-4">
             <h2 class="font-amatic-sc text-4xl">
                 Precisamos de algumas informações sobre o novo conteúdo
             </h2>
             <tail-input-base placeholder="Título" v-model="title" :error="errors.title" />
             <tail-input-base placeholder="Uma breve descrição" maxlength="255" v-model="description"
                 :error="errors.description" />
-            <div class="flex space-x-2">
+            <div class="flex gap-4">
                 <tail-input-file-dialog v-model="files" class="flex-1" accept="image/*" :error="errors.background">
                     <tail-button-blue-violet title="Escolha um arquivo como preview do artigo" />
                 </tail-input-file-dialog>
@@ -120,17 +120,11 @@ function onSave() {
                 </tail-button-base>
             </div>
             <img v-if="background" :src="background" class="w-full object-contain" />
-            <br>
-            <br>
             <h2 class="font-amatic-sc text-4xl">
                 Até quando o conteúdo deve estar visível?
             </h2>
             <tail-date-picker v-model="until" :minDate="new Date()" class="border-blue-violet" />
             <tail-fab-save @click="onSave" />
         </div>
-        <tail-error v-else>
-            <p>Alguma coisa deu errada.</p>
-            <p>Tente novamente mais tarde!</p>
-        </tail-error>
-    </div>
+    </tail-loading-page>
 </template>

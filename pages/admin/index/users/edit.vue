@@ -6,10 +6,15 @@ const route = useRoute()
 const router = useRouter()
 
 const name = ref("")
-const email = ref("")
 const authority = ref("")
 const isActive = ref(false)
 const isValidated = ref(false)
+
+const email = ref("")
+const telephony = ref("")
+const identification = ref("")
+const address = ref("")
+const picture = ref(emptyList<string>())
 
 const response = ref<User | null>(null)
 
@@ -18,8 +23,11 @@ const errors = ref<Errors>({})
 
 interface Errors {
     name?: string,
+    authority?: string,
     email?: string,
-    authority?: string
+    telephony?: string,
+    identification?: string,
+    address?: string
 }
 
 const id = route.query["id"]?.toString() ?? ''
@@ -30,7 +38,21 @@ else start()
 function start() {
     getUser(id).then(handle({
         onFailure: onFailure(hasRemoteError),
-        onSuccess: onSpreadSuccess(response, { name, email, authority, isActive, isValidated })
+        onSuccess: onSuccess(response, response => {
+            spread(response, {
+                name,
+                authority,
+                isActive,
+                isValidated
+            })
+            spread(response?.privateInfo, {
+                email,
+                telephony,
+                identification,
+                address,
+                picture: spreadListFromSingle(picture)
+            })
+        })
     }))
 }
 
@@ -39,8 +61,11 @@ function onSave() {
     if (hasError<Errors>(
         {
             name: lengthValidator(name, "Você precisa adicionar algum nome"),
+            authority: lengthValidator(authority, "Você precisa selecionar o tipo de usuário"),
             email: lengthValidator(email, "Você precisa adicionar algum email"),
-            authority: lengthValidator(authority, "Você precisa selecionar o tipo de usuário")
+            telephony: lengthValidator(telephony, "Você precisa adicionar algum telefone para contato"),
+            identification: lengthValidator(identification, "Você precisa adicionar algum documento de identificação"),
+            address: lengthValidator(address, "Você precisa adicionar algum endereço")
         },
         errors
     )) return
@@ -48,10 +73,16 @@ function onSave() {
     updateUser({
         id: parseInt(id),
         name: name.value,
-        email: email.value,
         authority: authority.value,
         isActive: isActive.value,
-        isValidated: isValidated.value
+        isValidated: isValidated.value,
+        privateInfo: {
+            email: email.value,
+            telephony: telephony.value,
+            identification: identification.value,
+            address: address.value,
+            picture: picture.value[0] ?? ""
+        }
     }).then(handle({
         onFailure: onFailure(hasRemoteError),
         onNullSucess: () => {
@@ -59,8 +90,7 @@ function onSave() {
                 type: ModalType.Success,
                 title: "O usuário foi atualizado!",
                 messages: [
-                    "Para as alterações surtirem efeito, o usuário deverá fazer o login novamente",
-                    "Caso ele não faça, a sessão ira expirar em 24 horas"
+                    "Para as alterações surtirem efeito, o usuário deverá fazer o login novamente"
                 ]
             }
             router.replace("/admin/users")
@@ -85,37 +115,36 @@ function onPasswordChangeRequested(password: string) {
 </script>
 
 <template>
-
-    <div class="flex flex-col p-4 pb-32">
+    <tail-loading-page class="flex flex-col gap-4 p-4 pb-32" :has-remote-error="hasRemoteError" :is-loading="!response">
         <h1 class="font-amatic-sc text-6xl">
             Editar usuário
         </h1>
-        <br>
-        <div v-if="response && !hasRemoteError" class="space-y-2">
-            <tail-input-base placeholder="Nome" v-model="name" :error="errors.name" />
-            <tail-input-base placeholder="Email" v-model="email" :error="errors.email" />
-            <tail-select :data="['NORMAL', 'ADMIN']" v-model="authority" :error="errors.authority">
-                <option value="">
-                    Tipo de usuário
-                </option>
-            </tail-select>
-            <div class="flex items-center justify-between">
-                <p>O usuário está {{ isActive ? 'ativo' : 'inativo' }}</p>
-                <tail-switch v-model="isActive" />
-            </div>
-            <div class="flex items-center justify-between">
-                <p>O usuário {{ isValidated ? '' : 'não' }} está validado</p>
-                <tail-switch v-model="isValidated" />
-            </div>
-            <tail-admin-user-password @on-password-change-requested="onPasswordChangeRequested" />
-            <tail-fab-save @click="onSave" />
+        <tail-input-base placeholder="Nome" v-model="name" :error="errors.name" />
+        <tail-select :data="['NORMAL', 'ADMIN']" v-model="authority" :error="errors.authority">
+            <option value="">
+                Tipo de usuário
+            </option>
+        </tail-select>
+        <div class="flex items-center justify-between">
+            <p>O usuário {{ isActive ? '' : 'não' }} está ativo</p>
+            <tail-switch v-model="isActive" />
         </div>
-        <div v-else-if="!hasRemoteError">
-            <p>Carregando...</p>
+        <div class="flex items-center justify-between">
+            <p>O usuário {{ isValidated ? '' : 'não' }} está validado</p>
+            <tail-switch v-model="isValidated" />
         </div>
-        <tail-error v-else>
-            <p>Alguma coisa deu errada.</p>
-            <p>Tente novamente mais tarde!</p>
-        </tail-error>
-    </div>
+        <h1 class="font-amatic-sc text-6xl">
+            Informações privadas
+        </h1>
+        <tail-input-base placeholder="Email" v-model="email" :error="errors.email" />
+        <tail-input-base placeholder="Telefone" v-model="telephony" :error="errors.email" />
+        <tail-input-base placeholder="Documento de identificação" v-model="identification" :error="errors.email" />
+        <tail-input-base placeholder="Endereço" v-model="address" :error="errors.email" />
+        <tail-input-base64-file-dialog v-model="picture">
+            <tail-button-blue-violet title="Uma foto do usuário" />
+        </tail-input-base64-file-dialog>
+        <tail-image-handler v-model="picture" v-if="(picture.length && picture[0].length)" />
+        <tail-admin-user-password @on-password-change-requested="onPasswordChangeRequested" />
+        <tail-fab-save @click="onSave" />
+    </tail-loading-page>
 </template>

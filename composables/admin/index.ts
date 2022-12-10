@@ -49,7 +49,8 @@ import {
 import { 
     NewRealityRequest, 
     Reality, 
-    RealityProjection
+    RealityProjection,
+    UpdateRealityRequest
 } from "./Reality"
 
 export const addContent = (body: NewContentRequest) => post<ContentResponse>("/admin/content", body)
@@ -181,3 +182,5 @@ export const searchRealityProjection = (text: string, isVisible: boolean, page: 
 )
 
 export const getReality = (id: string) => get<Reality>(argsToURL("/admin/reality/{id}", { id }))
+
+export const updateReality = (body: UpdateRealityRequest) => put<never>("/admin/reality", body)

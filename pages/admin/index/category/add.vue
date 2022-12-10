@@ -46,27 +46,20 @@ function onSave() {
 </script>
 
 <template>
-    <div class="flex flex-col p-4 pb-32">
+    <tail-loading-page class="flex flex-col gap-4 p-4 pb-32" :has-remote-error="hasRemoteError">
         <h1 class="font-amatic-sc text-6xl">
             Nova categoria
         </h1>
-        <br>
-        <div v-if="!hasRemoteError" class="flex flex-col gap-4">
-            <h2 class="font-amatic-sc text-4xl">
-                Precisamos de algumas informações sobre o novo conteúdo
-            </h2>
-            <tail-input-base placeholder="Nome" v-model="name" :error="errors.name" />
-            <tail-input-area placeholder="Uma breve descrição" maxlength="255" v-model="description"
-                :error="errors.description" />
-            <tail-input-base64-file-dialog multiple :error="errors.images" v-model="images">
-                <tail-button-blue-violet title="Fotos" />
-            </tail-input-base64-file-dialog>
-            <tail-image-handler v-model="images" v-if="images.length" />
-            <tail-fab-save @click="onSave" />
-        </div>
-        <tail-error v-else>
-            <p>Alguma coisa deu errada.</p>
-            <p>Tente novamente mais tarde!</p>
-        </tail-error>
-    </div>
+        <h2 class="font-amatic-sc text-4xl">
+            Precisamos de algumas informações sobre o novo conteúdo
+        </h2>
+        <tail-input-base placeholder="Nome" v-model="name" :error="errors.name" />
+        <tail-input-area placeholder="Uma breve descrição" maxlength="255" v-model="description"
+            :error="errors.description" />
+        <tail-input-base64-file-dialog multiple :error="errors.images" v-model="images">
+            <tail-button-blue-violet title="Fotos" />
+        </tail-input-base64-file-dialog>
+        <tail-image-handler v-model="images" v-if="images.length" />
+        <tail-fab-save @click="onSave" />
+    </tail-loading-page>
 </template>

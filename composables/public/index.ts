@@ -28,6 +28,11 @@ import {
     AdoptionProjection
 } from "./Adoption"
 
+import {
+    Reality,
+    RealityProjection
+} from "./Reality";
+
 import Page from "../api/Page";
 
 export const signin = (body: SignInRequest) => post<SignInResponse>("/public/sign/in", body)
@@ -73,3 +78,17 @@ export const searchPublicAdoption = (text: string, gender: string, size: string,
 )
 
 export const getPublicAdoption = (id: string) => get<Adoption>(argsToURL("/public/adoption/{id}", { id }))
+
+// --
+
+export const searchPublicReality = (text: string, page: number) => get<Page<RealityProjection>>(
+    "/public/reality/projection",
+    {
+        query: {
+            text,
+            page
+        }
+    }
+)
+
+export const getPublicReality = (id: string) => get<Reality>(argsToURL("/public/reality/{id}", { id }))

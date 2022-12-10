@@ -7,7 +7,9 @@ export {
     sendChatbotMessage,
     getAllCategoryProjection,
     searchPublicAdoption,
-    getPublicAdoption
+    getPublicAdoption,
+    searchPublicReality,
+    getPublicReality,
 } from "./public"
 
 export {
@@ -36,7 +38,8 @@ export {
     updateUserPassword,
     addReality,
     searchRealityProjection,
-    getReality
+    getReality,
+    updateReality
 } from "./admin"
 
 export {
@@ -64,11 +67,14 @@ export {
     hasError,
     onSuccess,
     onFailure,
-    onSpreadSuccess,
+    spread,
+    spreadListFromSingle,
     emptyPage,
-    formatDate
+    formatDate,
+    emptyList
 } from "./utils"
 
 export {
-    base64ToGLTF
+    base64ToGLTF,
+    loadModel
 } from "./three"

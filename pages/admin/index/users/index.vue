@@ -24,7 +24,7 @@ start()
 </script>
 
 <template>
-    <div class="flex flex-col p-4">
+    <tail-loading-page class="flex flex-col p-4" :has-remote-error="hasRemoteError">
         <div class="flex flex-col gap-4">
             <h1 class="font-amatic-sc text-6xl self-start">
                 Usuários
@@ -40,27 +40,18 @@ start()
             </div>
         </div>
         <br>
-        <div v-if="!hasRemoteError" class="flex flex-col flex-1 justify-between">
+        <div class="flex-1 flex flex-col gap-4 justify-between">
             <div class="flex flex-col gap-4">
-                <tail-admin-user-projection
-                    v-for="p in pagination.items"
-                    :projection="p"
+                <tail-admin-user-projection v-for="p in pagination.items" :projection="p"
                     @click="navigateTo(`/admin/users/view?id=${p.id}`)"
-                    @on-edit="navigateTo(`/admin/users/edit?id=${$event}`)"
-                />
+                    @on-edit="navigateTo(`/admin/users/edit?id=${$event}`)" />
             </div>
-            <br>
-            <tail-pagination
-                class="self-center"
+            <tail-pagination class="self-center"
                 v-model="page"
                 @update:model-value="start"
                 :min-page="1"
                 :max-page="pagination.pages"
             />
         </div>
-        <tail-error v-else>
-            <p>Algo deu errado!</p>
-            <p>Atualize a página e tente novamente.</p>
-        </tail-error>
-    </div>
+    </tail-loading-page>
 </template>

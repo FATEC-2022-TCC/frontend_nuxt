@@ -23,40 +23,20 @@ start()
 </script>
 
 <template>
-    <div class="flex flex-col p-4">
-        <div class="flex flex-col gap-4">
-            <h1 class="font-amatic-sc text-6xl self-start">
-                Denúncias
-            </h1>
-            <tail-input-search v-model="search" @on-search="page = 1; start()" />
-            <tail-select
-                :data="pagination.statuses"
-                :visual-transform="status => status.description"
-                :value-transform="status => status.code"
-                v-model="status"
-            />
-        </div>
-        <br>
-        <div v-if="!hasRemoteError" class="flex flex-col justify-between flex-1">
-            <div class="flex flex-wrap justify-center gap-4">
-                <tail-admin-complaint-projection
-                    v-for="p in pagination.page.items"
-                    :projection="p"
-                    @click="navigateTo(`/admin/complaint/view?id=${p.id}`)"
-                />
+    <tail-loading-page class="flex flex-col gap-4 p-4" :has-remote-error="hasRemoteError">
+        <h1 class="font-amatic-sc text-6xl self-start">
+            Denúncias
+        </h1>
+        <tail-input-search v-model="search" @on-search="page = 1; start()" />
+        <tail-select :data="pagination.statuses" :visual-transform="status => status.description"
+            :value-transform="status => status.code" v-model="status" />
+        <div class="flex-1 flex flex-col gap-4 justify-between">
+            <div class="flex gap-4 justify-center">
+                <tail-admin-complaint-projection v-for="p in pagination.page.items" :projection="p"
+                    @click="navigateTo(`/admin/complaint/view?id=${p.id}`)" />
             </div>
-            <br>
-            <tail-pagination
-                class="self-center"
-                v-model="page"
-                @update:model-value="start"
-                :min-page="1"
-                :max-page="pagination.page.pages"
-            />
+            <tail-pagination class="self-center" v-model="page" @update:model-value="start" :min-page="1"
+                :max-page="pagination.page.pages" />
         </div>
-        <tail-error class="mt-2" v-else>
-            <p>Algo deu errado!</p>
-            <p>Atualize a página e tente novamente.</p>
-        </tail-error>
-    </div>
+    </tail-loading-page>
 </template>

@@ -66,40 +66,31 @@ function onSave() {
 </script>
 
 <template>
-    <div class="flex flex-col gap-4 p-4 pb-32">
+    <tail-loading-page class="flex flex-col gap-4 p-4 pb-32" :has-remote-error="hasRemoteError">
         <h1 class="font-amatic-sc text-6xl">
             Novo conteúdo
         </h1>
         <wysiwyg-editor v-model="content" :error="errors.content" />
-        <div v-if="!hasRemoteError" class="flex flex-col gap-4">
-            <h2 class="font-amatic-sc text-4xl">
-                Precisamos de algumas informações sobre o novo conteúdo
-            </h2>
-            <tail-input-base placeholder="Título" v-model="title" :error="errors.title" />
-            <tail-input-base placeholder="Uma breve descrição" maxlength="255" v-model="description"
-                :error="errors.description" />
-            <div class="flex gap-4">
-                <tail-input-file-dialog v-model="files" class="flex-1" accept="image/*" :error="errors.background">
-                    <tail-button-blue-violet title="Escolha um arquivo como preview do artigo" />
-                </tail-input-file-dialog>
-                <tail-button-base v-if="background" class="bg-red" @click="background = ''">
-                    <icon
-                        name="ant-design:close-circle-filled"
-                        size="2rem"
-                        class="m-auto hover:cursor-pointer text-white"
-                    />
-                </tail-button-base>
-            </div>
-            <img v-if="background" :src="background" class="w-full object-contain" />
-            <h2 class="font-amatic-sc text-4xl">
-                Até quando o conteúdo deve estar visível?
-            </h2>
-            <tail-date-picker v-model="until" :minDate="new Date()" class="border-blue-violet" />
-            <tail-fab-save @click="onSave" />
+        <h2 class="font-amatic-sc text-4xl">
+            Precisamos de algumas informações sobre o novo conteúdo
+        </h2>
+        <tail-input-base placeholder="Título" v-model="title" :error="errors.title" />
+        <tail-input-base placeholder="Uma breve descrição" maxlength="255" v-model="description"
+            :error="errors.description" />
+        <div class="flex gap-4">
+            <tail-input-file-dialog v-model="files" class="flex-1" accept="image/*" :error="errors.background">
+                <tail-button-blue-violet title="Escolha um arquivo como preview do artigo" />
+            </tail-input-file-dialog>
+            <tail-button-base v-if="background" class="bg-red" @click="background = ''">
+                <icon name="ant-design:close-circle-filled" size="2rem"
+                    class="m-auto hover:cursor-pointer text-white" />
+            </tail-button-base>
         </div>
-        <tail-error v-else>
-            <p>Alguma coisa deu errada.</p>
-            <p>Tente novamente mais tarde!</p>
-        </tail-error>
-    </div>
+        <img v-if="background" :src="background" class="w-full object-contain" />
+        <h2 class="font-amatic-sc text-4xl">
+            Até quando o conteúdo deve estar visível?
+        </h2>
+        <tail-date-picker v-model="until" :minDate="new Date()" class="border-blue-violet" />
+        <tail-fab-save @click="onSave" />
+    </tail-loading-page>
 </template>

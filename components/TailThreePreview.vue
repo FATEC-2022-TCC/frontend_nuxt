@@ -58,7 +58,7 @@ onMounted(() => {
     }
     animate()
 
-    window.addEventListener('resize', _ => {
+    div.addEventListener('resize', _ => {
         camera.aspect = div.clientWidth / div.clientHeight;
         camera.updateProjectionMatrix();
         renderer.setSize(div.clientWidth, div.clientHeight)

@@ -5,7 +5,6 @@ const modal = useModal()
 const name = ref('')
 const username = ref('')
 const password = ref('')
-const email = ref('')
 const repeatedPassword = ref('')
 
 interface SignUpErrors {
@@ -25,7 +24,6 @@ function doSignUp() {
         {
             name: lengthValidator(name, "Digite seu nome completo"),
             username: lengthValidator(username, "Digite um nome de usuário"),
-            email: lengthValidator(email, "Digite um email"),
             password: lengthValidator(password, "Digite uma senha de 8 caracteres", 8),
             repeatedPassword: [
                 lengthValidator(repeatedPassword, "Digite uma senha de 8 caracteres", 8),
@@ -42,7 +40,6 @@ function doSignUp() {
     signup({
         name: name.value,
         username: username.value,
-        email: email.value,
         password: password.value
     }).then(handle({
         onFailure: onFailure(hasRemoteError),
@@ -51,7 +48,8 @@ function doSignUp() {
                 title: "Tudo certo!!!",
                 messages: [
                     "Você está cadastrado.",
-                    "Agora é só fazer o login e usar a plataforma com cautela."
+                    "Contate a prefeitura de sua cidade para a validação da conta.",
+                    "Caso não o faça nas próximas horas, sua conta será excluída."
                 ],
                 type: ModalType.Success
             }
@@ -72,15 +70,13 @@ function doSignUp() {
                 <br>
                 <tail-input-base :error="errors.name" placeholder="Nome completo" v-model="name" />
                 <tail-input-base :error="errors.username" placeholder="Apelido único" v-model="username" />
-                <tail-input-base :error="errors.email" placeholder="E-mail" v-model="email" />
                 <tail-input-base :error="errors.password" placeholder="Senha" type="password" v-model="password" />
                 <tail-input-base :error="errors.repeatedPassword" placeholder="Repetir a senha" type="password"
                     v-model="repeatedPassword" />
                 <tail-error v-if="hasRemoteError">
                     <p>Algo deu errado.</p>
-                    <p>Você já está cadastrado?</p>
-                    <p>Se sim, tente um método de recuperação de senha.</p>
-                    <p>Caso não, contate a prefeitura de sua cidade.</p>
+                    <p>Tente um nome de usuário diferente.</p>
+                    <p>Caso não consiga criar uma conta contate a prefeitura de sua cidade.</p>
                 </tail-error>
                 <tail-button-blue-violet title="Cadastrar" @click="doSignUp" />
                 <br>
