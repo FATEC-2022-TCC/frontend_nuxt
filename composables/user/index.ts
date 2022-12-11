@@ -17,6 +17,10 @@ import {
     NewComplaintRequest
 } from "./Complaint"
 
+import {
+    UserUpdateUserPasswordRequest
+} from "./User"
+
 export const addAnimal = (body: NewAnimalRequest) => post<AnimalResponse>("/user/animal", body)
 
 export const getAnimal = (id: string) => get<AnimalResponse>(argsToURL("/user/animal/{id}", { id }))
@@ -55,4 +59,8 @@ export const getUserAdoption = (id: string) => get<Adoption>(argsToURL("/user/ad
 
 // --
 
-export const addComplaint = (body: NewComplaintRequest) => post<null>("/user/complaint", body)
+export const addComplaint = (body: NewComplaintRequest) => post<never>("/user/complaint", body)
+
+// --
+
+export const userUpdatePassword = (body: UserUpdateUserPasswordRequest) => put<never>("/user/password", body)

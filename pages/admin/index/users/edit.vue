@@ -99,7 +99,7 @@ function onSave() {
 }
 
 function onPasswordChangeRequested(password: string) {
-    updateUserPassword({
+    adminUpdateUserPassword({
         id: parseInt(id),
         password
     }).then(handle({

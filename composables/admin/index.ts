@@ -164,7 +164,7 @@ export const getUser = (id: string) => get<User>(argsToURL("/admin/user/{id}", {
 
 export const updateUser = (body: UpdateUserRequest) => put<never>("/admin/user", body)
 
-export const updateUserPassword = (body: UpdateUserPasswordRequest) => put<never>("/admin/user/password", body)
+export const adminUpdateUserPassword = (body: UpdateUserPasswordRequest) => put<never>("/admin/user/password", body)
 
 // --
 

@@ -35,7 +35,7 @@ export {
     searchUserProjection,
     getUser,
     updateUser,
-    updateUserPassword,
+    adminUpdateUserPassword,
     addReality,
     searchRealityProjection,
     getReality,
@@ -52,6 +52,7 @@ export {
     getUserAdoptionProjection,
     getUserAdoption,
     addComplaint,
+    userUpdatePassword
 } from "./user"
 
 export {

@@ -19,14 +19,14 @@ start()
 </script>
 
 <template>
-    <div class="flex-1 flex flex-col">
+    <tail-loading-page class="flex-1 flex flex-col" :has-remote-error="hasRemoteError">
         <div class="bg-white flex flex-col gap-4 items-center justify-between p-4">
             <h1 class="font-amatic-sc text-6xl self-start">
                 BLOG
             </h1>
             <tail-input-search v-model="search" @on-search="page = 1; start()" />
         </div>
-        <tail-loading-page :has-remote-error="hasRemoteError">
+        <div class="flex-1 flex flex-col gap-4 justify-between pb-4">
             <div class="flex flex-wrap justify-center gap-4">
                 <tail-public-content-projection v-for="p in pagination.items" :projection="p"
                     @click="navigateTo(`content?id=${p.id}`)" />
@@ -34,6 +34,6 @@ start()
             <br>
             <tail-pagination class="self-center" v-model="page" @update:model-value="start" :min-page="1"
                 :max-page="pagination.pages" />
-        </tail-loading-page>
-    </div>
+        </div>
+    </tail-loading-page>
 </template>

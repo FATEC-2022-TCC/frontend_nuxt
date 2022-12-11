@@ -25,6 +25,14 @@
                     </p>
                 </li>
             </nuxt-link>
+            <nuxt-link to="/user/password">
+                <li>
+                    <icon name="ant-design:lock-filled" size="1.5rem" class="text-blue-violet cursor-pointer mr-4" />
+                    <p class="text-xl">
+                        Minha senha
+                    </p>
+                </li>
+            </nuxt-link>
             <nuxt-link to="/home">
                 <li>
                     <icon name="ant-design:left-circle-filled" size="1.5rem"
