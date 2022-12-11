@@ -8,7 +8,6 @@ const router = useRouter()
 const name = ref("")
 const authority = ref("")
 const isActive = ref(false)
-const isValidated = ref(false)
 
 const email = ref("")
 const telephony = ref("")
@@ -42,8 +41,7 @@ function start() {
             spread(response, {
                 name,
                 authority,
-                isActive,
-                isValidated
+                isActive
             })
             spread(response?.privateInfo, {
                 email,
@@ -75,7 +73,6 @@ function onSave() {
         name: name.value,
         authority: authority.value,
         isActive: isActive.value,
-        isValidated: isValidated.value,
         privateInfo: {
             email: email.value,
             telephony: telephony.value,
@@ -128,10 +125,6 @@ function onPasswordChangeRequested(password: string) {
         <div class="flex items-center justify-between">
             <p>O usuário {{ isActive ? '' : 'não' }} está ativo</p>
             <tail-switch v-model="isActive" />
-        </div>
-        <div class="flex items-center justify-between">
-            <p>O usuário {{ isValidated ? '' : 'não' }} está validado</p>
-            <tail-switch v-model="isValidated" />
         </div>
         <h1 class="font-amatic-sc text-6xl">
             Informações privadas

@@ -30,7 +30,6 @@ export interface UpdateUserRequest {
     name: string,
     authority: string,
     isActive: boolean,
-    isValidated: boolean,
     privateInfo: UpdateUserPrivateInfoRequest
 }
 
