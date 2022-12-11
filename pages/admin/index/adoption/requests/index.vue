@@ -33,13 +33,13 @@ watch(status, start)
 
 <template>
  <div class="flex flex-col p-4">
-        <div class="flex flex-col gap-2 items-center justify-between">
+        <div class="flex flex-col gap-4 items-center justify-between">
             <h1 class="font-amatic-sc text-6xl self-start">
                 Requisições de adoção
             </h1>
-            <br>
+            <tail-button-blue-violet title="Visualizar animal" @click="navigateTo(`view?id=${id}`)" />
             <tail-input-search v-model="search" @on-search="page = 1; start()" />
-            <tail-select class="mt-2"
+            <tail-select
                 :data="pagination.statuses"
                 :visual-transform="status => status.description"
                 :value-transform="status => status.code"
@@ -52,7 +52,7 @@ watch(status, start)
                 <tail-admin-adoption-request-projection
                     v-for="p in pagination.page.items"
                     :projection="p"
-                    @click="navigateTo(`requests/view?id=${p.id}`)"
+                    @click="navigateTo(`requests/view?id=${p.id}&animal=${id}`)"
                 />
             </div>
             <br>

@@ -18,7 +18,7 @@ function start() {
     }))
 }
 
-if (!id) navigateTo("/admin/complaint")
+if (!id) navigateTo("/admin/adoption")
 else start()
 
 function onAddStatus(request: StatusRequest) {
@@ -55,9 +55,14 @@ function onAddStatus(request: StatusRequest) {
                 <img :src="response.data.picture" />
                 <br>
                 <h1 class="text-4xl font-amatic-sc">Imagens: &nbsp;</h1>
-                <div class="mt-2 flex flex-wrap justify-center gap-2">
+                <div class="mt-2 flex flex-wrap justify-center gap-4">
                     <img v-for="f in response.data.images" :src="f.data" class="w-48">
                 </div>
+                <br>
+                <tail-button-blue-violet
+                    title="Visualizar requisições de adoção"
+                    @click="navigateTo(`requests?id=${response?.data.id}`)"
+                />
                 <br>
                 <tail-admin-status v-for="status in response.data.statuses" :status="status" />
                 <br>
