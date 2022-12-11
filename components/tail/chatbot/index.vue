@@ -77,9 +77,9 @@ onUpdated(scrollDiv)
         <div class="mt-2 h-80 border-2 border-blue-violet p-4 rounded bg-white shadow-2xl flex flex-col"
             :class="isOpen ? 'block' : 'hidden'">
             <div id="scroll" class="flex-1 overflow-auto scroll-smooth space-y-2 mb-2" ref="divRef">
-                <p v-for="m in messages" class="p-2 rounded text-white transition-shadow hover:cursor-pointer"
+                <div v-html="m.message" v-for="m in messages" class="p-2 rounded text-white transition-shadow hover:cursor-pointer"
                     :class="m.owner == 'me' ? ['self-end', 'bg-bondi-blue', 'ml-10'] : ['self-start', 'bg-blue-violet', 'mr-10']">
-                    {{ m.message }}</p>
+                </div>
             </div>
             <tail-input-icon @on-key-up="onKeyUp" @on-icon="sendMessage" v-model="myMessage">
                 <icon name="ant-design:send-outlined" size="2rem" class="text-blue-violet cursor-pointer" />
