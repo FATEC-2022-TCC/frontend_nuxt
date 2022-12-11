@@ -7,11 +7,12 @@ const name = ref("")
 const description = ref("")
 const gender = ref("")
 const size = ref("")
+const age = ref("")
 const categoryId = ref(0)
-const picture = ref(new Array<string>())
-const images = ref(new Array<string>())
+const picture = ref(emptyList<string>())
+const images = ref(emptyList<string>())
 
-const categories = ref<Array<CategoryProjection>>([])
+const categories = ref(emptyList<CategoryProjection>())
 
 interface Errors {
     name?: string,
@@ -21,6 +22,7 @@ interface Errors {
     categoryId?: string,
     picture?: string,
     images?: string,
+    age?: string
 }
 
 const hasRemoteError = ref(false)
@@ -36,7 +38,8 @@ function onSave() {
             size: lengthValidator(size, "Você precisa adicionar o porte do animal"),
             categoryId: moreThanZeroValidator(categoryId, "Precisamos da espécie"),
             picture: lengthValidator(picture, "Você deve inserir uma foto de perfil"),
-            images: lengthValidator(images, "Você precisa inserir ao menos uma imagem")
+            images: lengthValidator(images, "Você precisa inserir ao menos uma imagem"),
+            age: lengthValidator(age, "Você precisa inserir a idade do animal")
         },
         errors
     )) return
@@ -49,6 +52,7 @@ function onSave() {
         categoryId: categoryId.value,
         picture: picture.value[0],
         images: images.value,
+        age: age.value
     }).then(handle({
         onFailure: onFailure(hasRemoteError),
         onSuccess: _ => {
@@ -104,6 +108,7 @@ getAllCategoryProjection().then(handle({
                     Porte do animal
                 </option>
             </tail-select>
+            <tail-input-base placeholder="Idade" v-model="age" :error="errors.age" />
             <tail-input-base64-file-dialog :error="errors.picture" v-model="picture">
                 <tail-button-blue-violet title="Uma foto de perfil" />
             </tail-input-base64-file-dialog>

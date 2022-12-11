@@ -121,7 +121,7 @@ export const spread = <T>(generic: T, obj: { [key in keyof T]?: Ref<any> }) => {
 //it's only to avoid wrinting repeated code to transform T to T[] into a ref when spreading API response
 export const spreadListFromSingle = <T>(ref: Ref<Array<T>>): Ref<T | null> => new Proxy({} as Ref<T>, {
     set(target, name, value) {
-        ref.value = new Array(value)
+        ref.value = [value]
         return true
     }
 })

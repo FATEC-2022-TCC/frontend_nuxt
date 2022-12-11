@@ -14,14 +14,6 @@ const start = () => getAnimalProjection(search.value, page.value).then(handle({
     onSuccess: onSuccess(pagination)
 }))
 
-function onClick(projection: AnimalProjection) {
-    console.log("click", projection)
-}
-
-function onDelete({ id }: AnimalProjection) {
-    onDeleteData.value = id
-}
-
 const onDeleteConfirmed = () => deleteAnimal(`${onDeleteData.value}`).then(handle({
     onFailure: onFailure(hasRemoteError),
     finally: () => {
@@ -29,14 +21,6 @@ const onDeleteConfirmed = () => deleteAnimal(`${onDeleteData.value}`).then(handl
         start()
     }
 }))
-
-function onDeleteRevoked() {
-    onDeleteData.value = 0
-}
-
-function onEdit({ id }: AnimalProjection) {
-    // navigateTo(`/user/user/edit?id=${id}`)
-}
 
 start()
 </script>
@@ -49,13 +33,27 @@ start()
         <tail-input-search v-model="search" @on-search="page = 1; start()" />
         <div class="flex-1 flex flex-col gap-4 justify-between">
             <div class="flex gap-4 justify-center">
-                <tail-user-animal-projection v-for="p in pagination.items" :projection="p" @on-click="onClick"
-                    @on-delete="onDelete" @on-edit="onEdit" />
+                <tail-user-animal-projection
+                    v-for="p in pagination.items"
+                        :projection="p"
+                        @click="navigateTo(`animal/view?id=${p.id}`)"
+                        @on-delete="onDeleteData = p.id"
+                        @on-edit="navigateTo(`animal/edit?id=${p.id}`)"
+                    />
             </div>
-            <tail-pagination class="self-center" v-model="page" @update:model-value="start" :min-page="1"
-                :max-page="pagination.pages" />
+            <tail-pagination
+                class="self-center"
+                v-model="page"
+                @update:model-value="start"
+                :min-page="1"
+                :max-page="pagination.pages"
+            />
         </div>
-        <tail-modal-warn-delete v-if="onDeleteData" @on-click="onDeleteConfirmed" @on-dismiss="onDeleteRevoked" />
+        <tail-modal-warn-delete
+            v-if="onDeleteData"
+            @on-click="onDeleteConfirmed"
+            @on-dismiss="onDeleteData = 0"
+        />
         <tail-fab-add @click="navigateTo('animal/add')" />
     </tail-loading-page>
 </template>

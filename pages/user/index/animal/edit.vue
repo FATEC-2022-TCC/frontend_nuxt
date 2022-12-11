@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import { CategoryProjection } from '~~/composables/public/Category';
+import { AnimalResponse } from '~~/composables/user/Animal';
 
+const route = useRoute()
 const modal = useModal()
 
 const picture = ref(emptyList<string>())
@@ -22,8 +24,41 @@ interface Errors {
     size?: string
 }
 
+const response = ref<AnimalResponse | null>(null)
+
 const hasRemoteError = ref(false)
+const isLoading = ref(true)
 const errors = ref<Errors>({})
+
+const id = route.query["id"]?.toString() ?? ''
+
+if (!id) navigateTo("/user")
+else start()
+
+function start() {
+    getAllCategoryProjection().then(handle({
+        onFailure: onFailure(hasRemoteError),
+        onSuccess: onSuccess(categories)
+    }))
+
+    getAnimal(id).then(handle({
+        onFailure: onFailure(hasRemoteError),
+        onSuccess: onSuccess(response, response => {
+            spread(response, {
+                picture: spreadListFromSingle(picture),
+                name,
+                gender,
+                age,
+                size,
+                description      
+            })
+            categoryId.value = response?.category.id ?? 0
+        }),
+        finally() {
+            isLoading.value = false
+        }
+    }))
+}
 
 function onSave() {
     hasRemoteError.value = false
@@ -39,7 +74,8 @@ function onSave() {
         errors
     )) return
 
-    addAnimal({
+    updateAnimal({
+        id: parseInt(id),
         picture: picture.value[0],
         name: name.value,
         categoryId: categoryId.value,
@@ -61,17 +97,12 @@ function onSave() {
         }
     }))
 }
-
-getAllCategoryProjection().then(handle({
-    onFailure: onFailure(hasRemoteError),
-    onSuccess: onSuccess(categories)
-}))
 </script>
 
 <template>
-    <tail-loading-page class="flex flex-col gap-4 p-4 pb-32" :has-remote-error="hasRemoteError">
+    <tail-loading-page class="flex flex-col gap-4 p-4 pb-32" :is-loading="isLoading" :has-remote-error="hasRemoteError">
         <h1 class="font-amatic-sc text-6xl">
-            Novo Animal
+            Atualizar seu animal
         </h1>
         <h2 class="font-amatic-sc text-4xl">
             Vamos começar com informações sobre o bichinho

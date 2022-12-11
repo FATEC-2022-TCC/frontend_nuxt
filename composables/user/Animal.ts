@@ -1,3 +1,7 @@
+import {
+    CategoryResponse
+} from "./Category"
+
 export interface NewAnimalRequest {
     picture: string,
     name: string,
@@ -16,7 +20,7 @@ export interface UpdateAnimalRequest {
     gender: string,
     age: string,
     size: string,
-    about: string
+    description: string
 }
 
 export interface AnimalResponse {
@@ -27,8 +31,9 @@ export interface AnimalResponse {
     gender: string,
     age: string,
     size: string,
-    about: string,
-    created: Date
+    description: string,
+    created: string,
+    category: CategoryResponse
 }
 
 export interface AnimalProjection {

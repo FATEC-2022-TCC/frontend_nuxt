@@ -21,5 +21,6 @@ export interface Adoption {
     category: Category,
     picture: string,
     images: Array<Base64>,
+    age: string,
     created: string
 }

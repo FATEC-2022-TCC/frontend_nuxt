@@ -37,7 +37,7 @@ const onAdoptionRequest = () => requestAdoption(id).then(handle({
 </script>
 
 <template>
-    <div>
+    <tail-loading-page :has-remote-error="hasRemoteError">
         <div v-if="response" class="flex-1 flex bg-white">
             <div class="flex-1 flex flex-col md:flex-row">
                 <div class="flex-1">
@@ -57,8 +57,7 @@ const onAdoptionRequest = () => requestAdoption(id).then(handle({
                         <p class="text-xl"> {{ response.description }}</p>
                         <br>
                         <h1 class="text-4xl font-amatic-sc">Características:</h1>
-                        <p class="text-xl">{{ response.category.name }} | {{ response.gender }} | {{ response.size }}
-                        </p>
+                        <p class="text-xl">{{ [response.category.name, response.gender, response.size, response.age].join(' | ') }} </p>
                         <br>
                         <h1 class="text-4xl font-amatic-sc">Publicado em:</h1>
                         <p class="text-xl"> {{ formatDate(response.created) }}</p>
@@ -73,12 +72,5 @@ const onAdoptionRequest = () => requestAdoption(id).then(handle({
                 </div>
             </div>
         </div>
-        <div v-else-if="!hasRemoteError">
-            <p>Carregando...</p>
-        </div>
-        <tail-error v-else>
-            <p>Algo deu errado!</p>
-            <p>Atualize a página e tente novamente.</p>
-        </tail-error>
-    </div>
+    </tail-loading-page>
 </template>
