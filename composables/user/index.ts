@@ -21,13 +21,13 @@ import {
     UserUpdateUserPasswordRequest
 } from "./User"
 
-export const addAnimal = (body: NewAnimalRequest) => post<AnimalResponse>("/user/animal", body)
+export const addAnimal = (body: NewAnimalRequest) => post<never>("/user/animal", body)
 
 export const getAnimal = (id: string) => get<AnimalResponse>(argsToURL("/user/animal/{id}", { id }))
 
-export const updateAnimal = (body: UpdateAnimalRequest) => put<AnimalResponse>("/user/animal", body)
+export const updateAnimal = (body: UpdateAnimalRequest) => put<never>("/user/animal", body)
 
-export const deleteAnimal = (id: string) => del<null>(argsToURL("/user/animal/{id}", { id }))
+export const deleteAnimal = (id: string) => del<never>(argsToURL("/user/animal/{id}", { id }))
 
 export const getAnimalProjection = (text: string, page: number) => get<Page<AnimalProjection>>(
     "/user/animal/projection",

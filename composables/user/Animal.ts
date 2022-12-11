@@ -5,7 +5,7 @@ export interface NewAnimalRequest {
     gender: string,
     age: string,
     size: string,
-    about: string
+    description: string
 }
 
 export interface UpdateAnimalRequest {
