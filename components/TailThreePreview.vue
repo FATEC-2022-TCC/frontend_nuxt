@@ -18,7 +18,12 @@ scene.add(axes)
 watch(() => props.scale, scale => props.model?.scale.set(scale, scale, scale))
 watch(() => props.model, (value, old) => {
     if (old) scene.remove(toRaw(old))
-    if (value) scene.add(toRaw(value))
+    const model = toRaw(value)
+    if (model) {
+        const scale = props.scale
+        model.scale.set(scale, scale, scale)
+        scene.add(model)
+    }
 })
 
 const renderRef = ref<HTMLDivElement | null>(null)
@@ -31,10 +36,10 @@ onMounted(() => {
         75,
         div.clientWidth / div.clientHeight,
         0.1,
-        1000
+        2000
     )
 
-    camera.position.set(5, 5, 5)
+    camera.position.set(.5, .5, .5)
 
     const renderer = new THREE.WebGLRenderer({
         alpha: true,

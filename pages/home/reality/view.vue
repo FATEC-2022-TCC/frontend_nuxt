@@ -47,7 +47,6 @@ async function requestSession() {
     }
     const model = modelRef.value?.clone()
     if (!model) return
-    model.visible = false
     try {
         const reticle = (await loadModel("/reticle.glb")).scene
         reticle.visible = false
@@ -61,7 +60,7 @@ async function requestSession() {
         const light = new THREE.AmbientLight(0xffffff, 1);
 
         scene.add(light)
-        scene.add(reticle)
+        //scene.add(reticle)
         scene.add(model)
 
         const camera = new THREE.PerspectiveCamera();
@@ -86,10 +85,10 @@ async function requestSession() {
         })
         session.updateRenderState({ baseLayer: new XRWebGLLayer(session, gl) })
 
-        session.addEventListener('select', _ => {
-            model.position.copy(reticle.position)
-            model.visible = true
-        })
+        // session.addEventListener('select', _ => {
+        //     model.position.copy(reticle.position)
+        //     model.visible = true
+        // })
 
         //where session was created
         const local = await session.requestReferenceSpace('local')
@@ -100,6 +99,8 @@ async function requestSession() {
         const hitTestSource = session.requestHitTestSource && await session.requestHitTestSource({ space: viewer });
 
         if (!hitTestSource) throw "hitTestSource is null"
+
+        let adjusted = false
 
         const onXRFrame = (time: DOMHighResTimeStamp, frame: XRFrame) => {
             session.requestAnimationFrame(onXRFrame);
@@ -117,19 +118,23 @@ async function requestSession() {
                 camera.matrix.fromArray(view.transform.matrix)
                 camera.projectionMatrix.fromArray(view.projectionMatrix);
                 camera.updateMatrixWorld(true);
+
+                if (!adjusted) {
+                    model.matrix.fromArray(view.transform.matrix)
+                    model.updateMatrixWorld(adjusted = true)
+                }
             }
 
-            for (const result of frame.getHitTestResults(hitTestSource)) {
-                const pose = result.getPose(local)
-                if (!pose) continue
-                reticle.position.set(
-                    pose.transform.position.x,
-                    pose.transform.position.y,
-                    pose.transform.position.z
-                )
-                reticle.visible = true
-                reticle.updateMatrixWorld(true)
-            }
+            // for (const result of frame.getHitTestResults(hitTestSource)) {
+            //     const pose = result.getPose(local)
+            //     if (!pose) continue
+            //     model.position.set(
+            //         pose.transform.position.x,
+            //         pose.transform.position.y,
+            //         pose.transform.position.z
+            //     )
+            //     reticle.updateMatrixWorld(true)
+            // }
             renderer.render(scene, camera)
         }
         session.requestAnimationFrame(onXRFrame);

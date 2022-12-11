@@ -24,6 +24,6 @@ export default defineNuxtConfig({
             "Nunito": true
         },
         overwriting: false,
-        download: false
+        download: true
     }
 })
