@@ -76,52 +76,40 @@ getAllCategoryProjection().then(handle({
 </script>
 
 <template>
-    <div class="flex flex-col p-4 pb-32">
+    <tail-loading-page class="flex flex-col gap-4 p-4 pb-32" :has-remote-error="hasRemoteError">
         <h1 class="font-amatic-sc text-6xl">
             Nova adoção
         </h1>
-        <br>
-        <div v-if="!hasRemoteError" class="flex flex-col gap-4">
-            <h2 class="font-amatic-sc text-4xl">
-                Precisamos de algumas informações sobre a nova adoção
-            </h2>
-            <tail-input-base placeholder="Nome" v-model="name" :error="errors.name" />
-            <tail-input-area placeholder="Uma breve descrição" v-model="description" :error="errors.description" />
-            <tail-select
-                :data="categories"
-                v-model="categoryId"
-                :error="errors.categoryId"
-                :visual-transform="category => category.name"
-                :value-transform="category => category.id"
-            >
-                <option value="0">
-                    Espécie do animal
-                </option>
-            </tail-select>
-            <tail-select :data="['Macho', 'Fêmea']" v-model="gender" :error="errors.gender">
-                <option value="">
-                    Gênero do animal
-                </option>
-            </tail-select>
-            <tail-select :data="['Pequeno', 'Médio', 'Grande']" v-model="size" :error="errors.size">
-                <option value="">
-                    Porte do animal
-                </option>
-            </tail-select>
-            <tail-input-base placeholder="Idade" v-model="age" :error="errors.age" />
-            <tail-input-base64-file-dialog :error="errors.picture" v-model="picture">
-                <tail-button-blue-violet title="Uma foto de perfil" />
-            </tail-input-base64-file-dialog>
-            <tail-image-handler v-model="picture" v-if="picture.length" />
-            <tail-input-base64-file-dialog multiple :error="errors.images" v-model="images">
-                <tail-button-blue-violet title="Escolha mais algumas fotos para aumentar as chances de adoção" />
-            </tail-input-base64-file-dialog>
-            <tail-image-handler v-model="images" v-if="images.length" />
-            <tail-fab-save @click="onSave" />
-        </div>
-        <tail-error v-else>
-            <p>Alguma coisa deu errada.</p>
-            <p>Tente novamente mais tarde!</p>
-        </tail-error>
-    </div>
+        <h2 class="font-amatic-sc text-4xl">
+            Precisamos de algumas informações sobre a nova adoção
+        </h2>
+        <tail-input-base placeholder="Nome" v-model="name" :error="errors.name" />
+        <tail-input-area placeholder="Uma breve descrição" v-model="description" :error="errors.description" />
+        <tail-select :data="categories" v-model="categoryId" :error="errors.categoryId"
+            :visual-transform="category => category.name" :value-transform="category => category.id">
+            <option value="0">
+                Espécie do animal
+            </option>
+        </tail-select>
+        <tail-select :data="['Macho', 'Fêmea']" v-model="gender" :error="errors.gender">
+            <option value="">
+                Gênero do animal
+            </option>
+        </tail-select>
+        <tail-select :data="['Pequeno', 'Médio', 'Grande']" v-model="size" :error="errors.size">
+            <option value="">
+                Porte do animal
+            </option>
+        </tail-select>
+        <tail-input-base placeholder="Idade" v-model="age" :error="errors.age" />
+        <tail-input-base64-file-dialog :error="errors.picture" v-model="picture">
+            <tail-button-blue-violet title="Uma foto de perfil" />
+        </tail-input-base64-file-dialog>
+        <tail-image-handler v-model="picture" v-if="picture.length" />
+        <tail-input-base64-file-dialog multiple :error="errors.images" v-model="images">
+            <tail-button-blue-violet title="Escolha mais algumas fotos para aumentar as chances de adoção" />
+        </tail-input-base64-file-dialog>
+        <tail-image-handler v-model="images" v-if="images.length" />
+        <tail-fab-save @click="onSave" />
+    </tail-loading-page>
 </template>
