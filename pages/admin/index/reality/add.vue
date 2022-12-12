@@ -76,31 +76,26 @@ function onSave() {
 </script>
 
 <template>
-    <div class="flex flex-col p-4 pb-32">
+    <tail-loading-page class="flex flex-col gap-4 p-4 pb-32" :has-remote-error="hasRemoteError">
         <h1 class="font-amatic-sc text-6xl">
             Nova realidade aumentada
         </h1>
-        <br>
-        <tail-loading-page :has-remote-error="hasRemoteError">
-            <div class="flex flex-col gap-4">
-                <tail-input-base placeholder="Título" v-model="title" :error="errors.title" />
-                <tail-input-area placeholder="Uma breve descrição" v-model="description" :error="errors.description" />
-                <tail-input-base64-file-dialog :error="errors.background" v-model="background">
-                    <tail-button-blue-violet title="Uma foto de preview" />
-                </tail-input-base64-file-dialog>
-                <tail-image-handler v-model="background" v-if="background.length" />
-                <tail-input-base64-file-dialog multiple :error="errors.images" v-model="images">
-                    <tail-button-blue-violet title="Escolha mais algumas fotos do modelo" />
-                </tail-input-base64-file-dialog>
-                <tail-image-handler v-model="images" v-if="images.length" />
-                <tail-input-base64-file-dialog :error="errors.data" v-model="data" accept=".glb">
-                    <tail-button-blue-violet title="Escolha o modelo" />
-                </tail-input-base64-file-dialog>
-                <tail-input-base type="number" step="0.1" placeholder="Escala do modelo" v-model="scale"
-                    :error="errors.scale" />
-                <tail-three-preview :scale="scaleRef" :model="model" :error="errors.data" />
-                <tail-fab-save @click="onSave" />
-            </div>
-        </tail-loading-page>
-    </div>
+        <tail-input-base placeholder="Título" v-model="title" :error="errors.title" />
+        <tail-input-area placeholder="Uma breve descrição" v-model="description" :error="errors.description" />
+        <tail-input-base64-file-dialog :error="errors.background" v-model="background">
+            <tail-button-blue-violet title="Uma foto de preview" />
+        </tail-input-base64-file-dialog>
+        <tail-image-handler v-model="background" v-if="background.length" />
+        <tail-input-base64-file-dialog multiple :error="errors.images" v-model="images">
+            <tail-button-blue-violet title="Escolha mais algumas fotos do modelo" />
+        </tail-input-base64-file-dialog>
+        <tail-image-handler v-model="images" v-if="images.length" />
+        <tail-input-base64-file-dialog :error="errors.data" v-model="data" accept=".glb">
+            <tail-button-blue-violet title="Escolha o modelo" />
+        </tail-input-base64-file-dialog>
+        <tail-input-base type="number" step="0.1" placeholder="Escala do modelo" v-model="scale"
+            :error="errors.scale" />
+        <tail-three-preview :scale="scaleRef" :model="model" :error="errors.data" />
+        <tail-fab-save @click="onSave" />
+    </tail-loading-page>
 </template>

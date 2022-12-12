@@ -6,7 +6,7 @@ defineProps<{
 </script>
 
 <template>
-    <div class="bg-white border border-blue-violet p-4 rounded mt-4">
+    <div class="bg-white border border-blue-violet p-4 rounded">
         <h1 class="text-4xl font-amatic-sc">Descrição: &nbsp;</h1>
         <p class="whitespace-pre-wrap"> {{ status.description }}</p>
         <br>

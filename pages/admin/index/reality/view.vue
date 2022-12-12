@@ -23,7 +23,7 @@ watch(response, async res => {
     const scene = gltf.scene
     const scale = res.scale
     scene.scale.set(scale, scale, scale)
-    model.value = gltf.scene
+    model.value = scene
 })
 
 if (!id) navigateTo("/admin/complaint")

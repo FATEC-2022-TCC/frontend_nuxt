@@ -4,7 +4,7 @@ import { Carousel, Slide, Navigation } from 'vue3-carousel'
 import { ContentProjection } from '~~/composables/admin/Content';
 import { AdoptionProjection } from '~~/composables/public/Adoption';
 
-const contentProjections = ref<Array<ContentProjection>>([])
+const contentProjections = ref(emptyList<ContentProjection>())
 const adoptionPagination = ref(emptyPage<AdoptionProjection>())
 const contentPagination = ref(emptyPage<ContentProjection>())
 
@@ -46,26 +46,23 @@ searchPublicContentProjection("", 1).then(handle({
                 <navigation />
             </template>
         </carousel>
-        <div class="p-4" v-if="adoptionPagination.items.length">
+        <div class="flex flex-col gap-4 p-4" v-if="adoptionPagination.items.length">
             <h1 class="font-amatic-sc text-4xl font-bold text-blue-violet">Novos animais por aqui:</h1>
-            <br>
-            <div class="flex justify-center gap-4">
+            <div class="flex flex-wrap justify-center gap-4">
                 <tail-public-adoption-projection
                     v-for="p in adoptionPagination.items"
                     :projection="p"
                     @click="navigateTo(`home/adoption/view?id=${p.id}`)"
                 />
             </div>
-            <br>
             <tail-button-blue-violet
                 title="Encontrar mais"
                 @click="navigateTo('home/adoption')"
             />
         </div>
-        <div class="p-4" v-if="contentPagination.items.length">
+        <div class="flex flex-col gap-4 p-4" v-if="contentPagination.items.length">
             <h1 class="font-amatic-sc text-4xl font-bold text-blue-violet">Nosso blog:</h1>
-            <br>
-            <div class="flex justify-center gap-4">
+            <div class="flex flex-wrap justify-center gap-4">
                 <tail-public-content-projection
                     v-for="p in contentPagination.items"
                     :projection="p"

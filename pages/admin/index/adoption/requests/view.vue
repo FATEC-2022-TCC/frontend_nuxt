@@ -39,35 +39,22 @@ function onAddStatus(request: StatusRequest) {
 </script>
 
 <template>
-    <div class="flex flex-col p-4 gap-4">
+    <tail-loading-page class="flex flex-col gap-4 p-4" :has-remote-error="hasRemoteError">
         <h1 class="font-amatic-sc text-6xl">
             Analisar requisição de adoção
         </h1>
-        <tail-button-blue-violet
-            title="Visualizar requisições de adoção"
-            @click="navigateTo(`/admin/adoption/requests?id=${animalId}`)"
-        />
-        <tail-button-blue-violet
-            title="Visualizar o animal"
-            @click="navigateTo(`/admin/adoption/view?id=${animalId}`)"
-        />
-        <div v-if="response && !hasRemoteError">
-            <div class="ml-4">
+        <tail-button-blue-violet title="Visualizar requisições de adoção"
+            @click="navigateTo(`/admin/adoption/requests?id=${animalId}`)" />
+        <tail-button-blue-violet title="Visualizar o animal"
+            @click="navigateTo(`/admin/adoption/view?id=${animalId}`)" />
+        <div v-if="response" class="flex flex-col gap-4">
+            <div>
                 <h1 class="text-4xl font-amatic-sc">Adoção requisitada por: &nbsp;</h1>
                 <p> {{ response.data.createdBy }}</p>
-                <br>
-                <tail-admin-status v-for="status in response.data.statuses" :status="status" />
-                <br>
-                <tail-admin-add-status :key="addStatusKey" v-if="response.allowedStatus.length"
-                    :statuses="response.allowedStatus" @on-add-status="onAddStatus" />
             </div>
+            <tail-admin-status v-for="status in response.data.statuses" :status="status" />
+            <tail-admin-add-status :key="addStatusKey" v-if="response.allowedStatus.length"
+                :statuses="response.allowedStatus" @on-add-status="onAddStatus" />
         </div>
-        <div v-else-if="!hasRemoteError">
-            <p>Carregando...</p>
-        </div>
-        <tail-error v-else>
-            <p>Alguma coisa deu errada.</p>
-            <p>Tente novamente mais tarde!</p>
-        </tail-error>
-    </div>
+    </tail-loading-page>
 </template>

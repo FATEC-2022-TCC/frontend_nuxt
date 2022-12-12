@@ -39,7 +39,7 @@ onMounted(() => {
         2000
     )
 
-    camera.position.set(.5, .5, .5)
+    camera.position.set(.2, .2, .2)
 
     const renderer = new THREE.WebGLRenderer({
         alpha: true,

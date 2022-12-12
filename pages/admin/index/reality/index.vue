@@ -37,10 +37,12 @@ start()
             <tail-switch v-model="isVisible" />
         </div>
         <div class="flex-1 flex flex-col gap-4 justify-between">
-            <div class="flex gap-4 justify-center">
-                <tail-admin-reality-projection v-for="p in pagination.items" :projection="p"
+            <div class="flex flex-wrap gap-4 justify-center">
+                <tail-admin-reality-projection
+                    v-for="p in pagination.items"
+                    :projection="p"
                     @click="navigateTo(`/admin/reality/view?id=${p.id}`)"
-                    @on-edit="navigateTo(`/admin/reality/edit?id=${$event}`)" 
+                    @on-edit="navigateTo(`/admin/reality/edit?id=${p.id}`)"
                 />
             </div>
             <tail-pagination class="self-center" v-model="page" @update:model-value="start" :min-page="1"

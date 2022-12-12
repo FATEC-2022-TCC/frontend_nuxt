@@ -4,8 +4,8 @@ defineProps<{
     projection: RealityProjection
 }>()
 defineEmits<{
-    (event: 'onEdit', value: number): void
-    (event: 'onDelete', value: number): void
+    (event: 'onEdit'): void
+    (event: 'onDelete'): void
 }>()
 </script>
 
@@ -26,10 +26,16 @@ defineEmits<{
         <h1 class="text-center font-amatic-sc text-4xl">{{ projection.title }}</h1>
         <p class="text-center">O modelo {{ projection.isVisible ? '' : 'não'}} está visível</p>
         <div class="flex self-end p-2">
-            <icon @click.stop="$emit('onEdit', projection.id)" name="ant-design:edit-filled" size="2rem"
-                class="hover:cursor-pointer text-blue-violet" />
-            <icon @click.stop="$emit('onDelete', projection.id)" name="ant-design:close-circle-filled" size="2rem"
-                class="hover:cursor-pointer text-red" />
+            <icon @click.stop="$emit('onEdit')"
+                name="ant-design:edit-filled"
+                size="2rem"
+                class="hover:cursor-pointer hover:text-burnt-yellow text-blue-violet"
+            />
+            <icon @click.stop="$emit('onDelete')"
+                name="ant-design:close-circle-filled"
+                size="2rem"
+                class="hover:cursor-pointer text-red"
+            />
         </div>
     </div>
 </template>

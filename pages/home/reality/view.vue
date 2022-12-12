@@ -121,7 +121,8 @@ async function requestSession() {
 
                 if (!adjusted) {
                     model.matrix.fromArray(view.transform.matrix)
-                    model.updateMatrixWorld(adjusted = true)
+                    model.updateMatrixWorld(true)
+                    adjusted = true
                 }
             }
 
@@ -135,6 +136,7 @@ async function requestSession() {
             //     )
             //     reticle.updateMatrixWorld(true)
             // }
+            model.rotateY(0.02)
             renderer.render(scene, camera)
         }
         session.requestAnimationFrame(onXRFrame);
@@ -161,7 +163,7 @@ isSessionSupported().then(value => canAR.value = value)
             <p> {{ response.description }}</p>
             <br>
             <h1 class="text-4xl font-amatic-sc">Foto de preview: &nbsp;</h1>
-            <img :src="response.background" />
+            <img class="m-auto" :src="response.background" />
             <br>
             <h1 class="text-4xl font-amatic-sc">Imagens: &nbsp;</h1>
             <div class="mt-2 flex flex-wrap justify-center gap-2">
