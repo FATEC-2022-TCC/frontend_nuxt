@@ -31,7 +31,8 @@ export interface ComplaintProjection {
     local: string,
     description: string,
     created: string,
-    closed: boolean
+    closed: boolean,
+    currentStatusCode: number
 }
 
 export interface SearchComplaintProjectionResponse {

@@ -7,12 +7,7 @@ type Message = {
 }
 const stack: Array<string> = []
 let stackIndex = 0
-const messages = reactive<Array<Message>>([
-    {
-        message: "Olá, eu sou o Joselito. Eu ainda estou aprendendo. Seja gentil",
-        owner: "bot"
-    }
-])
+const messages = reactive(emptyList<Message>())
 const myMessage = ref("")
 
 const sessionId = Math.random().toString()
@@ -65,6 +60,16 @@ function onKeyUp(key: string) {
 }
 
 onUpdated(scrollDiv)
+
+sendChatbotMessage({
+    message: "",
+    sessionId
+}).then(handle({
+    onSuccess: ({ message }) => messages.push({
+        owner: 'bot',
+        message
+    })
+}))
 </script>
 
 <template>

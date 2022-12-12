@@ -39,7 +39,8 @@ export {
     addReality,
     searchRealityProjection,
     getReality,
-    updateReality
+    updateReality,
+    getComplaintDataChart
 } from "./admin"
 
 export {

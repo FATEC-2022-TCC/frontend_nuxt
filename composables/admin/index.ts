@@ -52,6 +52,7 @@ import {
     RealityProjection,
     UpdateRealityRequest
 } from "./Reality"
+import { ComplaintDataChart } from "./Chart"
 
 export const addContent = (body: NewContentRequest) => post<ContentResponse>("/admin/content", body)
 
@@ -184,3 +185,7 @@ export const searchRealityProjection = (text: string, isVisible: boolean, page: 
 export const getReality = (id: string) => get<Reality>(argsToURL("/admin/reality/{id}", { id }))
 
 export const updateReality = (body: UpdateRealityRequest) => put<never>("/admin/reality", body)
+
+// --
+
+export const getComplaintDataChart = () => get<Array<ComplaintDataChart>>("/admin/chart/complaint")

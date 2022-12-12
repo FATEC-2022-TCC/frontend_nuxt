@@ -53,10 +53,11 @@ function onAddStatus(statusRequest: StatusRequest) {
                 <img v-for="f in response.data.images" :src="f.data" class="w-48">
             </div>
             <br>
-            <tail-admin-status v-for="status in response.data.statuses" :status="status" />
-            <br>
-            <tail-admin-add-status :key="addStatusKey" v-if="response.allowedStatus.length"
-                :statuses="response.allowedStatus" @on-add-status="onAddStatus" />
+            <div class="flex flex-col gap-4">
+                <tail-admin-status v-for="status in response.data.statuses" :status="status" />
+                <tail-admin-add-status :key="addStatusKey" v-if="response.allowedStatus.length"
+                    :statuses="response.allowedStatus" @on-add-status="onAddStatus" />
+            </div>
         </div>
     </tail-loading-page>
 </template>
