@@ -52,7 +52,7 @@ import {
     RealityProjection,
     UpdateRealityRequest
 } from "./Reality"
-import { ComplaintDataChart } from "./Chart"
+import { AdoptionDataChart, ComplaintDataChart } from "./Chart"
 
 export const addContent = (body: NewContentRequest) => post<ContentResponse>("/admin/content", body)
 
@@ -189,3 +189,5 @@ export const updateReality = (body: UpdateRealityRequest) => put<never>("/admin/
 // --
 
 export const getComplaintDataChart = () => get<Array<ComplaintDataChart>>("/admin/chart/complaint")
+
+export const getAdoptionDataChart = () => get<Array<AdoptionDataChart>>("/admin/chart/adoption")
