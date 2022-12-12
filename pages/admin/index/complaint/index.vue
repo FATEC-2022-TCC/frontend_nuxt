@@ -17,7 +17,12 @@ const start = () => searchComplaintProjection(status.value, search.value, page.v
     onFailure: onFailure(hasRemoteError)
 }))
 
-watch(status, start)
+function paramChange() {
+    page.value = 1
+    start()
+}
+
+watch(status, paramChange)
 
 start()
 </script>
@@ -28,15 +33,26 @@ start()
             Denúncias
         </h1>
         <tail-input-search v-model="search" @on-search="page = 1; start()" />
-        <tail-select :data="pagination.statuses" :visual-transform="status => status.description"
-            :value-transform="status => status.code" v-model="status" />
+        <tail-select
+            :data="pagination.statuses"
+            :visual-transform="status => status.description"
+            :value-transform="status => status.code" v-model="status"
+        />
         <div class="flex-1 flex flex-col gap-4 justify-between">
-            <div class="flex gap-4 justify-center">
-                <tail-admin-complaint-projection v-for="p in pagination.page.items" :projection="p"
-                    @click="navigateTo(`/admin/complaint/view?id=${p.id}`)" />
+            <div class="flex flex-wrap gap-4 justify-center">
+                <tail-admin-complaint-projection
+                    v-for="p in pagination.page.items"
+                    :projection="p"
+                    @click="navigateTo(`complaint/view?id=${p.id}`)"
+                />
             </div>
-            <tail-pagination class="self-center" v-model="page" @update:model-value="start" :min-page="1"
-                :max-page="pagination.page.pages" />
+            <tail-pagination
+                class="self-center"
+                v-model="page"
+                @update:model-value="start"
+                :min-page="1"
+                :max-page="pagination.page.pages"
+            />
         </div>
     </tail-loading-page>
 </template>

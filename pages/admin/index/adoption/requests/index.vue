@@ -28,7 +28,12 @@ function start() {
     }))
 }
 
-watch(status, start)
+function paramChange() {
+    page.value = 1
+    start()
+}
+
+watch(status, paramChange)
 </script>
 
 <template>

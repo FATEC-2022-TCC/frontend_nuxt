@@ -41,8 +41,13 @@ start()
                 @on-delete="onDeleteData = p.id"
                 @on-edit="navigateTo(`/admin/content/edit?id=${p.id}`)" />
             </div>
-            <tail-pagination class="self-center" v-model="page" @update:model-value="start" :min-page="1"
-                :max-page="pagination.pages" />
+            <tail-pagination
+                class="self-center"
+                v-model="page"
+                @update:model-value="start"
+                :min-page="1"
+                :max-page="pagination.pages"
+            />
         </div>
         <tail-modal-warn-delete
             v-if="onDeleteData"

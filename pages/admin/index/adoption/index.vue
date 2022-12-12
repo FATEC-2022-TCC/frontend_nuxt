@@ -19,9 +19,14 @@ const start = () => searchAdoptionProjection(status.value, search.value, gender.
     onFailure: onFailure(hasRemoteError)
 }))
 
-watch(status, start)
-watch(gender, start)
-watch(size, start)
+function paramChange() {
+    page.value = 1
+    start()
+}
+
+watch(status, paramChange)
+watch(gender, paramChange)
+watch(size, paramChange)
 
 start()
 </script>
@@ -45,7 +50,7 @@ start()
             </option>
         </tail-select>
         <div class="flex-1 flex flex-col gap-4 justify-between">
-            <div class="flex gap-4 justify-center">
+            <div class="flex flex-wrap gap-4 justify-center">
                 <tail-admin-adoption-projection
                     v-for="p in pagination.page.items"
                     :projection="p"
@@ -53,8 +58,13 @@ start()
                     @on-requests-view="navigateTo(`adoption/requests?id=${p.id}`)"
                 />
             </div>
-            <tail-pagination class="self-center" v-model="page" @update:model-value="start" :min-page="1"
-                :max-page="pagination.page.pages" />
+            <tail-pagination
+                class="self-center"
+                v-model="page"
+                @update:model-value="start"
+                :min-page="1"
+                :max-page="pagination.page.pages"
+            />
         </div>
         <tail-fab-add @click="navigateTo('adoption/add')" />
     </tail-loading-page>

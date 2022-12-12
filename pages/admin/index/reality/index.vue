@@ -16,7 +16,12 @@ function start() {
     }))
 }
 
-watch(isVisible, start)
+function paramChange() {
+    page.value = 1
+    start()
+}
+
+watch(isVisible, paramChange)
 
 start()
 </script>

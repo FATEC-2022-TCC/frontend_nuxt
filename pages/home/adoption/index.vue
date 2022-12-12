@@ -14,14 +14,13 @@ const start = () => searchPublicAdoption(search.value, gender.value, size.value,
     onFailure: onFailure(hasRemoteError)
 }))
 
-watch(gender, () => {
-    page.value = 1;
+function paramChange() {
+    page.value = 1
     start()
-})
-watch(size, () => {
-    page.value = 1;
-    start()
-})
+}
+
+watch(gender, paramChange)
+watch(size, paramChange)
 
 start()
 </script>

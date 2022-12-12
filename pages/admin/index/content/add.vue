@@ -5,13 +5,7 @@ const modal = useModal()
 const content = ref("")
 const title = ref("")
 const description = ref("")
-const files = ref<Array<File>>([])
-const background = ref("")
-watch(files, async files => {
-    const file = files[0]
-    if (!file) return
-    background.value = await fileToBase64(file)
-})
+const background = ref(emptyList<string>())
 const until = ref(new Date())
 
 interface AddErrors {
@@ -45,7 +39,7 @@ function onSave() {
 
     addContent({
         data: content.value,
-        background: background.value,
+        background: background.value[0],
         title: title.value,
         description: description.value,
         until: until.value
@@ -78,15 +72,15 @@ function onSave() {
         <tail-input-base placeholder="Uma breve descrição" maxlength="255" v-model="description"
             :error="errors.description" />
         <div class="flex gap-4">
-            <tail-input-file-dialog v-model="files" class="flex-1" accept="image/*" :error="errors.background">
+            <tail-input-base64-file-dialog v-model="background" class="flex-1" accept="image/*" :error="errors.background">
                 <tail-button-blue-violet title="Escolha um arquivo como preview do artigo" />
-            </tail-input-file-dialog>
-            <tail-button-base v-if="background" class="bg-red" @click="background = ''">
+            </tail-input-base64-file-dialog>
+            <tail-button-base v-if="background" class="bg-red" @click="background = []">
                 <icon name="ant-design:close-circle-filled" size="2rem"
                     class="m-auto hover:cursor-pointer text-white" />
             </tail-button-base>
         </div>
-        <img v-if="background" :src="background" class="w-full object-contain" />
+        <img v-if="background.length" :src="background[0]" class="w-full object-contain" />
         <h2 class="font-amatic-sc text-4xl">
             Até quando o conteúdo deve estar visível?
         </h2>

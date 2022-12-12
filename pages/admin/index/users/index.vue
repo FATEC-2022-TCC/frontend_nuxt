@@ -17,8 +17,13 @@ function start() {
     }))
 }
 
-watch(isActive, start)
-watch(isValidated, start)
+function paramChange() {
+    page.value = 1
+    start()
+}
+
+watch(isActive, paramChange)
+watch(isValidated, paramChange)
 
 start()
 </script>

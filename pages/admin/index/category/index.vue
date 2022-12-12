@@ -27,11 +27,16 @@ start()
                 <tail-admin-category-projection
                     v-for="p in pagination.items"
                     :projection="p"
-                    @on-edit="navigateTo(`/admin/category/edit?id=${p.id}`)"
+                    @on-edit="navigateTo(`category/edit?id=${p.id}`)"
                 />
             </div>
-            <tail-pagination class="self-center" v-model="page" @update:model-value="start" :min-page="1"
-                :max-page="pagination.pages" />
+            <tail-pagination
+                class="self-center"
+                v-model="page"
+                @update:model-value="start"
+                :min-page="1"
+                :max-page="pagination.pages"
+            />
         </div>
         <tail-fab-add @click="navigateTo('category/add')" />
     </tail-loading-page>

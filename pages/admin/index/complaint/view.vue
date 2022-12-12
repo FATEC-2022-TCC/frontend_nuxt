@@ -11,15 +11,15 @@ const hasRemoteError = ref(false)
 
 const id = route.query["id"]?.toString() ?? ''
 
+if (!id) navigateTo("/admin/complaint")
+else start()
+
 function start() {
     getComplaint(id).then(handle({
         onSuccess: onSuccess(response),
         onFailure: onFailure(hasRemoteError)
     }))
 }
-
-if (!id) navigateTo("/admin/complaint")
-else start()
 
 function onAddStatus(statusRequest: StatusRequest) {
     addComplaintStatus({
