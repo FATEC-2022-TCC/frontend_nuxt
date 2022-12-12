@@ -4,7 +4,7 @@ defineProps<{
     projection: CategoryProjection
 }>()
 defineEmits<{
-    (event: 'onEdit', value: number): void
+    (event: 'onEdit'): void
 }>()
 </script>
 
@@ -24,7 +24,7 @@ defineEmits<{
         <h1 class="font-amatic-sc text-4xl">{{ projection.name }}</h1>
         <p class="text-center">{{ projection.description }}</p>
         <icon
-            @click.stop="$emit('onEdit', projection.id)"
+            @click.stop="$emit('onEdit')"
             name="ant-design:edit-filled"
             size="2rem"
             class="self-end pb-2 text-blue-violet hover:cursor-pointer hover:text-burnt-yellow"

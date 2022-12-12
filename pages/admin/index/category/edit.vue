@@ -4,7 +4,7 @@ const route = useRoute()
 
 const name = ref("")
 const description = ref("")
-const images = ref(new Array<string>())
+const images = ref(emptyList<string>())
 
 interface Errors {
     name?: string,
