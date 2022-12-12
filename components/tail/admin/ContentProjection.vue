@@ -4,8 +4,8 @@ defineProps<{
     projection: ContentProjection
 }>()
 defineEmits<{
-    (event: 'onEdit', value: number): void
-    (event: 'onDelete', value: number): void
+    (event: 'onEdit'): void
+    (event: 'onDelete'): void
 }>()
 </script>
 
@@ -28,10 +28,16 @@ defineEmits<{
             <p class="text-center">{{ projection.description }}</p>
         </div>
         <div class="flex self-end p-2">
-            <icon @click.stop="$emit('onEdit', projection.id)" name="ant-design:edit-filled" size="2rem"
-                class="hover:cursor-pointer text-blue-violet" />
-            <icon @click.stop="$emit('onDelete', projection.id)" name="ant-design:close-circle-filled" size="2rem"
-                class="hover:cursor-pointer text-red" />
+            <icon @click.stop="$emit('onEdit')"
+                name="ant-design:edit-filled"
+                size="2rem"
+                class="hover:cursor-pointer hover:text-burnt-yellow text-blue-violet"
+            />
+            <icon @click.stop="$emit('onDelete')"
+                name="ant-design:close-circle-filled"
+                size="2rem"
+                class="hover:cursor-pointer text-red"
+            />
         </div>
     </div>
 </template>
